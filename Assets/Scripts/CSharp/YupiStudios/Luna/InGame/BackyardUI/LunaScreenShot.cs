@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 using YupiStudios.API.Utils;
 using YupiStudios.Luna.InGame;
+using Facebook.Unity;
 
 [RequireComponent ( typeof(FacebookManager) ) ]
 [RequireComponent( typeof (YupiStudios.API.Utils.ScreenShot) )]
@@ -73,7 +74,7 @@ public class LunaScreenShot : MonoBehaviour {
 		}
 	}
 
-	public void ShareCallback(FBResult result) {
+	public void ShareCallback(IGraphResult result) {    
 		if (gameObject.activeInHierarchy) {
 			if (result.Error != null) {
 				Debug.Log ("facebook photo error");

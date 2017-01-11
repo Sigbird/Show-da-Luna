@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Facebook.Unity;
+using System;
 
 public class EndGameSharing : MonoBehaviour {
 	public GameObject shareScreen;
@@ -29,12 +32,13 @@ public class EndGameSharing : MonoBehaviour {
 		//VANVAN CONFIGURA COMPARTILHAMENTO
 		if (FB.IsLoggedIn) {
 			ShareFeed();
-		} else {
-			FB.Login("public_profile", FBLoginCallback);
+		} else {        
+            List<string> perms = new List<string>(){"public_profile"};
+			FB.LogInWithPublishPermissions(perms, FBLoginCallback);
 		}
 	}
 
-	public void FBLoginCallback(FBResult result) {
+	public void FBLoginCallback(ILoginResult result) {
 		if (result.Error != null) {
 			failureScreen.SetActive(true);
 			shareScreen.SetActive (false);
@@ -44,10 +48,11 @@ public class EndGameSharing : MonoBehaviour {
 	}
 
 	public void ShareFeed() {
-		FB.Feed(null, SHARELINK, getShareTitle(), null, null, null, null, null, null, null, null, ShareCallback);
+        Uri uri = new Uri(SHARELINK);
+		FB.ShareLink(uri, getShareTitle(), null,  null, ShareCallback);
 	}
 
-	public void ShareCallback(FBResult result) {
+	public void ShareCallback(IShareResult result) {
 		if (result.Error != null) {
 			failureScreen.SetActive(true);
 			shareScreen.SetActive (false);

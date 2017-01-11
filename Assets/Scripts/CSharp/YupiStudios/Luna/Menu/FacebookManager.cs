@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Facebook;
+using Facebook.Unity;
 using MiniJSON;
 
 public class FacebookManager : MonoBehaviour {
 
 	private byte[] screenshot;
 	private string mCaption;
-	private FacebookDelegate mCallback;
+	private FacebookDelegate<IGraphResult> mCallback;
 	public GameObject ShareEffects;
 
 	private const string fbPhotoUrlFormat = "https://www.facebook.com/photo.php?fbid={0}";
@@ -47,7 +47,7 @@ public class FacebookManager : MonoBehaviour {
 	
 	}
 
-	public void PhotoToFacebook(string caption, byte[] pngImage, FacebookDelegate photoCallback = null) {
+	public void PhotoToFacebook(string caption, byte[] pngImage, FacebookDelegate<IGraphResult> photoCallback = null) {
 		mCaption = caption;
 		screenshot = pngImage;
 		mCallback = (photoCallback == null) ? dummyCallback : photoCallback;
@@ -55,12 +55,12 @@ public class FacebookManager : MonoBehaviour {
 		if (FB.IsLoggedIn) {
 			share();
 		} else {
-
-			FB.Login("email,publish_actions", loginCallback);
+            List<string> perms = new List<string>(){"email", "publish_action"};
+			FB.LogInWithPublishPermissions(perms, loginCallback);
 		}
 	}
 
-	private void loginCallback(FBResult result) {
+	private void loginCallback(ILoginResult result) {
 		share();
 	}
 
@@ -74,30 +74,30 @@ public class FacebookManager : MonoBehaviour {
 		FB.API ("me/photos", HttpMethod.POST, mCallback, data);
 	}
 
-	private void dummyCallback(FBResult result) {
+	private void dummyCallback(IGraphResult result) {
 
 	}
 
-	private void photoShareCallback(FBResult result) {
-		if (result.Error != null) {
-			Debug.LogError ("facebook photo error");
-			Debug.LogError (result.Error);
-			return;
-		}	
-
-		Dictionary<string, object> obj = Json.Deserialize(result.Text) as Dictionary<string,object>;
-		object photoIdObj = null;
-
-		obj.TryGetValue("id", out photoIdObj);
-
-		if (photoIdObj != null) {
-			string photoId = (string) photoIdObj;
-			Debug.Log (photoId);
-			string photoUrl = string.Format(fbPhotoUrlFormat, photoId);
-			Debug.Log (photoUrl);
-			FB.Feed(link:photoUrl, linkCaption:mCaption, linkDescription:mCaption, callback:mCallback);
-		}
-	}
+//	private void photoShareCallback(FBResult result) {
+//		if (result.Error != null) {
+//			Debug.LogError ("facebook photo error");
+//			Debug.LogError (result.Error);
+//			return;
+//		}	
+//
+//		Dictionary<string, object> obj = Json.Deserialize(result.Text) as Dictionary<string,object>;
+//		object photoIdObj = null;
+//
+//		obj.TryGetValue("id", out photoIdObj);
+//
+//		if (photoIdObj != null) {
+//			string photoId = (string) photoIdObj;
+//			Debug.Log (photoId);
+//			string photoUrl = string.Format(fbPhotoUrlFormat, photoId);
+//			Debug.Log (photoUrl);
+//			FB.Feed(link:photoUrl, linkCaption:mCaption, linkDescription:mCaption, callback:mCallback);
+//		}
+//	}
 
 	private string getPrivacy() {
 		Hashtable data = new Hashtable();
