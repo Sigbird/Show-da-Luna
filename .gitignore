@@ -3,3 +3,5 @@ obj
 Temp
 /*.csproj
 /*.sln
+Builds
+/*.userprefs
