@@ -1,0 +1,418 @@
+fileFormatVersion: 2
+guid: 939a3f536e06dee4f9b11c803d14098e
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: chars_painting_001x032_0
+    21300002: chars_painting_001x032_1
+    21300004: chars_painting_001x032_2
+    21300006: chars_painting_001x032_3
+    21300008: chars_painting_001x032_4
+    21300010: chars_painting_001x032_5
+    21300012: chars_painting_001x032_6
+    21300014: chars_painting_001x032_7
+    21300016: chars_painting_001x032_8
+    21300018: chars_painting_001x032_9
+    21300020: chars_painting_001x032_10
+    21300022: chars_painting_001x032_11
+    21300024: chars_painting_001x032_12
+    21300026: chars_painting_001x032_13
+    21300028: chars_painting_001x032_14
+    21300030: chars_painting_001x032_15
+    21300032: chars_painting_001x032_16
+    21300034: chars_painting_001x032_17
+    21300036: chars_painting_001x032_18
+    21300038: chars_painting_001x032_19
+    21300040: chars_painting_001x032_20
+    21300042: chars_painting_001x032_21
+    21300044: chars_painting_001x032_22
+    21300046: chars_painting_001x032_23
+    21300048: chars_painting_001x032_24
+    21300050: chars_painting_001x032_25
+    21300052: chars_painting_001x032_26
+    21300054: chars_painting_001x032_27
+    21300056: chars_painting_001x032_28
+    21300058: chars_painting_001x032_29
+    21300060: chars_painting_001x032_30
+    21300062: chars_painting_001x032_31
+    21300064: chars_painting_001x032_32
+    21300066: chars_painting_001x032_33
+    21300068: chars_painting_001x032_34
+    21300070: chars_painting_001x032_35
+    21300072: chars_painting_001x032_36
+    21300074: chars_painting_001x032_37
+    21300076: chars_painting_001x032_38
+    21300078: chars_painting_001x032_39
+    21300080: chars_painting_001x032_40
+    21300082: chars_painting_001x032_41
+    21300084: chars_painting_001x032_42
+    21300086: chars_painting_001x032_43
+    21300088: chars_painting_001x032_44
+    21300090: chars_painting_001x032_45
+    21300092: chars_painting_001x032_46
+    21300094: chars_painting_001x032_47
+    21300096: chars_painting_001x032_48
+    21300098: chars_painting_001x032_49
+    21300100: chars_painting_001x032_50
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: chars_painting_001x032_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3582
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_1
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 3582
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_2
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 3582
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_3
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 3582
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_4
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 3582
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_5
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 3582
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3068
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_7
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 3068
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_8
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 3068
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_9
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 3068
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_10
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 3068
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_11
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 3068
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2554
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_13
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 2554
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_14
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 2554
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_15
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 2554
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_16
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 2554
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_17
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 2554
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2040
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_19
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 2040
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_20
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 2040
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_21
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 2040
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_22
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 2040
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_23
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 2040
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1526
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_25
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 1526
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_26
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 1526
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_27
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 1526
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_28
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 1526
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_29
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 1526
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1012
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: chars_painting_001x032_31
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 1012
+        width: 650
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

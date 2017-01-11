@@ -1,0 +1,14 @@
+lastUpgrade=00935
+proj.pluginVersion=0.9.35
+proj.AppId=688900388454
+and.BundleId=com.YupiPlay.Luna
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e688900388454%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.YupiPlay.Luna%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_welcome_to_earth_to_luna%22%3eCgkI5uymrYYUEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_it_is_good_to_see_you_again%22%3eCgkI5uymrYYUEAIQBQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_you_finished_earth_to_luna_lets_color%22%3eCgkI5uymrYYUEAIQBg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_share_earth_to_luna%22%3eCgkI5uymrYYUEAIQBw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_share_a_painting_on_facebook%22%3eCgkI5uymrYYUEAIQCA%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
+and.ClientId=688900388454-1472feb3pjn69hi71dl14pck24ojaume.apps.googleusercontent.com
+proj.requireGPlus=false
+android.SetupDone=true
+ios.ClientId=688900388454-1472feb3pjn69hi71dl14pck24ojaume.apps.googleusercontent.com
+ios.BundleId=com.YupiPlay.Luna
+ios.ResourceData=%23define+CLIENT_ID+%40%22688900388454-1472feb3pjn69hi71dl14pck24ojaume.apps.googleusercontent.com%22%0a%23define+BUNDLE_ID+%40%22com.yupiplay.luna%22%0a%23define+ACH_WELCOME_TO_EARTH_TO_LUNA+%40%22CgkI5uymrYYUEAIQAQ%22%0a%23define+ACH_IT_IS_GOOD_TO_SEE_YOU_AGAIN+%40%22CgkI5uymrYYUEAIQBQ%22%0a%23define+ACH_YOU_FINISHED_EARTH_TO_LUNA_LETS_COLOR+%40%22CgkI5uymrYYUEAIQBg%22%0a%23define+ACH_SHARE_EARTH_TO_LUNA+%40%22CgkI5uymrYYUEAIQBw%22%0a%23define+ACH_SHARE_A_PAINTING_ON_FACEBOOK+%40%22CgkI5uymrYYUEAIQCA%22
+ios.SetupDone=true
