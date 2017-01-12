@@ -75,7 +75,7 @@ public class VideoDownload : MonoBehaviour {
 				}
 			}
 
-			if (!string.IsNullOrEmpty(request.error)) {
+			if (request != null && !string.IsNullOrEmpty(request.error)) {
 				if (OnDownloadStartError != null) {
 					OnDownloadStartError(request.error);
 					
