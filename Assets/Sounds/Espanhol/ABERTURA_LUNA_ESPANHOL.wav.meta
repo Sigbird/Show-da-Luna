@@ -1,12 +1,20 @@
 fileFormatVersion: 2
 guid: 529c8eed9dd29974ca09b608ae39f6dc
 AudioImporter:
-  serializedVersion: 4
-  format: 0
-  quality: .0399999991
-  stream: 1
-  3D: 0
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 1
+    sampleRateSetting: 0
+    sampleRateOverride: 0
+    compressionFormat: 1
+    quality: 0.04
+    conversionMode: 0
+  platformSettingOverrides: {}
   forceToMono: 0
-  useHardware: 0
-  loopable: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 1
+  3D: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

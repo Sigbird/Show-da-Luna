@@ -32,12 +32,12 @@ TextureImporter:
     21300054: featherJump_spritesheet_256x256_27
     21300056: featherJump_spritesheet_256x256_28
     21300058: featherJump_spritesheet_256x256_29
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -45,11 +45,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 1024
@@ -65,15 +66,55 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: featherJump_spritesheet_256x256_0
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_0
       rect:
         serializedVersion: 2
         x: 0
@@ -83,7 +124,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_1
       rect:
         serializedVersion: 2
         x: 256
@@ -93,7 +137,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_2
       rect:
         serializedVersion: 2
         x: 512
@@ -103,7 +150,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_3
       rect:
         serializedVersion: 2
         x: 768
@@ -113,7 +163,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_4
       rect:
         serializedVersion: 2
         x: 1024
@@ -123,7 +176,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_5
       rect:
         serializedVersion: 2
         x: 1280
@@ -133,7 +189,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_6
       rect:
         serializedVersion: 2
         x: 1536
@@ -143,7 +202,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_7
       rect:
         serializedVersion: 2
         x: 1792
@@ -153,7 +215,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_8
       rect:
         serializedVersion: 2
         x: 0
@@ -163,7 +228,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_9
       rect:
         serializedVersion: 2
         x: 256
@@ -173,7 +241,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_10
       rect:
         serializedVersion: 2
         x: 512
@@ -183,7 +254,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_11
       rect:
         serializedVersion: 2
         x: 768
@@ -193,7 +267,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_12
       rect:
         serializedVersion: 2
         x: 1024
@@ -203,7 +280,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_13
       rect:
         serializedVersion: 2
         x: 1280
@@ -213,7 +293,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_14
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_14
       rect:
         serializedVersion: 2
         x: 1536
@@ -223,7 +306,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_15
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_15
       rect:
         serializedVersion: 2
         x: 1792
@@ -233,7 +319,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_16
       rect:
         serializedVersion: 2
         x: 0
@@ -243,7 +332,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_17
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_17
       rect:
         serializedVersion: 2
         x: 256
@@ -253,7 +345,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_18
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_18
       rect:
         serializedVersion: 2
         x: 512
@@ -263,7 +358,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_19
       rect:
         serializedVersion: 2
         x: 768
@@ -273,7 +371,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_20
       rect:
         serializedVersion: 2
         x: 1024
@@ -283,7 +384,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_21
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_21
       rect:
         serializedVersion: 2
         x: 1280
@@ -293,7 +397,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_22
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_22
       rect:
         serializedVersion: 2
         x: 1536
@@ -303,7 +410,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_23
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_23
       rect:
         serializedVersion: 2
         x: 1792
@@ -313,7 +423,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_24
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_24
       rect:
         serializedVersion: 2
         x: 0
@@ -323,7 +436,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_25
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_25
       rect:
         serializedVersion: 2
         x: 256
@@ -333,7 +449,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_26
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_26
       rect:
         serializedVersion: 2
         x: 512
@@ -343,7 +462,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_27
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_27
       rect:
         serializedVersion: 2
         x: 768
@@ -353,7 +475,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_28
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_28
       rect:
         serializedVersion: 2
         x: 1024
@@ -363,7 +488,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: featherJump_spritesheet_256x256_29
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: featherJump_spritesheet_256x256_29
       rect:
         serializedVersion: 2
         x: 1280
@@ -373,5 +501,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -26,12 +26,12 @@ TextureImporter:
     21300042: jupitercol_256x256_run_2_21
     21300044: jupitercol_256x256_run_2_22
     21300046: jupitercol_256x256_run_2_23
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -39,11 +39,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 2048
@@ -59,15 +60,55 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: jupitercol_256x256_run_2_0
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -77,7 +118,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_1
       rect:
         serializedVersion: 2
         x: 256
@@ -87,7 +131,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_2
       rect:
         serializedVersion: 2
         x: 512
@@ -97,7 +144,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_3
       rect:
         serializedVersion: 2
         x: 768
@@ -107,7 +157,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_4
       rect:
         serializedVersion: 2
         x: 1024
@@ -117,7 +170,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_5
       rect:
         serializedVersion: 2
         x: 1280
@@ -127,7 +183,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_6
       rect:
         serializedVersion: 2
         x: 1536
@@ -137,7 +196,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_7
       rect:
         serializedVersion: 2
         x: 1792
@@ -147,7 +209,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_8
       rect:
         serializedVersion: 2
         x: 0
@@ -157,7 +222,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_9
       rect:
         serializedVersion: 2
         x: 256
@@ -167,7 +235,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_10
       rect:
         serializedVersion: 2
         x: 512
@@ -177,7 +248,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_11
       rect:
         serializedVersion: 2
         x: 768
@@ -187,7 +261,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_12
       rect:
         serializedVersion: 2
         x: 1024
@@ -197,7 +274,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_13
       rect:
         serializedVersion: 2
         x: 1280
@@ -207,7 +287,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_14
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_14
       rect:
         serializedVersion: 2
         x: 1536
@@ -217,7 +300,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_15
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_15
       rect:
         serializedVersion: 2
         x: 1792
@@ -227,7 +313,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_16
       rect:
         serializedVersion: 2
         x: 0
@@ -237,7 +326,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_17
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_17
       rect:
         serializedVersion: 2
         x: 256
@@ -247,7 +339,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_18
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_18
       rect:
         serializedVersion: 2
         x: 512
@@ -257,7 +352,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_19
       rect:
         serializedVersion: 2
         x: 768
@@ -267,7 +365,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_20
       rect:
         serializedVersion: 2
         x: 1024
@@ -277,7 +378,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_21
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_21
       rect:
         serializedVersion: 2
         x: 1280
@@ -287,7 +391,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_22
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_22
       rect:
         serializedVersion: 2
         x: 1536
@@ -297,7 +404,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jupitercol_256x256_run_2_23
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: jupitercol_256x256_run_2_23
       rect:
         serializedVersion: 2
         x: 1792
@@ -307,5 +417,10 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

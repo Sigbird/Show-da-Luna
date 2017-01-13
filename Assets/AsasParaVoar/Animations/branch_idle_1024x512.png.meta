@@ -58,12 +58,12 @@ TextureImporter:
     21300106: 26
     21300108: 27
     21300110: 28
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -71,11 +71,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 2048
@@ -91,15 +92,55 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: branch_idle_1024x512_0
+    - serializedVersion: 2
+      name: branch_idle_1024x512_0
       rect:
         serializedVersion: 2
         x: 0
@@ -109,7 +150,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_1
       rect:
         serializedVersion: 2
         x: 1024
@@ -119,7 +163,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_2
       rect:
         serializedVersion: 2
         x: 2048
@@ -129,7 +176,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_3
       rect:
         serializedVersion: 2
         x: 3072
@@ -139,7 +189,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_4
       rect:
         serializedVersion: 2
         x: 0
@@ -149,7 +202,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_5
       rect:
         serializedVersion: 2
         x: 1024
@@ -159,7 +215,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_6
       rect:
         serializedVersion: 2
         x: 2048
@@ -169,7 +228,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_7
       rect:
         serializedVersion: 2
         x: 3072
@@ -179,7 +241,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_8
       rect:
         serializedVersion: 2
         x: 0
@@ -189,7 +254,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_9
       rect:
         serializedVersion: 2
         x: 1024
@@ -199,7 +267,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_10
       rect:
         serializedVersion: 2
         x: 2048
@@ -209,7 +280,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_11
       rect:
         serializedVersion: 2
         x: 3072
@@ -219,7 +293,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_12
       rect:
         serializedVersion: 2
         x: 0
@@ -229,7 +306,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_13
       rect:
         serializedVersion: 2
         x: 1024
@@ -239,7 +319,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_14
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_14
       rect:
         serializedVersion: 2
         x: 2048
@@ -249,7 +332,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_15
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_15
       rect:
         serializedVersion: 2
         x: 3072
@@ -259,7 +345,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_16
       rect:
         serializedVersion: 2
         x: 0
@@ -269,7 +358,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_17
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_17
       rect:
         serializedVersion: 2
         x: 1024
@@ -279,7 +371,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_18
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_18
       rect:
         serializedVersion: 2
         x: 2048
@@ -289,7 +384,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_19
       rect:
         serializedVersion: 2
         x: 3072
@@ -299,7 +397,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_20
       rect:
         serializedVersion: 2
         x: 0
@@ -309,7 +410,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_21
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_21
       rect:
         serializedVersion: 2
         x: 1024
@@ -319,7 +423,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_22
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_22
       rect:
         serializedVersion: 2
         x: 2048
@@ -329,7 +436,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_23
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_23
       rect:
         serializedVersion: 2
         x: 3072
@@ -339,7 +449,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_24
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_24
       rect:
         serializedVersion: 2
         x: 0
@@ -349,7 +462,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_25
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_25
       rect:
         serializedVersion: 2
         x: 1024
@@ -359,7 +475,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_26
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_26
       rect:
         serializedVersion: 2
         x: 2048
@@ -369,7 +488,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: branch_idle_1024x512_27
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: branch_idle_1024x512_27
       rect:
         serializedVersion: 2
         x: 3072
@@ -379,5 +501,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

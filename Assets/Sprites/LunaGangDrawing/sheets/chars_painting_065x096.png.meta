@@ -34,12 +34,12 @@ TextureImporter:
     21300058: chars_painting_065x096_29
     21300060: chars_painting_065x096_30
     21300062: chars_painting_065x096_31
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -47,11 +47,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 4096
@@ -67,15 +68,55 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 4096
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 4096
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 4096
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: chars_painting_065x096_0
+    - serializedVersion: 2
+      name: chars_painting_065x096_0
       rect:
         serializedVersion: 2
         x: 0
@@ -85,7 +126,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_1
       rect:
         serializedVersion: 2
         x: 650
@@ -95,7 +139,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_2
       rect:
         serializedVersion: 2
         x: 1300
@@ -105,7 +152,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_3
       rect:
         serializedVersion: 2
         x: 1950
@@ -115,7 +165,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_4
       rect:
         serializedVersion: 2
         x: 2600
@@ -125,7 +178,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_5
       rect:
         serializedVersion: 2
         x: 3250
@@ -135,7 +191,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_6
       rect:
         serializedVersion: 2
         x: 0
@@ -145,7 +204,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_7
       rect:
         serializedVersion: 2
         x: 650
@@ -155,7 +217,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_8
       rect:
         serializedVersion: 2
         x: 1300
@@ -165,7 +230,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_9
       rect:
         serializedVersion: 2
         x: 1950
@@ -175,7 +243,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_10
       rect:
         serializedVersion: 2
         x: 2600
@@ -185,7 +256,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_11
       rect:
         serializedVersion: 2
         x: 3250
@@ -195,7 +269,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_12
       rect:
         serializedVersion: 2
         x: 0
@@ -205,7 +282,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_13
       rect:
         serializedVersion: 2
         x: 650
@@ -215,7 +295,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_14
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_14
       rect:
         serializedVersion: 2
         x: 1300
@@ -225,7 +308,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_15
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_15
       rect:
         serializedVersion: 2
         x: 1950
@@ -235,7 +321,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_16
       rect:
         serializedVersion: 2
         x: 2600
@@ -245,7 +334,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_17
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_17
       rect:
         serializedVersion: 2
         x: 3250
@@ -255,7 +347,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_18
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_18
       rect:
         serializedVersion: 2
         x: 0
@@ -265,7 +360,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_19
       rect:
         serializedVersion: 2
         x: 650
@@ -275,7 +373,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_20
       rect:
         serializedVersion: 2
         x: 1300
@@ -285,7 +386,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_21
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_21
       rect:
         serializedVersion: 2
         x: 1950
@@ -295,7 +399,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_22
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_22
       rect:
         serializedVersion: 2
         x: 2600
@@ -305,7 +412,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_23
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_23
       rect:
         serializedVersion: 2
         x: 3250
@@ -315,7 +425,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_24
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_24
       rect:
         serializedVersion: 2
         x: 0
@@ -325,7 +438,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_25
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_25
       rect:
         serializedVersion: 2
         x: 650
@@ -335,7 +451,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_26
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_26
       rect:
         serializedVersion: 2
         x: 1300
@@ -345,7 +464,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_27
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_27
       rect:
         serializedVersion: 2
         x: 1950
@@ -355,7 +477,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_28
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_28
       rect:
         serializedVersion: 2
         x: 2600
@@ -365,7 +490,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_29
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_29
       rect:
         serializedVersion: 2
         x: 3250
@@ -375,7 +503,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_30
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_30
       rect:
         serializedVersion: 2
         x: 0
@@ -385,7 +516,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: chars_painting_065x096_31
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: chars_painting_065x096_31
       rect:
         serializedVersion: 2
         x: 650
@@ -395,5 +529,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

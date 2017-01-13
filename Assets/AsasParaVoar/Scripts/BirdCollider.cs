@@ -33,7 +33,7 @@ public class BirdCollider : MonoBehaviour {
 		if (other.tag == "Feather") {
 			//Debug.Log ("Airplane");
 			if(GameController.Vida<3){
-			GameController.Vida = GameController.Vida + 1;
+				GameController.Vida = GameController.Vida + 1;
 			}
 			Destroy(other.gameObject);
 		}

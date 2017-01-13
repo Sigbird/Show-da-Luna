@@ -66,12 +66,12 @@ TextureImporter:
     21300122: luna_congratulations_01_61
     21300124: luna_congratulations_01_62
     21300126: luna_congratulations_01_63
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -79,11 +79,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -99,15 +100,55 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: luna_congratulations_01_0
+    - serializedVersion: 2
+      name: luna_congratulations_01_0
       rect:
         serializedVersion: 2
         x: 0
@@ -117,7 +158,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_1
       rect:
         serializedVersion: 2
         x: 512
@@ -127,7 +171,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_2
       rect:
         serializedVersion: 2
         x: 1024
@@ -137,7 +184,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_3
       rect:
         serializedVersion: 2
         x: 1536
@@ -147,7 +197,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_4
       rect:
         serializedVersion: 2
         x: 2048
@@ -157,7 +210,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_5
       rect:
         serializedVersion: 2
         x: 2560
@@ -167,7 +223,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_6
       rect:
         serializedVersion: 2
         x: 3072
@@ -177,7 +236,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_7
       rect:
         serializedVersion: 2
         x: 3584
@@ -187,7 +249,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_8
       rect:
         serializedVersion: 2
         x: 0
@@ -197,7 +262,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_9
       rect:
         serializedVersion: 2
         x: 512
@@ -207,7 +275,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_10
       rect:
         serializedVersion: 2
         x: 1024
@@ -217,7 +288,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_11
       rect:
         serializedVersion: 2
         x: 1536
@@ -227,7 +301,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_12
       rect:
         serializedVersion: 2
         x: 2048
@@ -237,7 +314,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_13
       rect:
         serializedVersion: 2
         x: 2560
@@ -247,7 +327,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_14
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_14
       rect:
         serializedVersion: 2
         x: 3072
@@ -257,7 +340,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_15
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_15
       rect:
         serializedVersion: 2
         x: 3584
@@ -267,7 +353,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_16
       rect:
         serializedVersion: 2
         x: 0
@@ -277,7 +366,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_17
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_17
       rect:
         serializedVersion: 2
         x: 512
@@ -287,7 +379,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_18
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_18
       rect:
         serializedVersion: 2
         x: 1024
@@ -297,7 +392,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_19
       rect:
         serializedVersion: 2
         x: 1536
@@ -307,7 +405,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_20
       rect:
         serializedVersion: 2
         x: 2048
@@ -317,7 +418,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_21
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_21
       rect:
         serializedVersion: 2
         x: 2560
@@ -327,7 +431,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_22
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_22
       rect:
         serializedVersion: 2
         x: 3072
@@ -337,7 +444,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_23
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_23
       rect:
         serializedVersion: 2
         x: 3584
@@ -347,7 +457,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_24
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_24
       rect:
         serializedVersion: 2
         x: 0
@@ -357,7 +470,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_25
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_25
       rect:
         serializedVersion: 2
         x: 512
@@ -367,7 +483,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_26
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_26
       rect:
         serializedVersion: 2
         x: 1024
@@ -377,7 +496,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_27
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_27
       rect:
         serializedVersion: 2
         x: 1536
@@ -387,7 +509,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_28
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_28
       rect:
         serializedVersion: 2
         x: 2048
@@ -397,7 +522,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_29
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_29
       rect:
         serializedVersion: 2
         x: 2560
@@ -407,7 +535,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_30
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_30
       rect:
         serializedVersion: 2
         x: 3072
@@ -417,7 +548,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_31
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_31
       rect:
         serializedVersion: 2
         x: 3584
@@ -427,7 +561,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_32
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_32
       rect:
         serializedVersion: 2
         x: 0
@@ -437,7 +574,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_33
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_33
       rect:
         serializedVersion: 2
         x: 512
@@ -447,7 +587,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_34
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_34
       rect:
         serializedVersion: 2
         x: 1024
@@ -457,7 +600,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_35
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_35
       rect:
         serializedVersion: 2
         x: 1536
@@ -467,7 +613,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_36
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_36
       rect:
         serializedVersion: 2
         x: 2048
@@ -477,7 +626,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_37
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_37
       rect:
         serializedVersion: 2
         x: 2560
@@ -487,7 +639,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_38
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_38
       rect:
         serializedVersion: 2
         x: 3072
@@ -497,7 +652,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_39
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_39
       rect:
         serializedVersion: 2
         x: 3584
@@ -507,7 +665,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_40
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_40
       rect:
         serializedVersion: 2
         x: 0
@@ -517,7 +678,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_41
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_41
       rect:
         serializedVersion: 2
         x: 512
@@ -527,7 +691,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_42
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_42
       rect:
         serializedVersion: 2
         x: 1024
@@ -537,7 +704,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_43
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_43
       rect:
         serializedVersion: 2
         x: 1536
@@ -547,7 +717,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_44
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_44
       rect:
         serializedVersion: 2
         x: 2048
@@ -557,7 +730,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_45
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_45
       rect:
         serializedVersion: 2
         x: 2560
@@ -567,7 +743,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_46
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_46
       rect:
         serializedVersion: 2
         x: 3072
@@ -577,7 +756,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_47
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_47
       rect:
         serializedVersion: 2
         x: 3584
@@ -587,7 +769,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_48
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_48
       rect:
         serializedVersion: 2
         x: 0
@@ -597,7 +782,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_49
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_49
       rect:
         serializedVersion: 2
         x: 512
@@ -607,7 +795,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_50
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_50
       rect:
         serializedVersion: 2
         x: 1024
@@ -617,7 +808,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_51
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_51
       rect:
         serializedVersion: 2
         x: 1536
@@ -627,7 +821,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_52
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_52
       rect:
         serializedVersion: 2
         x: 2048
@@ -637,7 +834,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_53
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_53
       rect:
         serializedVersion: 2
         x: 2560
@@ -647,7 +847,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_54
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_54
       rect:
         serializedVersion: 2
         x: 3072
@@ -657,7 +860,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_55
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_55
       rect:
         serializedVersion: 2
         x: 3584
@@ -667,7 +873,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_56
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_56
       rect:
         serializedVersion: 2
         x: 0
@@ -677,7 +886,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_57
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_57
       rect:
         serializedVersion: 2
         x: 512
@@ -687,7 +899,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_58
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_58
       rect:
         serializedVersion: 2
         x: 1024
@@ -697,7 +912,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_59
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_59
       rect:
         serializedVersion: 2
         x: 1536
@@ -707,7 +925,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_60
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_60
       rect:
         serializedVersion: 2
         x: 2048
@@ -717,7 +938,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_61
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_61
       rect:
         serializedVersion: 2
         x: 2560
@@ -727,7 +951,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_62
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_62
       rect:
         serializedVersion: 2
         x: 3072
@@ -737,7 +964,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: luna_congratulations_01_63
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: luna_congratulations_01_63
       rect:
         serializedVersion: 2
         x: 3584
@@ -747,5 +977,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
