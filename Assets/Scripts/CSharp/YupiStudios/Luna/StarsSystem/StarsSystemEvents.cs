@@ -5,11 +5,17 @@ using System;
 using YupiStudios.Analytics;
 
 public class StarsSystemEvents {	
+	
+
 	public static void Event01() {
 		StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 10);
 
 		if (Social.localUser.authenticated) {
-			Social.ReportProgress(GPGSIds.achievement_welcome_to_earth_to_luna, 100.0f, (bool done) => {});
+			if (PlayerPrefs.GetInt(GPGSIds.achievement_welcome_to_earth_to_luna) == 0) {
+				Social.ReportProgress(GPGSIds.achievement_welcome_to_earth_to_luna, 100.0f, (bool done) => {});
+				PlayerPrefs.SetInt(GPGSIds.achievement_welcome_to_earth_to_luna, 1);
+				PlayerPrefs.Save();
+			}
 			GameSave.WriteSave();
 		}
 
@@ -20,7 +26,11 @@ public class StarsSystemEvents {
 		StoreInventory.GiveItem (LunaStoreAssets.STARS_CURRENCY_ID, 20);
 
 		if (Social.localUser.authenticated) {
-			Social.ReportProgress(GPGSIds.achievement_it_is_good_to_see_you_again, 100.0f, (bool done) => {});
+			if (PlayerPrefs.GetInt(GPGSIds.achievement_it_is_good_to_see_you_again) == 0) {
+				Social.ReportProgress(GPGSIds.achievement_it_is_good_to_see_you_again, 100.0f, (bool done) => {});
+				PlayerPrefs.SetInt(GPGSIds.achievement_it_is_good_to_see_you_again, 1);
+				PlayerPrefs.Save();
+			}
 			GameSave.WriteSave();
 		}
 
@@ -29,7 +39,12 @@ public class StarsSystemEvents {
 
 	public static void FinishGameAchievement() {
 		if (Social.localUser.authenticated) {
-			Social.ReportProgress(GPGSIds.achievement_you_finished_earth_to_luna_lets_color, 100.0f, (bool done) => {});
+			if (PlayerPrefs.GetInt(GPGSIds.achievement_you_finished_earth_to_luna_lets_color) == 0) {
+				Social.ReportProgress(GPGSIds.achievement_you_finished_earth_to_luna_lets_color, 100.0f, (bool done) => {});
+				PlayerPrefs.SetInt(GPGSIds.achievement_you_finished_earth_to_luna_lets_color, 1);
+				PlayerPrefs.Save();
+			}
+			GameSave.WriteSave();
 		}
 	}
 
@@ -43,7 +58,11 @@ public class StarsSystemEvents {
 			YupiAnalyticsEventHandler.StarsEvent("Credit", "Event04", 5);
 
 			if (Social.localUser.authenticated) {
-				Social.ReportProgress(GPGSIds.achievement_share_earth_to_luna, 100.0f, (bool done) => {});
+				if (PlayerPrefs.GetInt(GPGSIds.achievement_share_earth_to_luna) == 0) {
+					Social.ReportProgress(GPGSIds.achievement_share_earth_to_luna, 100.0f, (bool done) => {});
+					PlayerPrefs.SetInt(GPGSIds.achievement_share_earth_to_luna, 1);
+					PlayerPrefs.Save();
+				}
 				GameSave.WriteSave();
 			}
 		}

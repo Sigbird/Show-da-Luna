@@ -11,8 +11,10 @@ public class GamesServicesSignIn : MonoBehaviour {
 
 	private static void authMethod(bool success) {
 		if (success) {
-			if (PlayerPrefs.HasKey(StarsSystemManager.EVENT01_KEY)) {
+			if (PlayerPrefs.GetInt(GPGSIds.achievement_welcome_to_earth_to_luna) == 0) {
 				Social.ReportProgress(GPGSIds.achievement_welcome_to_earth_to_luna, 100.0f, (bool done) => {});
+				PlayerPrefs.SetInt(GPGSIds.achievement_welcome_to_earth_to_luna, 1);
+				PlayerPrefs.Save();
 			} 
 
 			Debug.Log ("auth success");

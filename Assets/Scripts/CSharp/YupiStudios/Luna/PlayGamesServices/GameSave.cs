@@ -139,6 +139,12 @@ public class GameSave : MonoBehaviour {
 				restoreIntSetting(StarsSystemManager.EVENT03_KEY, dict);
 				restoreIntSetting(StarsSystemManager.EVENT04_KEY, dict);
 
+				restoreIntSetting(GPGSIds.achievement_welcome_to_earth_to_luna, dict);
+				restoreIntSetting(GPGSIds.achievement_it_is_good_to_see_you_again, dict);
+				restoreIntSetting(GPGSIds.achievement_you_finished_earth_to_luna_lets_color, dict);
+				restoreIntSetting(GPGSIds.achievement_share_earth_to_luna, dict);
+				restoreIntSetting(GPGSIds.achievement_share_a_painting_on_facebook, dict);
+
 				string date  = dict[StarsSystemManager.DATE_KEY] as string;
 				PlayerPrefs.SetString(StarsSystemManager.DATE_KEY, date);
 				PlayerPrefs.SetInt(LOADEDSAVEKEY, 1);
@@ -306,6 +312,12 @@ public class GameSave : MonoBehaviour {
 		dict[StarsSystemManager.EVENT03_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT03_KEY);
 		dict[StarsSystemManager.EVENT04_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT04_KEY);
 		dict[StarsSystemManager.DATE_KEY] = PlayerPrefs.GetString(StarsSystemManager.DATE_KEY);
+
+		dict[GPGSIds.achievement_welcome_to_earth_to_luna] = PlayerPrefs.GetString(GPGSIds.achievement_welcome_to_earth_to_luna);
+		dict[GPGSIds.achievement_it_is_good_to_see_you_again] = PlayerPrefs.GetString(GPGSIds.achievement_it_is_good_to_see_you_again);
+		dict[GPGSIds.achievement_you_finished_earth_to_luna_lets_color] = PlayerPrefs.GetString(GPGSIds.achievement_you_finished_earth_to_luna_lets_color);
+		dict[GPGSIds.achievement_share_earth_to_luna] = PlayerPrefs.GetString(GPGSIds.achievement_share_earth_to_luna);
+		dict[GPGSIds.achievement_share_a_painting_on_facebook] = PlayerPrefs.GetString(GPGSIds.achievement_share_a_painting_on_facebook);
 
 
 		string json = Json.Serialize(dict);
