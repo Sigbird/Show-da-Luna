@@ -37,9 +37,7 @@ public class GameControllerCaracol : MonoBehaviour {
 	public GameObject animStart;
 	public GameObject animEnd;
 
-	void Awake(){
-
-
+	void Awake(){		
 		if (Application.loadedLevelName == "SeleçãoPistas") {
 			Time.timeScale = 1;
 			//PlayerPrefs.SetInt("jogadorID",1);
@@ -47,8 +45,8 @@ public class GameControllerCaracol : MonoBehaviour {
 			Time.timeScale = 0;
 			animStart.GetComponent<Animator> ().SetTrigger ("Play");
 
-			jogadorID = PlayerPrefs.GetInt ("jogadorID");
-//			Debug.Log (jogadorID);
+			jogadorID = PlayerPrefs.GetInt ("jogadorID") == 0 ? 1 : PlayerPrefs.GetInt ("jogadorID");
+
 			if (jogadorID == 1) {
 				PlayerControlled = GameObject.Find ("lunacol_256x256").gameObject;
 				Camera.main.GetComponent<CameraFollow> ().setTarget (GameObject.Find ("lunacol_256x256").transform);
@@ -109,16 +107,18 @@ public class GameControllerCaracol : MonoBehaviour {
 	void Update () {
 //		Debug.Log (speed);
 
-		if (PlayerControlled.GetComponent<Waypoints> ().lento) {
-			maxspeed = 1;
-		} else {
-			maxspeed = 5;
-		}
+		if (PlayerControlled != null) {
+			if (PlayerControlled.GetComponent<Waypoints> ().lento) {
+				maxspeed = 1;
+			} else {
+				maxspeed = 5;
+			}
 
-		if (PlayerControlled.GetComponent<Waypoints> ().rapido) {
-			maxspeed = 9;
-		} else {
-			maxspeed = 5;
+			if (PlayerControlled.GetComponent<Waypoints> ().rapido) {
+				maxspeed = 9;
+			} else {
+				maxspeed = 5;
+			}
 		}
 	
 		if (this.speed > maxspeed)
