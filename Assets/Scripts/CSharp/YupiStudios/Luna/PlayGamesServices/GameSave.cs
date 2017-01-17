@@ -160,25 +160,27 @@ public class GameSave : MonoBehaviour {
 	private static void restoreIntSetting(string id, Dictionary<string,object> dict) {
 		object o;
 
-		if (dict.TryGetValue(id, out o)) {			
-			long setting = (long) o;
+		if (dict.TryGetValue(id, out o)) {
+			if (o.GetType() == typeof(long)) {
+				long setting = (long) o;
 
-			if (setting == 1) {
-				PlayerPrefs.SetInt(id, (int) 1);
+				if (setting == 1) {
+					PlayerPrefs.SetInt(id, (int) 1);
+				}	
 			}
 		}
 	}
 
 	private static long restoreStarsBalance(Dictionary<string, object> values) {
 		object o;
-		if (values.TryGetValue(LunaStoreAssets.STARS_CURRENCY_ID, out o)) {
+		if (values.TryGetValue(LunaStoreAssets.STARS_CURRENCY_ID, out o)) {			
 			long balance = (long) o;
 			Debug.Log ("balance:" + balance);
 			VirtualCurrency starsCurrency = (VirtualCurrency) StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
 			starsCurrency.ResetBalance((int) balance);
 
 			LunaStoreManager.CallBalanceChangeEvent();
-			return (long) o;
+			return balance;
 		}
 
 		return 0;

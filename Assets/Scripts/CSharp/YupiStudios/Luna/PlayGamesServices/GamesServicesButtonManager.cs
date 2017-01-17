@@ -10,6 +10,11 @@ public class GamesServicesButtonManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
+		setButtonState();
+
+	}
+
+	private void setButtonState() {
 		if (Social.localUser.authenticated) {
 			LoginText.SetActive(false);
 			LogoutText.SetActive(true);
@@ -17,7 +22,6 @@ public class GamesServicesButtonManager : MonoBehaviour {
 			LoginText.SetActive(true);
 			LogoutText.SetActive(false);
 		}
-
 	}
 		
 	// Update is called once per frame
@@ -50,6 +54,7 @@ public class GamesServicesButtonManager : MonoBehaviour {
 
 	void OnEnable() {
 		GameSave.OnCallInitEvents += PlayGamesOn;
+		setButtonState();
 	}
 
 	void OnDisable() {
