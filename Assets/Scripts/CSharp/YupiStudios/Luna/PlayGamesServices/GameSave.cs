@@ -161,7 +161,7 @@ public class GameSave : MonoBehaviour {
 		object o;
 
 		if (dict.TryGetValue(id, out o)) {
-			if (o.GetType() == typeof(long)) {
+			if (o is long) {
 				long setting = (long) o;
 
 				if (setting == 1) {

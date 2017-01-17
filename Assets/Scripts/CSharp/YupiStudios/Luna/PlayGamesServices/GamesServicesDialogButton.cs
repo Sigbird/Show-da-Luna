@@ -8,6 +8,7 @@ public class GamesServicesDialogButton : MonoBehaviour {
 		int loadedSave = PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY);
 
 		if (loadedSave == 1) {
+            bool auth = Social.localUser.authenticated;
 			GamesServicesSignIn.SignIn();
 			this.gameObject.SetActive(false);
 		} 
