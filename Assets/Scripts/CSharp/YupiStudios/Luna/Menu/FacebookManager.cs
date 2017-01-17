@@ -55,7 +55,7 @@ public class FacebookManager : MonoBehaviour {
 		if (FB.IsLoggedIn) {
 			share();
 		} else {
-            List<string> perms = new List<string>(){"email", "publish_action"};
+            List<string> perms = new List<string>(){"publish_action"};
 			FB.LogInWithPublishPermissions(perms, loginCallback);
 		}
 	}
@@ -84,19 +84,6 @@ public class FacebookManager : MonoBehaviour {
 //			Debug.LogError (result.Error);
 //			return;
 //		}	
-//
-//		Dictionary<string, object> obj = Json.Deserialize(result.Text) as Dictionary<string,object>;
-//		object photoIdObj = null;
-//
-//		obj.TryGetValue("id", out photoIdObj);
-//
-//		if (photoIdObj != null) {
-//			string photoId = (string) photoIdObj;
-//			Debug.Log (photoId);
-//			string photoUrl = string.Format(fbPhotoUrlFormat, photoId);
-//			Debug.Log (photoUrl);
-//			FB.Feed(link:photoUrl, linkCaption:mCaption, linkDescription:mCaption, callback:mCallback);
-//		}
 //	}
 
 	private string getPrivacy() {

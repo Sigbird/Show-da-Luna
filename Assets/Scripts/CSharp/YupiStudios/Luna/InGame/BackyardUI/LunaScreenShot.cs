@@ -5,7 +5,7 @@ using YupiStudios.API.Utils;
 using YupiStudios.Luna.InGame;
 using Facebook.Unity;
 
-//[RequireComponent ( typeof(FacebookManager) ) ]
+[RequireComponent ( typeof(FacebookManager) ) ]
 [RequireComponent( typeof (YupiStudios.API.Utils.ScreenShot) )]
 public class LunaScreenShot : MonoBehaviour {
 
@@ -15,7 +15,7 @@ public class LunaScreenShot : MonoBehaviour {
     public GameObject screenShotCanvas;
 	public GameObject screenShotStartBG;
 	public GameObject screenShotFBPublished;
-	//public InputField FacebookInput;
+	public InputField FacebookInput;
 	public Text placeHolderPtBr;
 	public GameObject TextHolder;
 	public Text ShareButtonText;
@@ -27,7 +27,7 @@ public class LunaScreenShot : MonoBehaviour {
     public Text screenShotFile;
 
     private ScreenShot screenShotComponent;
-	//private FacebookManager faceBookManagerComponent;
+	private FacebookManager faceBookManagerComponent;
     private bool WaitingSS { get; set; }
     private bool needSS;
 
@@ -36,11 +36,11 @@ public class LunaScreenShot : MonoBehaviour {
     // Use this for initialization
     void Start () {
         screenShotComponent = GetComponent<ScreenShot> ();
-		//faceBookManagerComponent = GetComponent<FacebookManager>();
+		faceBookManagerComponent = GetComponent<FacebookManager>();
 		//Placeholder
 		SystemLanguage lang = Application.systemLanguage;
-		//if (FacebookInput != null)
-		//	FacebookInput.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = placeHolderPtBr.text;
+		if (FacebookInput != null)
+			FacebookInput.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = placeHolderPtBr.text;
     }
 
     public void TakeScreenShot()
@@ -59,7 +59,7 @@ public class LunaScreenShot : MonoBehaviour {
 				ShareButtonText.text = "Publicar";
 			if(lang.Equals("English"))
 				ShareButtonText.text = "Post";
-			//FacebookInput.gameObject.SetActive (true);
+			FacebookInput.gameObject.SetActive (true);
 			share = true;
 		}			
 	}
@@ -69,8 +69,8 @@ public class LunaScreenShot : MonoBehaviour {
 			ShareButton.SetActive(false);
 			//Sending.SetActive (true);
 			SendingChooser.SetActive(true);
-			//string userInput = FacebookInput.text;
-			//faceBookManagerComponent.PhotoToFacebook (userInput, screenShotComponent.Texture.EncodeToPNG(),ShareCallback);
+			string userInput = FacebookInput.text;
+			faceBookManagerComponent.PhotoToFacebook (userInput, screenShotComponent.Texture.EncodeToPNG(),ShareCallback);
 		}
 	}
 
@@ -123,8 +123,8 @@ public class LunaScreenShot : MonoBehaviour {
     }
 
 	public void ExitScreenShot() {
-		//FacebookInput.gameObject.SetActive(false);
-		//FacebookInput.text = "";
+		FacebookInput.gameObject.SetActive(false);
+		FacebookInput.text = "";
 		ShareButtonText.text = "Facebook";
 		TextHolder.SetActive(true);
 		ShareButton.SetActive(true);

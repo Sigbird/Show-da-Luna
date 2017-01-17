@@ -34,7 +34,7 @@ public class EndGameSharing : MonoBehaviour {
 			ShareFeed();
 		} else {        
             List<string> perms = new List<string>(){"public_profile"};
-			FB.LogInWithPublishPermissions(perms, FBLoginCallback);
+			FB.LogInWithReadPermissions(perms, FBLoginCallback);
 		}
 	}
 

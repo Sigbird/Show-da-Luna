@@ -8,7 +8,7 @@ public class GamesServicesDialog : MonoBehaviour {
 
 	void Start() {
 
-//		if (!PlayerPrefs.HasKey(GameSave.LOADEDSAVEKEY)) {
+//		if (PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY) == 0) {
 //			Container.SetActive(true);
 //		} else {
 //			GamesServicesSignIn.SignIn();

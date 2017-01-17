@@ -36,7 +36,7 @@ public class GameSave : MonoBehaviour {
 			if (game.TotalTimePlayed == TimeSpan.FromMilliseconds(0f)) {
 				newSave(game);
 			} else {
-				if (!PlayerPrefs.HasKey(LOADEDSAVEKEY)) {
+				if (PlayerPrefs.GetInt(LOADEDSAVEKEY) == 0) {
 					readSave(game);
 					//showSelectUI();
 				}
@@ -160,7 +160,7 @@ public class GameSave : MonoBehaviour {
 	private static void restoreIntSetting(string id, Dictionary<string,object> dict) {
 		object o;
 
-		if (dict.TryGetValue(id, out o)) {
+		if (dict.TryGetValue(id, out o)) {			
 			long setting = (long) o;
 
 			if (setting == 1) {
@@ -250,7 +250,8 @@ public class GameSave : MonoBehaviour {
 
 	private static void onSavedGameWritten (SavedGameRequestStatus status, ISavedGameMetadata game) {
 		if (status == SavedGameRequestStatus.Success) {
-
+			PlayerPrefs.SetInt(LOADEDSAVEKEY, 1);
+			PlayerPrefs.Save ();
 			OnCallInitEvents();
 			// handle reading or writing of saved game.
 			Debug.Log ("save success");
@@ -313,11 +314,11 @@ public class GameSave : MonoBehaviour {
 		dict[StarsSystemManager.EVENT04_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT04_KEY);
 		dict[StarsSystemManager.DATE_KEY] = PlayerPrefs.GetString(StarsSystemManager.DATE_KEY);
 
-		dict[GPGSIds.achievement_welcome_to_earth_to_luna] = PlayerPrefs.GetString(GPGSIds.achievement_welcome_to_earth_to_luna);
-		dict[GPGSIds.achievement_it_is_good_to_see_you_again] = PlayerPrefs.GetString(GPGSIds.achievement_it_is_good_to_see_you_again);
-		dict[GPGSIds.achievement_you_finished_earth_to_luna_lets_color] = PlayerPrefs.GetString(GPGSIds.achievement_you_finished_earth_to_luna_lets_color);
-		dict[GPGSIds.achievement_share_earth_to_luna] = PlayerPrefs.GetString(GPGSIds.achievement_share_earth_to_luna);
-		dict[GPGSIds.achievement_share_a_painting_on_facebook] = PlayerPrefs.GetString(GPGSIds.achievement_share_a_painting_on_facebook);
+		dict[GPGSIds.achievement_welcome_to_earth_to_luna] = PlayerPrefs.GetInt(GPGSIds.achievement_welcome_to_earth_to_luna);
+		dict[GPGSIds.achievement_it_is_good_to_see_you_again] = PlayerPrefs.GetInt(GPGSIds.achievement_it_is_good_to_see_you_again);
+		dict[GPGSIds.achievement_you_finished_earth_to_luna_lets_color] = PlayerPrefs.GetInt(GPGSIds.achievement_you_finished_earth_to_luna_lets_color);
+		dict[GPGSIds.achievement_share_earth_to_luna] = PlayerPrefs.GetInt(GPGSIds.achievement_share_earth_to_luna);
+		dict[GPGSIds.achievement_share_a_painting_on_facebook] = PlayerPrefs.GetInt(GPGSIds.achievement_share_a_painting_on_facebook);
 
 
 		string json = Json.Serialize(dict);

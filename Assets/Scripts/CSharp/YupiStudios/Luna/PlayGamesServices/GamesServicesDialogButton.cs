@@ -5,7 +5,9 @@ public class GamesServicesDialogButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (PlayerPrefs.HasKey(GameSave.LOADEDSAVEKEY)) {
+		int loadedSave = PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY);
+
+		if (loadedSave == 1) {
 			GamesServicesSignIn.SignIn();
 			this.gameObject.SetActive(false);
 		} 

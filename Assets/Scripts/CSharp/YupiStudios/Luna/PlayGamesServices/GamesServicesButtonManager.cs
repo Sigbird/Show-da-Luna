@@ -32,7 +32,7 @@ public class GamesServicesButtonManager : MonoBehaviour {
 			LogoutText.SetActive(false);
 
 		} else {
-			if (!PlayerPrefs.HasKey(GameSave.LOADEDSAVEKEY)) {
+			if (PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY) == 0) {
 				GamesServicesSignIn.SignIn();
 				return;
 			}
