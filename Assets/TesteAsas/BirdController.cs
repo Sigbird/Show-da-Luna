@@ -39,7 +39,7 @@ public class BirdController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		//quica nas bordas
 		//só para teste e não ter que fazer cenário
 		if (transform.position.y <= bottom) {			
@@ -61,17 +61,20 @@ public class BirdController : MonoBehaviour {
 			body.velocity = new Vector2(-FlySpeed, body.velocity.y);
 			HitAction();
 			return;
-		}									
+		}							
 
-		//As velocidades X e Y são limitadas pelo Linear Drag do Rigidbody2D
+		//A velocidade X é limitadas pelo Linear Drag do Rigidbody2D
+		//A velocidade Y limitada aqui
+		if (body.velocity.y <= -MaxGravitySpeed) {
+			body.velocity = new Vector2(body.velocity.x, -MaxGravitySpeed);
+		}			
+	}					
 
-		SpeedYUI.text = body.velocity.y.ToString();
-		SpeedXUI.text = body.velocity.x.ToString();
-	}		
-
-	private void CameraFollow() {
-		Vector3 pos = transform.position;
-		mainCamera.transform.position = new Vector3(pos.x, pos.y, mainCamera.transform.position.z);
+	void Update() {
+		if (SpeedXUI != null && SpeedYUI != null) {
+			SpeedYUI.text = body.velocity.y.ToString();
+			SpeedXUI.text = body.velocity.x.ToString();	
+		}
 	}
 
 	//velocidade máxima para esquerda e direita é constante
@@ -107,9 +110,5 @@ public class BirdController : MonoBehaviour {
 		}
 
 		Hit.Play();
-	}
-
-	void LateUpdate() {
-		//CameraFollow();
-	}
+	}		
 }
