@@ -32,6 +32,17 @@ public class GameController : MonoBehaviour {
 	public Button lunaButton;
 	public Button claudioButton;
 
+	private Camera mainCamera;
+
+	public float FlySpeed = 3f;
+	public float MaxFlySpeedY = 7f;
+	public float MaxGravitySpeed = 4f;
+
+	private float bottom;
+	private float left;
+	private float right;
+	private float top;
+
 	public enum birds{
 		
 		Jupiter,
@@ -55,12 +66,48 @@ public class GameController : MonoBehaviour {
 		PauseGame (false);
 		GameController.score = 0;
 		StartCoroutine ("BlinkWarningSign");
+
+		//LIMITES DO VIEWPORT
+		bottom = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).y;
+		left = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).x;
+		right = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).x;
+		top = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).y;
 	}
-	
+
+	void FixedUpdate(){
+
+//		if (transform.position.y <= bottom) {			
+//			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(Bird.GetComponent<Rigidbody2D>().velocity.x, FlySpeed);
+//			//HitAction();
+//			return;
+//		}
+//		if (transform.position.y >= top) {			
+//			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(Bird.GetComponent<Rigidbody2D>().velocity.x, -FlySpeed);
+//			//HitAction();
+//			return;
+//		}
+//		if (transform.position.x <= left) {			
+//			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(FlySpeed, Bird.GetComponent<Rigidbody2D>().velocity.y);
+//			//HitAction();
+//			return;
+//		}
+//		if (transform.position.x >= right) {			
+//			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(-FlySpeed, Bird.GetComponent<Rigidbody2D>().velocity.y);
+//			//HitAction();
+//			return;
+//		}
+
+
+		if (Bird.GetComponent<Rigidbody2D>().velocity.y <= -MaxGravitySpeed) {
+			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(Bird.GetComponent<Rigidbody2D>().velocity.x, -MaxGravitySpeed);
+		}
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 
-//		Debug.Log (BirdSprite.transform.position.y);
+		Debug.Log (Bird.GetComponent<Rigidbody2D>().velocity.y);
 
 		GameObject.Find ("Scoretext").GetComponent<Text> ().text = score.ToString ();
 		endingScore.text = score.ToString ();
@@ -84,16 +131,16 @@ public class GameController : MonoBehaviour {
 		BirdSprite.transform.position = Vector2.MoveTowards (BirdSprite.transform.position, Bird.transform.position, 8 * Time.deltaTime);
 
 		//Loop de laterais do cenario
-		if (BirdSprite.transform.position.x >= 6f && Bird.transform.position.x >= 6f) {
-			BirdSprite.transform.position = new Vector3 (6, BirdSprite.transform.position.y, BirdSprite.transform.position.z);
-			Bird.transform.position = new Vector3 (6, Bird.transform.position.y, Bird.transform.position.z);
-			Debug.Log("entrou");
-		}
-
-		if (BirdSprite.transform.position.x <= -6f && Bird.transform.position.x <= -6f) {
-			BirdSprite.transform.position = new Vector3 (-6, BirdSprite.transform.position.y, BirdSprite.transform.position.z);
-			Bird.transform.position = new Vector3 (-6, Bird.transform.position.y, Bird.transform.position.z);
-		}
+//		if (BirdSprite.transform.position.x >= 6f && Bird.transform.position.x >= 6f) {
+//			BirdSprite.transform.position = new Vector3 (6, BirdSprite.transform.position.y, BirdSprite.transform.position.z);
+//			Bird.transform.position = new Vector3 (6, Bird.transform.position.y, Bird.transform.position.z);
+//			Debug.Log("entrou");
+//		}
+//
+//		if (BirdSprite.transform.position.x <= -6f && Bird.transform.position.x <= -6f) {
+//			BirdSprite.transform.position = new Vector3 (-6, BirdSprite.transform.position.y, BirdSprite.transform.position.z);
+//			Bird.transform.position = new Vector3 (-6, Bird.transform.position.y, Bird.transform.position.z);
+//		}
 
 		//Loop vertical do cenario (2.5 ref)
 		if (BirdSprite.transform.position.y >= 0f && Bird.transform.position.y >= 0f) {
@@ -111,16 +158,16 @@ public class GameController : MonoBehaviour {
 		}
 
 		//Queda
-		if (BirdGrounded == false && BirdSprite.transform.position.y >= -3.5f && Bird.transform.position.y >= -3.5f) {
-			Bird.transform.Translate (-Vector2.up * Time.deltaTime * 1.5f);
-			if (LastMove == "Left") {
-				Bird.transform.Translate (-Vector2.right * Time.deltaTime * 0.7f);
-			}
-
-			if (LastMove == "Right") {
-				Bird.transform.Translate (Vector2.right * Time.deltaTime * 0.7f);
-			}
-		}
+//		if (BirdGrounded == false && BirdSprite.transform.position.y >= -3.5f && Bird.transform.position.y >= -3.5f) {
+//			Bird.transform.Translate (-Vector2.up * Time.deltaTime * 1.5f);
+//			if (LastMove == "Left") {
+//				Bird.transform.Translate (-Vector2.right * Time.deltaTime * 0.7f);
+//			}
+//
+//			if (LastMove == "Right") {
+//				Bird.transform.Translate (Vector2.right * Time.deltaTime * 0.7f);
+//			}
+//		}
 
 		//Queda de Maça
 		if(Apple.transform.position.y > -6)
@@ -132,12 +179,15 @@ public class GameController : MonoBehaviour {
 //		Bird.rigidbody2D.AddForce (Vector2.up * 50);
 //		Bird.rigidbody2D.AddForce (-Vector2.right * 10);
 		if (BirdSprite.transform.position.y <= 3.5f && Bird.transform.position.y <= 3.5f ) {
-			BirdSprite.transform.localRotation = Quaternion.Euler(0, 0, 0);
-			Bird.transform.Translate (Vector2.up * 1);
-			Bird.transform.Translate (-Vector2.right * 0.2f);
-			BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
+//			BirdSprite.transform.localRotation = Quaternion.Euler(0, 0, 0);
+//			Bird.transform.Translate (Vector2.up * 1);
+//			Bird.transform.Translate (-Vector2.right * 0.2f);
+//			BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
+//			audio.PlayOneShot(Flap,0.5f);
+			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(-FlySpeed, getFlySpeedY());
+			BirdSprite.GetComponent<SpriteRenderer>().flipX = false;
+			FlapAction();
 			LastMove = "Left";
-			audio.PlayOneShot(Flap,0.5f);
 		}
 	}
 
@@ -146,15 +196,26 @@ public class GameController : MonoBehaviour {
 //		Bird.rigidbody2D.AddForce (Vector2.up * 50);
 //		Bird.rigidbody2D.AddForce (Vector2.right * 10);
 		if (BirdSprite.transform.position.y <= 3.5f && Bird.transform.position.y <= 3.5f ) {
-			BirdSprite.transform.localRotation = Quaternion.Euler(0, 180, 0);
-			Bird.transform.Translate (Vector2.up * 1);
-			Bird.transform.Translate (Vector2.right * 0.2f);
-			BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
+//			BirdSprite.transform.localRotation = Quaternion.Euler(0, 180, 0);
+//			Bird.transform.Translate (Vector2.up * 1);
+//			Bird.transform.Translate (Vector2.right * 0.2f);
+//			BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
+//			audio.PlayOneShot(Flap,0.5f);
+			Bird.GetComponent<Rigidbody2D>().velocity = new Vector2(FlySpeed, getFlySpeedY());
+			BirdSprite.GetComponent<SpriteRenderer>().flipX = true;
+			FlapAction();
 			LastMove = "Right";
-			audio.PlayOneShot(Flap,0.5f);
 		}
 	}
-	
+
+	private float getFlySpeedY() {
+		return Mathf.Clamp(Bird.GetComponent<Rigidbody2D>().velocity.y <= 0 ? FlySpeed : Bird.GetComponent<Rigidbody2D>().velocity.y + FlySpeed, 0, MaxFlySpeedY);
+	}
+
+	private void FlapAction() {
+		BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
+		audio.PlayOneShot(Flap,0.5f);
+	}
 
 	public void UpdateVida(){
 //		Debug.Log (Vida);
