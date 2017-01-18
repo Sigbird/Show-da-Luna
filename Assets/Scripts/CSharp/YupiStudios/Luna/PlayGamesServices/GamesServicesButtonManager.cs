@@ -15,6 +15,9 @@ public class GamesServicesButtonManager : MonoBehaviour {
 	}
 
 	private void setButtonState() {
+        bool auth = Social.localUser.authenticated;
+        Debug.Log(auth);
+
 		if (Social.localUser.authenticated) {
 			LoginText.SetActive(false);
 			LogoutText.SetActive(true);
