@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BirdController : MonoBehaviour {
-	public float FlySpeed = 5f;
-	public float MaxFlySpeedY = 5;
-	public float MaxGravitySpeed = 5f;
-	public float XResFactor = 0.2f;
+	public float FlySpeed = 3f;
+	public float MaxFlySpeedY = 7f;
+	public float MaxGravitySpeed = 4f;
 	public Text SpeedYUI;
 	public Text SpeedXUI;
 
