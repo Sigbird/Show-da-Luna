@@ -38,10 +38,10 @@ public class GameController : MonoBehaviour {
 	public float MaxFlySpeedY = 7f;
 	public float MaxGravitySpeed = 4f;
 
-	private float bottom;
-	private float left;
-	private float right;
-	private float top;
+//	private float bottom;
+//	private float left;
+//	private float right;
+//	private float top;
 
 	public enum birds{
 		
@@ -68,10 +68,10 @@ public class GameController : MonoBehaviour {
 		StartCoroutine ("BlinkWarningSign");
 
 		//LIMITES DO VIEWPORT
-		bottom = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).y;
-		left = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).x;
-		right = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).x;
-		top = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).y;
+//		bottom = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).y;
+//		left = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).x;
+//		right = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).x;
+//		top = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).y;
 	}
 
 	void FixedUpdate(){
