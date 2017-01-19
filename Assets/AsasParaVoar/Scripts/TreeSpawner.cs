@@ -31,16 +31,24 @@ public class TreeSpawner : MonoBehaviour {
 	private float CurrentHeightUp;
 	private float CurrentHeightDown;
 
+	private float bottom;
+	private float top;
+
 	public Vector3 l ;
 	public Vector3 r ;
 
 	// Use this for initialization
 	void Start () {
+		
 		CurrentHeightUp = this.transform.position.y;
 		CurrentHeightDown = this.transform.position.y;
 
-		l =  Camera.main.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.03f, 1.0f, 0.25f));
-		r =  Camera.main.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.98f, 1.0f, 0.25f));
+		Camera mainCamera = Camera.main;
+
+		top = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).y;
+
+		l = mainCamera.ViewportToWorldPoint(new Vector3(0.03f, 1.0f, 0.25f));
+		r = mainCamera.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.98f, 1.0f, 0.25f));
 
 		foreach (GameObject t in ArvoresLeft){
 			t.transform.position = new Vector3(l.x,t.transform.position.y,t.transform.position.z);
@@ -70,7 +78,7 @@ public class TreeSpawner : MonoBehaviour {
 //		Debug.Log (CurrentHeightUp);
 
 		//RESPAWN DE ELEMENTOS PARA CIMA
-		if (this.transform.position.y <= (CurrentHeightUp - 5f)) {
+		if (this.transform.position.y <= (CurrentHeightUp - top)) {
 			CurrentHeightUp = Mathf.Round(this.transform.position.y);
 
 			ArvoresLeft[ArvoresLeft.Length-1].transform.position = new Vector3(l.x,ArvoresLeft[0].transform.position.y+5f,ArvoresLeft[0].transform.position.z);
@@ -102,7 +110,8 @@ public class TreeSpawner : MonoBehaviour {
 				a.transform.parent = branches.transform;
 				if(Random.Range(0,2) == 0){
 					GameObject b = (GameObject) Instantiate(rightAirplane, arvorerighttemp.transform.position , Quaternion.identity);
-					b.transform.parent = this.transform;
+					b.transform.SetParent(this.transform,true);
+					//b.transform.parent = this.transform;
 				}
 			}else if (x != 1 && x != 2 && Random.Range(0,10) == 0){
 				GameObject b = (GameObject) Instantiate(extraFeather, new Vector3(0,arvorerighttemp.transform.position.y,arvorerighttemp.transform.position.z) , Quaternion.identity);
@@ -114,7 +123,8 @@ public class TreeSpawner : MonoBehaviour {
 				a.transform.parent = branches.transform;
 				if(Random.Range(0,2) == 0){
 					GameObject b = (GameObject) Instantiate(leftAirplane, arvorelefttemp.transform.position , Quaternion.identity);
-					b.transform.parent = this.transform;
+					b.transform.SetParent(this.transform, true);
+					//b.transform.parent = this.transform;
 				}
 			}else if (x != 1 && x != 2 && Random.Range(0,10) == 0){
 				GameObject b = (GameObject) Instantiate(extraFeather, new Vector3(0,arvorerighttemp.transform.position.y,arvorerighttemp.transform.position.z) , Quaternion.identity);
@@ -138,7 +148,7 @@ public class TreeSpawner : MonoBehaviour {
 
 
 		//RESPAWN DE ELEMENTOS PARA BAIXO
-		if (this.transform.position.y >= (CurrentHeightUp + 5f)) {
+		if (this.transform.position.y >= (CurrentHeightUp + top)) {
 			CurrentHeightUp = Mathf.Round(this.transform.position.y);
 
 			ArvoresLeft[0].transform.position = new Vector3(ArvoresLeft[ArvoresRight.Length-1].transform.position.x,ArvoresLeft[ArvoresRight.Length-1].transform.position.y-5f,ArvoresLeft[ArvoresRight.Length-1].transform.position.z);
@@ -167,11 +177,12 @@ public class TreeSpawner : MonoBehaviour {
 				a.transform.parent = branches.transform;
 				if(Random.Range(0,2) == 0){
 					GameObject b = (GameObject) Instantiate(rightAirplane, arvorerighttemp.transform.position , Quaternion.identity);
-					b.transform.parent = this.transform;
+					b.transform.SetParent(this.transform, true);
+					//b.transform.parent = this.transform;
 				}
 			}else if (Random.Range(0,5) == 0){
 				GameObject b = (GameObject) Instantiate(extraFeather, new Vector3(0,arvorerighttemp.transform.position.y,arvorerighttemp.transform.position.z) , Quaternion.identity);
-				b.transform.parent = this.transform;
+				//b.transform.parent = this.transform;
 			}
 			
 			if (x == 2){
@@ -179,7 +190,8 @@ public class TreeSpawner : MonoBehaviour {
 				a.transform.parent = branches.transform;
 				if(Random.Range(0,2) == 0){
 					GameObject b = (GameObject) Instantiate(leftAirplane, arvorelefttemp.transform.position , Quaternion.identity);
-					b.transform.parent = this.transform;
+					b.transform.SetParent(this.transform, true);
+					//b.transform.parent = this.transform;
 				}
 			}else if (Random.Range(0,10) == 0){
 				GameObject b = (GameObject) Instantiate(extraFeather, new Vector3(0,arvorelefttemp.transform.position.y,arvorelefttemp.transform.position.z) , Quaternion.identity);

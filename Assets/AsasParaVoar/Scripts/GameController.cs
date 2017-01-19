@@ -38,12 +38,19 @@ public class GameController : MonoBehaviour {
 	public float MaxFlySpeedY = 7f;
 	public float MaxGravitySpeed = 4f;
     public float BorderOffset = 2f;
+	public float VerticalOffset = 1f;
 
 	private float bottom;
+	private float top;
 	private float left;
 	private float right;
-	private float top;
+
     private Rigidbody2D birdRb;
+	private Animator birdAnim;
+	private SpriteRenderer birdRender;
+	private Rigidbody2D cenarioRb;
+	private Text scoreText;
+	private static Rigidbody2D appleRb;
 
 	public enum birds{
 		
@@ -64,25 +71,31 @@ public class GameController : MonoBehaviour {
 		audio.volume = 1;
 		WarningSign = GameObject.Find ("Exclamation");
 		Apple = GameObject.Find ("Apple");
+		appleRb = Apple.GetComponent<Rigidbody2D>();
+
 		GameController.Vida = 3;
 		PauseGame (false);
 		GameController.score = 0;
 		StartCoroutine ("BlinkWarningSign");
 
         birdRb = Bird.GetComponent<Rigidbody2D>();
+		birdAnim = BirdSprite.GetComponent<Animator>();
+		birdRender = BirdSprite.GetComponent<SpriteRenderer>();
+		cenarioRb = Cenario.GetComponent<Rigidbody2D>();
+		scoreText = GameObject.Find ("Scoretext").GetComponent<Text> ();
 
         mainCamera = Camera.main;
 
 		//LIMITES DO VIEWPORT
-//		bottom = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).y;
-//        top = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).y;
+		bottom = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).y + VerticalOffset;
+        top = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).y - VerticalOffset;
 		left = mainCamera.ViewportToWorldPoint(new Vector3(0,0,mainCamera.transform.position.z)).x + BorderOffset;
 		right = mainCamera.ViewportToWorldPoint(new Vector3(1,1,mainCamera.transform.position.z)).x - BorderOffset;
         Debug.Log("left:" + left);
         Debug.Log("right:" + right);
 
 	}
-
+		
 	void FixedUpdate(){
 
 //		if (transform.position.y <= bottom) {			
@@ -95,22 +108,55 @@ public class GameController : MonoBehaviour {
 //			//HitAction();
 //			return;
 //		}
+
+		//Loop vertical do cenario (2.5 ref)
+		if (BirdSprite.transform.position.y >= 0f && Bird.transform.position.y >= 0f) {
+			cenarioRb.MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y ));
+			//Cenario.transform.Translate (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y);
+			if (BackGround.transform.position.y > -30) {
+				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (BirdSprite.transform.position.y / 10.5f));
+			}
+		}
+
+		if (BirdSprite.transform.position.y <= -0f && Bird.transform.position.y <= -0f) {
+			cenarioRb.MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y));
+			//Cenario.transform.Translate (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y);
+			if (BackGround.transform.position.y < 1.7f) {
+				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (BirdSprite.transform.position.y / 10.5f));
+			}
+		}
+
+		//Queda de Maça
+		if(Apple.transform.position.y > -6) {
+			appleRb.MovePosition((Vector2) Apple.transform.position + (-Vector2.up * Time.deltaTime * 10));
+			//Apple.transform.Translate (-Vector2.up * Time.deltaTime * 10);	
+		}
+
+
 		if (Bird.transform.position.x <= left) {			
 			birdRb.velocity = new Vector2(FlySpeed, birdRb.velocity.y);
+			birdRender.flipX = true;
 			//HitAction();
 			return;
 		}
 		if (Bird.transform.position.x >= right) {			
 			birdRb.velocity = new Vector2(-FlySpeed, birdRb.velocity.y);
+			birdRender.flipX = false;
 			//HitAction();
 			return;
 		}
 
+		if (Bird.transform.position.y >= top) {
+			birdRb.velocity = new Vector2(birdRb.velocity.x, 0);
+			return;
+		}
+		if (Bird.transform.position.y <= bottom) {
+			birdRb.velocity = new Vector2(0, FlySpeed);
+			FlapAction();
+			return;
+		}
+			
 		birdRb.velocity = new Vector2(birdRb.velocity.x, Mathf.Clamp(birdRb.velocity.y, -MaxGravitySpeed, MaxFlySpeedY));
-//		if (birdRb.velocity.y <= -MaxGravitySpeed) {
-//			birdRb.velocity = new Vector2(birdRb.velocity.x, -MaxGravitySpeed);
-//		}
-
 	}
 
 	// Update is called once per frame
@@ -118,7 +164,7 @@ public class GameController : MonoBehaviour {
 
 		Debug.Log (birdRb.velocity.y);
 
-		GameObject.Find ("Scoretext").GetComponent<Text> ().text = score.ToString ();
+		scoreText.text = score.ToString ();
 		endingScore.text = score.ToString ();
 
 		//Debug de Teclado
@@ -152,22 +198,8 @@ public class GameController : MonoBehaviour {
 //			Bird.transform.position = new Vector3 (-6, Bird.transform.position.y, Bird.transform.position.z);
 //		}
 
-		//Loop vertical do cenario (2.5 ref)
-		if (BirdSprite.transform.position.y >= 0f && Bird.transform.position.y >= 0f) {
-            Cenario.GetComponent<Rigidbody2D>().MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y * 2));
-			//Cenario.transform.Translate (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y);
-			if (BackGround.transform.position.y > -30) {
-				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (BirdSprite.transform.position.y / 10.5f));
-			}
-		}
-		
-		if (BirdSprite.transform.position.y <= -0f && Bird.transform.position.y <= -0f) {
-            Cenario.GetComponent<Rigidbody2D>().MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y * 2));
-			//Cenario.transform.Translate (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y);
-			if (BackGround.transform.position.y < 1.7f) {
-				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (BirdSprite.transform.position.y / 10.5f));
-			}
-		}
+
+
 
 		//Queda
 //		if (BirdGrounded == false && BirdSprite.transform.position.y >= -3.5f && Bird.transform.position.y >= -3.5f) {
@@ -181,9 +213,8 @@ public class GameController : MonoBehaviour {
 //			}
 //		}
 
-		//Queda de Maça
-		if(Apple.transform.position.y > -6)
-		Apple.transform.Translate (-Vector2.up * Time.deltaTime * 10);
+
+
 	}
 
 	public void FlyLeft(){
@@ -198,7 +229,7 @@ public class GameController : MonoBehaviour {
 //			BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
 //			audio.PlayOneShot(Flap,0.5f);
 			birdRb.velocity = new Vector2(-FlySpeed, getFlySpeedY());
-			BirdSprite.GetComponent<SpriteRenderer>().flipX = false;
+			birdRender.flipX = false;
 			FlapAction();
 			LastMove = "Left";
 		//}
@@ -216,18 +247,18 @@ public class GameController : MonoBehaviour {
 //			BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
 //			audio.PlayOneShot(Flap,0.5f);
 			birdRb.velocity = new Vector2(FlySpeed, getFlySpeedY());
-			BirdSprite.GetComponent<SpriteRenderer>().flipX = true;
+			birdRender.flipX = true;
 			FlapAction();
 			LastMove = "Right";
 //		}
 	}
 
-	private float getFlySpeedY() {
+	private float getFlySpeedY() {				
 		return Mathf.Clamp(birdRb.velocity.y + FlySpeed, 0, MaxFlySpeedY);
 	}
 
 	private void FlapAction() {
-		BirdSprite.GetComponent<Animator>().SetTrigger("Flap");
+		birdAnim.SetTrigger("Flap");
 		audio.PlayOneShot(Flap,0.5f);
 	}
 
@@ -289,7 +320,8 @@ public class GameController : MonoBehaviour {
 				WarningSign.transform.position = new Vector3(-3.5f, 4, 0);
 				yield return new WaitForSeconds(1);
 				WarningSign.transform.position = new Vector3(-3.5f, 8, 0);
-				Apple.transform.position = new Vector3(-3.5f, 8, 0);
+				appleRb.MovePosition((Vector2) new Vector3(-3.5f, 8, 0));
+				//Apple.transform.position = new Vector3(-3.5f, 8, 0);
 				LastApplePos = x;
 			}else{ AppleFall();}
 			break;
@@ -298,7 +330,8 @@ public class GameController : MonoBehaviour {
 				WarningSign.transform.position = new Vector3(0, 4, 0);
 				yield return new WaitForSeconds(1);
 				WarningSign.transform.position = new Vector3(-3.5f, 8, 0);
-				Apple.transform.position = new Vector3(0, 8, 0);
+				appleRb.MovePosition((Vector2) new Vector3(0, 8, 0));
+				//Apple.transform.position = new Vector3(0, 8, 0);
 				LastApplePos = x;
 			}else{ AppleFall();}
 			break;
@@ -307,7 +340,8 @@ public class GameController : MonoBehaviour {
 				WarningSign.transform.position = new Vector3(3.5f, 4, 0);
 				yield return new WaitForSeconds(1);
 				WarningSign.transform.position = new Vector3(-3.5f, 8, 0);
-				Apple.transform.position = new Vector3(3.5f, 8, 0);
+				appleRb.MovePosition((Vector2) new Vector3(3.5f, 8, 0));
+				//Apple.transform.position = new Vector3(3.5f, 8, 0);
 				LastApplePos = x;
 			}else{ AppleFall();}
 			break;
@@ -330,17 +364,17 @@ public class GameController : MonoBehaviour {
 		{
 		case 1:
 			jupiterButton.GetComponent<Animator>().SetTrigger("Disabled");
-			BirdSprite.GetComponent<Animator>().SetInteger("Char",0);
+			birdAnim.SetInteger("Char",0);
 			ActiveBird = birds.Jupiter;
 			break;
 		case 2:
 			lunaButton.GetComponent<Animator>().SetTrigger("Disabled");
-			BirdSprite.GetComponent<Animator>().SetInteger("Char",1);
+			birdAnim.SetInteger("Char",1);
 			ActiveBird = birds.Luna;
 			break;
 		case 3:
 			claudioButton.GetComponent<Animator>().SetTrigger("Disabled");
-			BirdSprite.GetComponent<Animator>().SetInteger("Char",2);
+			birdAnim.SetInteger("Char",2);
 			ActiveBird = birds.Claudio;
 			break;
 		default:
