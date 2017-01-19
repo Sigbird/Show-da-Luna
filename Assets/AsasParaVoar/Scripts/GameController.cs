@@ -110,19 +110,19 @@ public class GameController : MonoBehaviour {
 //		}
 
 		//Loop vertical do cenario (2.5 ref)
-		if (BirdSprite.transform.position.y >= 0f && Bird.transform.position.y >= 0f) {
-			cenarioRb.MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y ));
+		if (Bird.transform.position.y >= 0f) {
+			cenarioRb.MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * Bird.transform.position.y ));
 			//Cenario.transform.Translate (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y);
 			if (BackGround.transform.position.y > -30) {
-				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (BirdSprite.transform.position.y / 10.5f));
+				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (Bird.transform.position.y / 10.5f));
 			}
 		}
 
-		if (BirdSprite.transform.position.y <= -0f && Bird.transform.position.y <= -0f) {
-			cenarioRb.MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y));
+		if (Bird.transform.position.y <= -0f) {
+			cenarioRb.MovePosition((Vector2) new Vector2(0,Cenario.transform.position.y) + (-Vector2.up * Time.deltaTime * Bird.transform.position.y));
 			//Cenario.transform.Translate (-Vector2.up * Time.deltaTime * BirdSprite.transform.position.y);
 			if (BackGround.transform.position.y < 1.7f) {
-				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (BirdSprite.transform.position.y / 10.5f));
+				BackGround.transform.Translate (-Vector2.up * Time.deltaTime * (Bird.transform.position.y / 10.5f));
 			}
 		}
 
