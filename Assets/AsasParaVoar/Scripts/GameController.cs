@@ -106,10 +106,10 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 
-
-		if (birdRb.velocity.y <= -MaxGravitySpeed) {
-			birdRb.velocity = new Vector2(birdRb.velocity.x, -MaxGravitySpeed);
-		}
+		birdRb.velocity = new Vector2(birdRb.velocity.x, Mathf.Clamp(birdRb.velocity.y, -MaxGravitySpeed, MaxFlySpeedY));
+//		if (birdRb.velocity.y <= -MaxGravitySpeed) {
+//			birdRb.velocity = new Vector2(birdRb.velocity.x, -MaxGravitySpeed);
+//		}
 
 	}
 
@@ -223,7 +223,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	private float getFlySpeedY() {
-		return Mathf.Clamp(birdRb.velocity.y <= 0 ? FlySpeed : birdRb.velocity.y + FlySpeed, 0, MaxFlySpeedY);
+		return Mathf.Clamp(birdRb.velocity.y + FlySpeed, 0, MaxFlySpeedY);
 	}
 
 	private void FlapAction() {
