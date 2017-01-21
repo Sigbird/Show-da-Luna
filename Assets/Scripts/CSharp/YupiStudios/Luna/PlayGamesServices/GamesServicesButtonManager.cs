@@ -45,6 +45,7 @@ public class GamesServicesButtonManager : MonoBehaviour {
 			}
 
 			Social.localUser.Authenticate((bool success) => {
+				GameSave.WriteSave();
 				PlayGamesOn();
 			});
 		}

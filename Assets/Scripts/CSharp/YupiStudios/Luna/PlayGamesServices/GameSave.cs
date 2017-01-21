@@ -37,10 +37,10 @@ public class GameSave : MonoBehaviour {
 				newSave(game);
 			} else {
 				if (PlayerPrefs.GetInt(LOADEDSAVEKEY) == 0) {
-					readSave(game);
-					//showSelectUI();
+					readSave(game);				
+				} else {
+					newSave(game);
 				}
-				//readSave(game);
 			}
 		} else {
 			Debug.LogError ("save open error");
