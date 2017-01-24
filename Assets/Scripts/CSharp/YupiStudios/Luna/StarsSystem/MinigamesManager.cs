@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using YupiPlay.Luna;
 
 public class MinigamesManager : MonoBehaviour {
 
@@ -60,6 +61,11 @@ public class MinigamesManager : MonoBehaviour {
 
 	public void MinigamesCheck(){
 		LunaStoreManager StoreManager = LunaStoreManager.Instance;
+
+		if (BuildConfiguration.CurrentPurchaseType == BuildType.Free) {
+			FreeAsas = true;
+			FreeCaracol = true;
+		}
 		
 		if (StoreManager.AcquiredMinigameAsas() || FreeAsas) {
 			AsasUnlocked.SetActive (true);
