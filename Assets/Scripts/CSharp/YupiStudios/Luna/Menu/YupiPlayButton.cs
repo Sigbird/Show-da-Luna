@@ -6,7 +6,7 @@ public class YupiPlayButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!YupiPlay.Luna.BuildConfiguration.YupiTimeEnabled) {
+		if (!YupiPlay.Luna.BuildConfiguration.YupiPlayButtonEnabled) {
 			gameObject.SetActive(false);
 		}
 	}
