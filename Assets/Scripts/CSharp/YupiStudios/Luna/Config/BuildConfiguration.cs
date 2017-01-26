@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-
 
 namespace YupiPlay.Luna {
 	public enum BuildType {IAP, Free}
@@ -24,7 +22,7 @@ namespace YupiPlay.Luna {
 
 		//variáveis que são verificadas nos scripts para determinar as coisas
 		public static BuildType CurrentPurchaseType {
-			get {return _currentBuild;}
+			get {return _currentBuild == null ? BuildType.IAP : _currentBuild;}
 			private set {_currentBuild = value;}
 		}
 

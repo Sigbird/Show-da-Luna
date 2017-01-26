@@ -39,8 +39,8 @@ public class LunaScreenShot : MonoBehaviour {
 		faceBookManagerComponent = GetComponent<FacebookManager>();
 		//Placeholder
 		SystemLanguage lang = Application.systemLanguage;
-		if (FacebookInput != null)
-			FacebookInput.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = placeHolderPtBr.text;
+//		if (FacebookInput != null)
+//			FacebookInput.placeholder.GetComponent<Text> ().text = placeHolderPtBr.text;
     }
 
     public void TakeScreenShot()

@@ -123,17 +123,28 @@ public class LunaBuildConfiguration : EditorWindow {
 		}
 	}
 
-	private void ApplySelection(int selected) {		
-		BuildPreset preset = presetsArray[selected];
+	private void ApplySelection(int selected) {
+		if (EditorSceneManager.GetActiveScene().name == "Splash") {
+			BuildPreset preset = presetsArray[selected];
 
-		BuildConfiguration config = GameObject.FindObjectOfType<BuildConfiguration>();
+			BuildConfiguration config = GameObject.FindObjectOfType<BuildConfiguration>();
+			GoogleAnalyticsV3 analytics = GameObject.FindObjectOfType<GoogleAnalyticsV3>();
 
-		config.PurchaseType = preset.PurchaseType;
-		config.EnableGPGS = preset.EnableGPGS;
-		config.EnableFacebook = preset.EnableFacebook;
-		config.EnablePush = preset.EnablePush;
-		config.EnableYupiPlayButton = preset.EnableYupiPlayButton;
-		EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetSceneByName("Splash"));
+			config.PurchaseType = preset.PurchaseType;
+			config.EnableGPGS = preset.EnableGPGS;
+			config.EnableFacebook = preset.EnableFacebook;
+			config.EnablePush = preset.EnablePush;
+			config.EnableYupiPlayButton = preset.EnableYupiPlayButton;
+
+			string bundleVersion = PlayerSettings.bundleVersion;
+
+			if (preset.Name != "Google Play") {
+				bundleVersion = PlayerSettings.bundleVersion + " " + preset.Name;	
+			}				
+			analytics.bundleVersion = bundleVersion;
+
+			EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetSceneByName("Splash"));	
+		}
 	}
 
 	void OnDisable() {
