@@ -25,8 +25,7 @@ namespace YupiPlay {
 
 		private Server[] localServers = new Server[] {
 			new Server("https://yupiplay.blob.core.windows.net/luna/", 1),
-			new Server("aws", 1),
-			new Server("000webhost", 2)
+            new Server("https://yupiplay.000webhostapp.com/luna/", 2)
 		};
 
 		private const string FILENAME = "lunaservers.json";
@@ -40,7 +39,7 @@ namespace YupiPlay {
 		private int currentPriority = 99;
 		private int minPriority = 99;
 		private int maxPriority = 1;
-		private bool hasRun;
+		private bool hasRunInit;
 		private static DownloadRedundant instance;
 
 		public static DownloadRedundant Instance {
@@ -54,12 +53,9 @@ namespace YupiPlay {
 			}
 		}
 
-		void Update() {
-			if (!hasRun) {
-				StartCoroutine(init());
-				hasRun = true;
-			}
-		}			
+        void Start() {
+            StartCoroutine(init());
+        }        		
 
 		private IEnumerator init() {
 			instance = this;
@@ -82,7 +78,8 @@ namespace YupiPlay {
 			if (state == States.READY) {
 				return minPriority;	
 			}
-			return 0;		}
+			return 0;		
+        }
 
 		public string GetServerRoundRobin() {	
 			if (state == States.READY) {
@@ -101,7 +98,7 @@ namespace YupiPlay {
 				currentPriority = maxPriority;
 			}
 
-			if (lastServer == null ) {
+			if (lastServer == null) {
 				current = servers.First;
 			} else {
 				current = lastServer.Next;
