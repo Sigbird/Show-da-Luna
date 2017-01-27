@@ -7,43 +7,37 @@ using MiniJSON;
 using System;
 using UnityEditor.SceneManagement;
 
-public class LunaBuildConfiguration : EditorWindow {	
-	public class Preset {
-		public string Name = "Google Play";
-		public BuildType PurchaseType = BuildType.IAP;
-		public bool EnableGPGS = true;
-		public bool EnableFacebook = true;
-		public bool EnablePush = true;
-		public bool EnableYupiPlayButton = true;
-		public bool EnableVideoDownloads = true;
-	}		
-
+public class LunaBuildConfiguration : EditorWindow {			
 	public static LunaBuildConfiguration MyWindow;
-	public Preset newPreset;
 
 	private Vector2 scrollPos;
 	private int selected = 0;
-	private BuildPreset[] presetsArray;
-	private string[] labelsArray;
-	private bool[] deleteArray;
+	private List<Preset> presets;
+	private GUILayoutOption[] options;
 
 	[@MenuItem ("Luna/Configuration Presets", false, 1)]
 	public static void ShowWindow() {
-		MyWindow = ScriptableObject.CreateInstance<LunaBuildConfiguration>();
-		MyWindow.titleContent = new GUIContent("Configuration Presets");
-		MyWindow.ShowUtility();
+		MyWindow = EditorWindow.GetWindow<LunaBuildConfiguration>(true, "Configuration Presets");
 	}
 
 	void OnGUI() {		
 		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
-		if (presetsArray != null) {									
-			selected = EditorGUILayout.Popup("Select Preset:",selected, labelsArray);	
+		if (presets != null && presets.Count > 0) {					
+			selected = EditorGUILayout.Popup("Select Preset:",selected, getLabelsArray());	
 			ApplySelection(selected);
 		}
 
 		EditorGUILayout.Space();
+		bool addPreset = GUILayout.Button("Add Preset");
+		if (addPreset) {
+			BuildPreset presetWindow = EditorWindow.GetWindow<BuildPreset>(true, "New Preset");
+			BuildPreset.MyWindow = presetWindow;
+		}
+
+		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("Presets", EditorStyles.boldLabel);
+		EditorGUILayout.Space();
 
 		CreatePresetsList();
 
@@ -57,26 +51,40 @@ public class LunaBuildConfiguration : EditorWindow {
 
 	void OnEnable() {
 		LoadPresets();
+		options = new GUILayoutOption[1];
+		options[0] = GUILayout.MaxWidth(100f);
 	}
 
 	public void ClearPresets() {
-		EditorPrefs.DeleteKey("BuildPresets");
-		presetsArray = null;
-		labelsArray = null;
-		//presetsList = null;
+		Preset.ClearPresets();
+		if (presets != null) presets.Clear();
 	}
 
 	public void CreatePresetsList() {	
-		if (presetsArray != null)	 {
-			foreach (BuildPreset preset in presetsArray) {				
+		if (presets != null && presets.Count > 0)	 {			
+			foreach (Preset preset in presets) {				
 				EditorGUILayout.LabelField(preset.Name + ":");
 				string purschaseType = preset.PurchaseType == BuildType.Free ? "Free" : "IAP";
 				EditorGUILayout.LabelField(purschaseType);
-				EditorGUILayout.Toggle("GPGS",preset.EnableGPGS);
-				EditorGUILayout.Toggle("Facebook",preset.EnableFacebook);
-				EditorGUILayout.Toggle("Push",preset.EnablePush);
-				EditorGUILayout.Toggle("YP Button",preset.EnableYupiPlayButton);
-				EditorGUILayout.Toggle("V.Downloads",preset.EnableVideoDownloads);						
+				EditorGUILayout.Toggle("GPGS", preset.EnableGPGS);
+				EditorGUILayout.Toggle("Facebook", preset.EnableFacebook);
+				EditorGUILayout.Toggle("Push", preset.EnablePush);
+				EditorGUILayout.Toggle("YP Button", preset.EnableYupiPlayButton);
+				EditorGUILayout.Toggle("V.Downloads", preset.EnableVideoDownloads);				
+
+				EditorGUILayout.BeginHorizontal();
+				bool edit = GUILayout.Button("Edit", options);
+				if (edit) {
+					EditPreset(preset);
+					return;
+				}
+				bool delete = GUILayout.Button("Delete", options);
+				if (delete) {
+					DeletePreset(preset);
+					return;
+				}
+				EditorGUILayout.EndHorizontal();
+
 				EditorGUILayout.Separator();
 				EditorGUILayout.Space();
 			}	
@@ -84,48 +92,25 @@ public class LunaBuildConfiguration : EditorWindow {
 	}
 
 	public void LoadPresets() {
-		string buildPresets = EditorPrefs.GetString("BuildPresets");
-		string selectedPreset = EditorPrefs.GetString("SelectedPreset");
+		presets = Preset.GetPresets();
+	}
 
-		if (!string.IsNullOrEmpty(buildPresets)) {
-			Dictionary<string,object> presets = Json.Deserialize(buildPresets) as Dictionary<string,object>;
-			presetsArray = new BuildPreset[presets.Count];
-			labelsArray = new string[presets.Count];
+	private string[] getLabelsArray() {
+		if (presets != null && presets.Count > 0) {
+			string[] labels = new string[presets.Count];
 
-			int i = 0;
-			//Dictionary<string,object>.Enumerator enumerator = presets.GetEnumerator();
-
-			foreach (object presetObject in presets) {				
-				KeyValuePair<string,object> presetKVP = (KeyValuePair<string,object>) presetObject;
-				Dictionary<string,object> preset = presetKVP.Value as Dictionary<string,object>;
-				BuildPreset x = ScriptableObject.CreateInstance<BuildPreset>();
-
-				x.Name = (string) preset["Name"];
-				long purchaseType = (long) preset["PurchaseType"];
-				x.PurchaseType = purchaseType == 2 ? BuildType.Free : BuildType.IAP;
-				x.EnableGPGS = (bool) preset["EnableGPGS"];
-				x.EnableFacebook = (bool) preset["EnableFacebook"];
-				x.EnablePush = (bool) preset["EnablePush"];
-				x.EnableYupiPlayButton = (bool) preset["EnableYupiPlayButton"];
-				x.EnableVideoDownloads = (bool) preset["EnableVideoDownloads"];
-
-				presetsArray[i] = x;
-				labelsArray[i] = x.Name;
-
-				if (x.Name == selectedPreset) {
-					selected = i;
-				} else {
-					selected = 0;
-				}
-					
-				i++;
+			for (int i = 0; i < presets.Count; i++) {
+				labels[i] = presets[i].Name;
 			}
+			return labels;
 		}
+
+		return null;
 	}
 
 	private void ApplySelection(int selected) {
 		if (EditorSceneManager.GetActiveScene().name == "Splash") {
-			BuildPreset preset = presetsArray[selected];
+			Preset preset = presets[selected];
 
 			BuildConfiguration config = GameObject.FindObjectOfType<BuildConfiguration>();
 			GoogleAnalyticsV3 analytics = GameObject.FindObjectOfType<GoogleAnalyticsV3>();
@@ -148,17 +133,20 @@ public class LunaBuildConfiguration : EditorWindow {
 	}
 
 	void OnDisable() {
-		if (labelsArray != null) {
-			string selectedPreset = labelsArray[selected];
+		if (presets != null && presets.Count > 0) {
+			string selectedPreset = presets[selected].Name;
 			EditorPrefs.SetString("SelectedPreset", selectedPreset);	
 		}
+	}	
+
+	private void DeletePreset(Preset preset) {
+		presets.Remove(preset);
+		Preset.RemovePreset(preset.Name);
 	}
 
-	private void DeletePreset(int toDelete) {		
-		ArrayUtility.RemoveAt(ref presetsArray, toDelete);
-		ArrayUtility.RemoveAt(ref labelsArray, toDelete);
-		Debug.Log("break");
-		Array.Resize(ref presetsArray, presetsArray.Length - 1);
-		Array.Resize(ref labelsArray, labelsArray.Length - 1);
+	private void EditPreset(Preset preset) {
+		BuildPreset presetWindow = EditorWindow.GetWindow<BuildPreset>(true, "Edit Preset");
+		BuildPreset.MyWindow = presetWindow;
+		presetWindow.Edit(preset);
 	}
 }

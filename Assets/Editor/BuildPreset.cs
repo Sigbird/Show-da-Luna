@@ -17,9 +17,16 @@ public class BuildPreset : EditorWindow {
 	private int purchaseType;
 
 	public static BuildPreset MyWindow;
+	private bool edit;
 
 	public void OnGUI() {
-		Name = EditorGUILayout.TextField("Preset Name", Name);
+		if (edit) {
+			EditorGUILayout.LabelField(Name, EditorStyles.boldLabel);
+		} else {
+			Name = EditorGUILayout.TextField("Preset Name", Name);	
+		}
+		EditorGUILayout.Space();
+
 		PurchaseType = (BuildType)EditorGUILayout.EnumPopup("Purchase Type", PurchaseType);
 
 		purchaseType = PurchaseType == BuildType.Free ? 2 : 1;
@@ -32,49 +39,30 @@ public class BuildPreset : EditorWindow {
 
 		bool savePreset = GUILayout.Button("Save Preset");
 
-		if (savePreset) {			
-			Save(Name, ToDictionary());
-		}
-	}
+		if (savePreset) {	
+			Preset preset = new Preset(Name, PurchaseType, EnableGPGS, EnableFacebook, EnablePush, EnableYupiPlayButton,
+				EnableVideoDownloads);
 
-	public Dictionary<string,object> ToDictionary() {
-		Dictionary<string,object> jsonObject = new Dictionary<string,object>();
-		jsonObject["Name"] = (object) Name;
-		jsonObject["PurchaseType"] = (object) purchaseType;
-		jsonObject["EnableGPGS"] = (object) EnableGPGS;
-		jsonObject["EnableFacebook"] = (object) EnableFacebook;
-		jsonObject["EnablePush"] = (object) EnablePush;
-		jsonObject["EnableYupiPlayButton"] = (object) EnableYupiPlayButton;
-		jsonObject["EnableVideoDownloads"] = (object) EnableVideoDownloads;
-
-		return jsonObject;
-	}
-
-	public void Save(string name, Dictionary<string,object> dict) {
-		string buildPresetsString = EditorPrefs.GetString("BuildPresets");
-		Dictionary<string,object> buildPresets;
-		string presetsString;
-
-		if (string.IsNullOrEmpty(buildPresetsString)) {
-			buildPresets = new Dictionary<string,object>();
-			buildPresets[name] = dict;
-			presetsString = Json.Serialize(buildPresets);
-			EditorPrefs.SetString("BuildPresets", presetsString);
+			Preset.Save(preset);
 			MyWindow.Close();
-			return;
+			LunaBuildConfiguration presetsWindow = EditorWindow.GetWindow<LunaBuildConfiguration>(true, "Configuration Presets");
+			presetsWindow.LoadPresets();
 		}
+	}			
 
-		buildPresets = Json.Deserialize(buildPresetsString) as Dictionary<string,object>;
-		buildPresets[name] = dict;
-		presetsString = Json.Serialize(buildPresets);
-		EditorPrefs.SetString("BuildPresets", presetsString);
-		MyWindow.Close();
-	}					
+	public void Edit(Preset preset) {
+		edit = true;
+		Name = preset.Name;
+		PurchaseType = preset.PurchaseType;
+		EnableGPGS = preset.EnableGPGS;
+		EnableFacebook = preset.EnableFacebook;
+		EnablePush = preset.EnablePush;
+		EnableYupiPlayButton = preset.EnableYupiPlayButton;
+		EnableVideoDownloads = preset.EnableVideoDownloads;
+	}
 
 	[@MenuItem ("Luna/New Preset", false, 2)]
 	public static void ShowWindow() {
-		MyWindow = ScriptableObject.CreateInstance<BuildPreset>();
-		MyWindow.titleContent = new GUIContent("New Preset");
-		MyWindow.ShowUtility();
+		MyWindow = EditorWindow.GetWindow<BuildPreset>(true, "New Preset");
 	}
 }
