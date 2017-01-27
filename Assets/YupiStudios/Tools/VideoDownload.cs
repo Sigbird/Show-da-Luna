@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+using YupiPlay;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -15,9 +16,10 @@ public class VideoDownload : MonoBehaviour {
 	[Tooltip("URL do arquivo em espanhol")]
 	public string UrlSpanish;
 
-    //[Tooltip("Caminho em o arquivo será salvo")]
-	//public string Path;
-	// Use this for initialization
+    public string FilePT;
+    public string FileEN;
+    public string FileES;
+       
 	private WWW request;
 	private bool downloadComplete = false;
 	private string absoluteFileName;
@@ -26,13 +28,13 @@ public class VideoDownload : MonoBehaviour {
 	private bool downloadError = false;
 	public const string VIDEODIR = "videos";
 
-	private string iosPath;
-
-	//private static int smallScreen = 480;
-	//private static int mediumScreen = 720;
+	private string iosPath;    
 
 	public delegate void DownloadStartError(string error);
 	public static event DownloadStartError OnDownloadStartError;
+
+    private int timesTried = 0;
+    private int myPriority = 1;
 
 	void Awake() {
 		string filename = FileNameEnglish;
@@ -64,14 +66,29 @@ public class VideoDownload : MonoBehaviour {
 					SaveFile();
 				} else {
 					if (OnDownloadStartError != null) {
-						OnDownloadStartError(request.error);
+                        timesTried++;
 
-						downloadComplete = true;
-						downloadStarted = false;
-						downloadError = true;
+                        int currentPriorityCount = DownloadRedundant.Instance.GetCurrentPriorityCount();
 
-						DeleteFile();
-						return;
+                        if (timesTried < currentPriorityCount) {
+                            downloadStarted = false;
+                            DownloadFile();
+                            return;
+                        }
+                        myPriority++;
+
+                        //se ja tentou todos
+                        if (timesTried >= DownloadRedundant.Instance.GetCount()) {
+                            myPriority = 1;
+                            OnDownloadStartError(request.error);
+
+                            downloadComplete = true;
+                            downloadStarted = false;
+                            downloadError = true;
+
+                            DeleteFile();
+                            return;    
+                        }                        					
                     }                    
 				}
 			}
@@ -95,7 +112,7 @@ public class VideoDownload : MonoBehaviour {
 		downloadError = false;
 
 		if ((!FileExists() && !downloadStarted) || downloadError) {	
-			request = new WWW(getVideoUrlForScreen());
+			request = new WWW(getVideoUrl());
 
 			downloadStarted = true;
 			return;
@@ -159,7 +176,7 @@ public class VideoDownload : MonoBehaviour {
 	}
 
 	public void ReDownloadFile() {
-		request = new WWW(getVideoUrlForScreen());
+		request = new WWW(getVideoUrl());
 	}
 
 	public string GetError() {
@@ -177,25 +194,15 @@ public class VideoDownload : MonoBehaviour {
 		Handheld.PlayFullScreenMovie(absoluteFileName);
 	}
 
-	public string getVideoUrlForScreen() {
-//		if (Screen.height < smallScreen) {
-//			return UrlSmall;
-//		}
-//		if (Screen.height < mediumScreen) {
-//			if (!string.IsNullOrEmpty(UrlMedium)) {
-//				return UrlMedium;
-//			}
-//			return UrlSmall;
-//		}
-//		if (!string.IsNullOrEmpty(UrlLarge)) {
-//			return UrlLarge;
-//		}
+	public string getVideoUrl() {          
+        string hostUrl = DownloadRedundant.Instance.GetServerRoundRobin(myPriority);
+
 		if (Application.systemLanguage == SystemLanguage.Portuguese) {
-			return Url;
+			return hostUrl + FilePT;
 		} else if (Application.systemLanguage == SystemLanguage.Spanish) {
-			return UrlSpanish;
+			return hostUrl + FilePT;
 		}
-		return UrlEnglish;
+		return hostUrl + FileEN;
 	}
 
 	public bool IsDownloadStarted() {

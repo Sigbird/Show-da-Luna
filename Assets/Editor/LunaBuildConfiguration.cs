@@ -110,6 +110,9 @@ public class LunaBuildConfiguration : EditorWindow {
 
 	private void ApplySelection(int selected) {
 		if (EditorSceneManager.GetActiveScene().name == "Splash") {
+            if (selected >= presets.Count && presets.Count > 0) {
+                selected = 0;
+            }
 			Preset preset = presets[selected];
 
 			BuildConfiguration config = GameObject.FindObjectOfType<BuildConfiguration>();
@@ -133,7 +136,7 @@ public class LunaBuildConfiguration : EditorWindow {
 	}
 
 	void OnDisable() {
-		if (presets != null && presets.Count > 0) {
+		if (presets != null && presets.Count > 0 && selected < presets.Count) {
 			string selectedPreset = presets[selected].Name;
 			EditorPrefs.SetString("SelectedPreset", selectedPreset);	
 		}

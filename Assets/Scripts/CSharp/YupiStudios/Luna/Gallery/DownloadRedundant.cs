@@ -25,6 +25,7 @@ namespace YupiPlay {
 
 		private Server[] localServers = new Server[] {
 			new Server("https://yupiplay.blob.core.windows.net/luna/", 1),
+            new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 1),
             new Server("https://yupiplay.000webhostapp.com/luna/", 2)
 		};
 
@@ -53,13 +54,15 @@ namespace YupiPlay {
 			}
 		}
 
+        void Awake() {
+            Instance = this;
+        }
+
         void Start() {
             StartCoroutine(init());
         }        		
 
-		private IEnumerator init() {
-			instance = this;
-
+		private IEnumerator init() {			      
 			if (canReadFromNetwork()) {
 				readFromNetwork();
 				yield break;
@@ -73,6 +76,27 @@ namespace YupiPlay {
 			}
 			return 0;
 		}
+
+        public int GetCurrentPriorityCount() {
+            if (state == States.READY) {
+                int count = 0;
+                foreach (Server s in servers) {
+                    if (s.priority == currentPriority) {
+                        count++;
+                    }
+                }
+
+                return count; 
+            }
+            return 0;
+        }
+
+        public int GetCount() {
+            if (state == States.READY) {
+                return servers.Count;
+            }
+            return 0;
+        }
 
 		public int GetMinPriority() {
 			if (state == States.READY) {
@@ -130,6 +154,13 @@ namespace YupiPlay {
 
 		private void readFromSource() {					
 			state = States.READING;
+
+            string content = PlayerPrefs.GetString(SERVERSKEY);
+            if (!String.IsNullOrEmpty(content)) {
+                parseJson(content);
+                state = States.READY;
+                return;
+            }
 
 			foreach (Server s in localServers) {
 				determinateMaxPriority(s.priority);
