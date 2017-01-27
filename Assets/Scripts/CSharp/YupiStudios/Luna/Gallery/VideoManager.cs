@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using YupiPlay.Luna;
 
 public class VideoManager : MonoBehaviour {	
 
@@ -31,6 +32,7 @@ public class VideoManager : MonoBehaviour {
     private VIDEO_STATES currentState = VIDEO_STATES.DOWNLOAD;
 
     void Awake() {
+		if (BuildConfiguration.CurrentPurchaseType == BuildType.Free) isFree = true;
         videoDownload = videoBtn.GetComponent<VideoDownload>();
     }
 

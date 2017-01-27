@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using YupiPlay.Luna;
 
 public class GamesServicesDialogButton : MonoBehaviour {
-
+	void Awake() {
+		if (!BuildConfiguration.GPGSEnabled) {
+			this.gameObject.SetActive(false);
+		}
+	}
 	// Use this for initialization
 	void Start () {
+
 		int loadedSave = PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY);
 
 		if (loadedSave == 1) {

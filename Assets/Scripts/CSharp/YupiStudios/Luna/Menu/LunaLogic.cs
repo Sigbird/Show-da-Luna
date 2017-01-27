@@ -30,6 +30,10 @@ namespace YupiStudios.Luna.Menu {
 
 		void Start()
 		{
+			if (YupiPlay.Luna.BuildConfiguration.CurrentPurchaseType == YupiPlay.Luna.BuildType.Free) {
+				IsFree = true;
+			}
+
 			animatorLuna = GetComponent<Animator> ();
 			walkHash = Animator.StringToHash("lunaWalk");
 			idleHash = Animator.StringToHash("lunaIdle");

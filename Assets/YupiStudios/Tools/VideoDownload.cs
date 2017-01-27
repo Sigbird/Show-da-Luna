@@ -15,8 +15,8 @@ public class VideoDownload : MonoBehaviour {
 	[Tooltip("URL do arquivo em espanhol")]
 	public string UrlSpanish;
 
-    [Tooltip("Caminho em o arquivo será salvo")]
-	public string Path;
+    //[Tooltip("Caminho em o arquivo será salvo")]
+	//public string Path;
 	// Use this for initialization
 	private WWW request;
 	private bool downloadComplete = false;
@@ -24,6 +24,7 @@ public class VideoDownload : MonoBehaviour {
 	private string dirPath;
 	private bool downloadStarted = false;
 	private bool downloadError = false;
+	public const string VIDEODIR = "videos";
 
 	private string iosPath;
 
@@ -38,7 +39,7 @@ public class VideoDownload : MonoBehaviour {
 		if (Application.systemLanguage == SystemLanguage.Portuguese) {
 			filename = FileName;
 		}
-		dirPath = System.IO.Path.Combine(Application.persistentDataPath, Path);
+		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
 		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
 		//Debug.Log(absoluteFileName);

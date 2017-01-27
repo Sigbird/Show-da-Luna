@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using Soomla.Store;
+using YupiPlay.Luna;
 
 public class StarsBalanceUI : MonoBehaviour {
 	public Text StarsBalance;
@@ -9,6 +10,11 @@ public class StarsBalanceUI : MonoBehaviour {
 	public GameObject StarsAnim;
 	public GameObject BuyStarsWindow;
 
+	void Awake() {
+		if (BuildConfiguration.CurrentPurchaseType == BuildType.Free) {
+			gameObject.SetActive(false);
+		}
+	}
 	void Start() {
 		UpdateBalance();
 	}

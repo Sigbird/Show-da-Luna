@@ -2,6 +2,7 @@
 using System.Collections;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
+using YupiPlay.Luna;
 
 public class GamesServicesButtonManager : MonoBehaviour {
 
@@ -9,9 +10,14 @@ public class GamesServicesButtonManager : MonoBehaviour {
 	public GameObject LogoutText;
 	// Use this for initialization
 	void Start () {
+		if (!BuildConfiguration.GPGSEnabled) {
+			this.gameObject.SetActive(false);
+			LoginText.SetActive(false);
+			LogoutText.SetActive(false);
+			return;
+		}
 	
 		setButtonState();
-
 	}
 
 	private void setButtonState() {
