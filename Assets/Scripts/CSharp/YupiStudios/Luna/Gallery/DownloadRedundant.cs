@@ -25,8 +25,9 @@ namespace YupiPlay {
 
 		private Server[] localServers = new Server[] {
 			new Server("https://yupiplay.blob.core.windows.net/luna/", 1),
-            new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 1),
-            new Server("https://yupiplay.000webhostapp.com/luna/", 2)
+            new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
+            new Server("https://yupiplay.000webhostapp.com/luna/", 3),
+			new Server("https://yupistudios.000webhostapp.com/luna/", 3)
 		};
 
 		private const string FILENAME = "lunaservers.json";
