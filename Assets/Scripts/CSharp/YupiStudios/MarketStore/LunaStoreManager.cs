@@ -583,25 +583,22 @@ public class LunaStoreManager : MonoBehaviour {
 	}
 
 	public void onItemPurchased(PurchasableVirtualItem pvi, string payload) {
+		int amount = ((PurchaseWithVirtualItem) pvi.PurchaseType).Amount;
+		YupiAnalyticsEventHandler.VirtualItemEvent(pvi.ItemId, Application.systemLanguage.ToString(), amount);
+
 		//if any of the minigames was purchased
 		if (payload == LunaStoreAssets.MINIGAME_ASAS_ITEM_ID || payload == LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID) {
 			if (OnAsasPurchased != null) {
 				OnAsasPurchased();
 			}
-		}
-
-		if (payload == LunaStoreAssets.MINIGAME_ASAS_ITEM_ID) {
-			if (OnAsasPurchased != null) {
-				OnAsasPurchased();
-            }
-        }
+		}			
 
 		if (payload == LunaStoreAssets.STARS_FULL_GAME_ITEM_ID) {
 			if (OnFullGamePurchased != null) {
 				OnFullGamePurchased();
 			}
 		}
-
+	
 		if (payload == VIDEO) {
 			if (OnVideoPurchased != null) {
 				OnVideoPurchased(pvi.ItemId);

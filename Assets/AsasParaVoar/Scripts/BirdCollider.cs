@@ -16,9 +16,7 @@ public class BirdCollider : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-
-        Debug.Log(other.tag);
+	void OnTriggerEnter2D(Collider2D other) {	       
 		if (other.tag == "Airplane" && invincible == false) {
 			StartCoroutine(Blink());
 			GameController.Vida = GameController.Vida - 1;

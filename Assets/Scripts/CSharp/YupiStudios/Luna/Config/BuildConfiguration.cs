@@ -65,6 +65,7 @@ namespace YupiPlay.Luna {
 			_isFacebookEnabled = EnableFacebook;
 			_isPushEnabled = EnablePush;
 			_isYupiPlayButtonEnabled = EnableYupiPlayButton;
+			_isVideoDownloadsEnabled = EnableVideoDownloads;
 		}			
 	}	
 }

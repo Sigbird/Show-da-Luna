@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 using System.Reflection;
-
+using UnityEngine.SceneManagement;
 
 namespace YupiStudios.API.Utils {
 
@@ -41,7 +41,7 @@ namespace YupiStudios.API.Utils {
 				Time.timeScale = timeScaleValue;
 				break;
 			case EActionType.LoadScene:
-				Application.LoadLevel(scene);
+				SceneManager.LoadSceneAsync(scene);
 				break;
 			case EActionType.CallEvent:
 				CallEvent();

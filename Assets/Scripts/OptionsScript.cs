@@ -8,7 +8,7 @@ public class OptionsScript : MonoBehaviour {
 	private bool pathExists;
 
 	void Start(){
-		pathVideos = Application.persistentDataPath + "/videos";
+		pathVideos = Path.Combine(Application.persistentDataPath, VideoDownload.VIDEODIR);
 		pathExists = Directory.Exists (pathVideos);
 	}
 

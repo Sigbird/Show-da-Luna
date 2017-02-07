@@ -311,6 +311,10 @@ namespace YupiStudios.Analytics {
 		{
 			CallEvent ("Stars System", act, label, value);
 		}
+
+		public static void VirtualItemEvent(string item, string language, long ?value = null) {
+			CallEvent("Virtual Items Purchases", item, language, value);
+		}
 	}
 
 }

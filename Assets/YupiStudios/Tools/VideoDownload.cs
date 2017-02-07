@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.IO;
 using YupiPlay;
+using YupiPlay.Luna;
+using System.Collections;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -36,7 +38,13 @@ public class VideoDownload : MonoBehaviour {
     private int timesTried = 0;
     private int myPriority = 1;
 
+	private string offlinePath;
+
 	void Awake() {
+		if (!BuildConfiguration.VideoDownloadsEnabled) {			
+			offlinePath = System.IO.Path.Combine(Application.streamingAssetsPath, FileEN);		
+		}
+
 		string filename = FileNameEnglish;
 		if (Application.systemLanguage == SystemLanguage.Portuguese) {
 			filename = FileName;
@@ -107,7 +115,12 @@ public class VideoDownload : MonoBehaviour {
 		}
 	}	
 
-	public void DownloadFile() {	
+	public void DownloadFile() {
+		if (!BuildConfiguration.VideoDownloadsEnabled) {			
+			StartCoroutine(PlayOfflineVideo());
+			return;
+		}
+
 		downloadComplete = false;
 		downloadError = false;
 
@@ -156,7 +169,12 @@ public class VideoDownload : MonoBehaviour {
 		#if UNITY_IOS
 		return File.Exists(iosPath);
         #endif
-
+		if (!BuildConfiguration.VideoDownloadsEnabled) {
+			#if UNITY_ANDROID
+			return true;
+			#endif
+			return File.Exists(offlinePath);
+		}
 		return File.Exists(absoluteFileName);
 	}
 
@@ -216,6 +234,24 @@ public class VideoDownload : MonoBehaviour {
 		#endif
 		
 		File.Delete(absoluteFileName);
+	}		
+
+	public IEnumerator PlayOfflineVideo() {
+		DeleteExtractedVideos();
+		Directory.CreateDirectory(dirPath);
+
+		WWW video = new WWW(offlinePath);
+		yield return video;
+
+		FileStream stream = File.OpenWrite(absoluteFileName);
+		stream.Write(video.bytes, 0, video.bytes.Length);
+		stream.Close();
+		PlayVideoOnMobile();
 	}
 
+	public void DeleteExtractedVideos() {
+		if (Directory.Exists(dirPath)) {
+			Directory.Delete(dirPath, true);
+		}
+	}
 }
