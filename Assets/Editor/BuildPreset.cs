@@ -19,6 +19,11 @@ public class BuildPreset : EditorWindow {
 	public static BuildPreset MyWindow;
 	private bool edit;
 
+	[@MenuItem ("Luna/New Preset", false, 2)]
+	public static void ShowWindow() {
+		MyWindow = EditorWindow.GetWindow<BuildPreset>(true, "New Preset");
+	}
+
 	public void OnGUI() {
 		if (edit) {
 			EditorGUILayout.LabelField(Name, EditorStyles.boldLabel);
@@ -59,10 +64,5 @@ public class BuildPreset : EditorWindow {
 		EnablePush = preset.EnablePush;
 		EnableYupiPlayButton = preset.EnableYupiPlayButton;
 		EnableVideoDownloads = preset.EnableVideoDownloads;
-	}
-
-	[@MenuItem ("Luna/New Preset", false, 2)]
-	public static void ShowWindow() {
-		MyWindow = EditorWindow.GetWindow<BuildPreset>(true, "New Preset");
-	}
+	}		
 }

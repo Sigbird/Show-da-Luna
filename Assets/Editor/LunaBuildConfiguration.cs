@@ -13,6 +13,7 @@ public class LunaBuildConfiguration : EditorWindow {
 	private Vector2 scrollPos;
 	private int selected = 0;
 	private List<Preset> presets;
+
 	private GUILayoutOption[] options;
 
 	[@MenuItem ("Luna/Configuration Presets", false, 1)]

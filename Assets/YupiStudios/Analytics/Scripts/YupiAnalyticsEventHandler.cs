@@ -109,6 +109,7 @@ namespace YupiStudios.Analytics {
 			int times = StartNumber;
 			
 			ApplicationEvent ("Start", "StartNumber", times);
+			StartSession();
 		}
 
 		void Awake()
