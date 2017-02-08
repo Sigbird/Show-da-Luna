@@ -24,10 +24,16 @@ public class LunaBuildConfiguration : EditorWindow {
 	void OnGUI() {		
 		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
+		EditorGUILayout.BeginHorizontal();
 		if (presets != null && presets.Count > 0) {					
-			selected = EditorGUILayout.Popup("Select Preset:",selected, getLabelsArray());	
+			selected = EditorGUILayout.Popup("Select Preset:", selected, getLabelsArray());
+		}
+
+		bool applyPreset = GUILayout.Button("Apply Preset");
+		if (applyPreset) {
 			ApplySelection(selected);
 		}
+		EditorGUILayout.EndHorizontal();
 
 		EditorGUILayout.Space();
 		bool addPreset = GUILayout.Button("Add Preset");
@@ -54,6 +60,11 @@ public class LunaBuildConfiguration : EditorWindow {
 		LoadPresets();
 		options = new GUILayoutOption[1];
 		options[0] = GUILayout.MaxWidth(100f);
+
+		string previouslySelected = EditorPrefs.GetString("SelectedPreset");	
+		if (!String.IsNullOrEmpty(previouslySelected)) {
+			selected = presets.FindIndex(x => x.Name == previouslySelected);	
+		}			
 	}
 
 	public void ClearPresets() {
@@ -64,7 +75,7 @@ public class LunaBuildConfiguration : EditorWindow {
 	public void CreatePresetsList() {	
 		if (presets != null && presets.Count > 0)	 {			
 			foreach (Preset preset in presets) {				
-				EditorGUILayout.LabelField(preset.Name + ":");
+				EditorGUILayout.LabelField(preset.Name + ":", EditorStyles.boldLabel);
 				string purschaseType = preset.PurchaseType == BuildType.Free ? "Free" : "IAP";
 				EditorGUILayout.LabelField(purschaseType);
 				EditorGUILayout.Toggle("GPGS", preset.EnableGPGS);
@@ -124,6 +135,7 @@ public class LunaBuildConfiguration : EditorWindow {
 			config.EnableFacebook = preset.EnableFacebook;
 			config.EnablePush = preset.EnablePush;
 			config.EnableYupiPlayButton = preset.EnableYupiPlayButton;
+			config.EnableVideoDownloads = preset.EnableVideoDownloads;
 
 			string bundleVersion = PlayerSettings.bundleVersion;
 
@@ -132,7 +144,8 @@ public class LunaBuildConfiguration : EditorWindow {
 			}				
 			analytics.bundleVersion = bundleVersion;
 
-			EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetSceneByName("Splash"));	
+			EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetSceneByName("Splash"));
+			EditorSceneManager.SaveOpenScenes();
 		}
 	}
 

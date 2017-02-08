@@ -38,11 +38,12 @@ public class VideoDownload : MonoBehaviour {
     private int timesTried = 0;
     private int myPriority = 1;
 
-	private string offlinePath;
+	private string offlineFile;
 
 	void Awake() {
 		if (!BuildConfiguration.VideoDownloadsEnabled) {			
-			offlinePath = System.IO.Path.Combine(Application.streamingAssetsPath, FileEN);		
+			offlineFile = System.IO.Path.Combine(Application.streamingAssetsPath, VIDEODIR);		
+			offlineFile = System.IO.Path.Combine(offlineFile, FileEN);
 		}
 
 		string filename = FileNameEnglish;
@@ -173,7 +174,7 @@ public class VideoDownload : MonoBehaviour {
 			#if UNITY_ANDROID
 			return true;
 			#endif
-			return File.Exists(offlinePath);
+			return File.Exists(offlineFile);
 		}
 		return File.Exists(absoluteFileName);
 	}
@@ -240,7 +241,7 @@ public class VideoDownload : MonoBehaviour {
 		DeleteExtractedVideos();
 		Directory.CreateDirectory(dirPath);
 
-		WWW video = new WWW(offlinePath);
+		WWW video = new WWW(offlineFile);
 		yield return video;
 
 		FileStream stream = File.OpenWrite(absoluteFileName);

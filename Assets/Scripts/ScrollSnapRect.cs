@@ -308,11 +308,19 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
 	public void FirtLastController()
 	{	
+		if (_pageCount == 1) {
+			prevButton.GetComponent<Button>().interactable = false;
+			nextButton.GetComponent<Button>().interactable = false;
+			return;
+		}
+		
 		if (_currentPage == 0) {
 			//Se for o primeiro desativa o da esquerada
 			prevButton.GetComponent<Button>().interactable = false;
+			nextButton.GetComponent<Button>().interactable = true;
 		} else if (_currentPage == _pageCount-1) {
 			//Se for o ultimo desativa o da direita
+			prevButton.GetComponent<Button>().interactable = true;
 			nextButton.GetComponent<Button>().interactable = false;
 		}else {
 			prevButton.GetComponent<Button>().interactable = true;

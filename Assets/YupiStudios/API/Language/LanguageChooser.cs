@@ -19,9 +19,11 @@ namespace YupiStudios.API.Language {
 		public GameObject activateAsDefault; 
 
 		void Awake () {
-
 			SystemLanguage lang = Application.systemLanguage;
 
+			if (YupiPlay.Luna.BuildConfiguration.VideoDownloadsEnabled == false) {
+				lang = SystemLanguage.English;
+			}				
 			//Teste
 			//Debug.Log (lang.ToString());
 			

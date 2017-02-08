@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 public class ManagerNewMenu : MonoBehaviour {
 	public float DelayToLoadScene = 0.9f;
 
+	public GameObject OptionsButton;
+
     public void EnterScene(string sceneToLoad)
     {
         if (!string.IsNullOrEmpty(sceneToLoad))
-			SceneManager.LoadSceneAsync(sceneToLoad);
+			SceneManager.LoadScene(sceneToLoad);
             //Application.LoadLevel(sceneToLoad);
     }
 
@@ -29,4 +31,17 @@ public class ManagerNewMenu : MonoBehaviour {
 			EnterScene("VideoGallery");
 		}
 	}	
+
+	void Awake() {
+		if (BuildConfiguration.GPGSEnabled || BuildConfiguration.VideoDownloadsEnabled 
+			|| BuildConfiguration.CurrentPurchaseType == BuildType.IAP) {
+			return;
+		} else {
+			if (OptionsButton != null) {
+				OptionsButton.transform.parent = null;
+				Destroy(OptionsButton);	
+			}
+
+		}
+	}
 }
