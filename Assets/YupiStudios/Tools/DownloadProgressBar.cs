@@ -17,6 +17,13 @@ public class DownloadProgressBar : MonoBehaviour, IDownloadListener {
 	// Update is called once per frame
 	void Update () {
 		if (!downloadComplete) {
+			OnProgress();
+
+			if (download.hasError()) {
+				OnDownloadError();
+				return;
+			}
+
 			if (download.IsDone()) {
 				OnDownloadComplete();
 				
@@ -24,23 +31,21 @@ public class DownloadProgressBar : MonoBehaviour, IDownloadListener {
 					OnDownloadError(error);
 				}
 				return;
-			}
+			}				
 		}
-		
-		OnProgress();
 	}
 	
 	public void OnProgress() {
+		if (!ProgressBar.activeInHierarchy && !download.IsDone()) {
+			OnRequestStarted();
+		}
+
 		float progress = download.GetProgress();
 		
-		if (!downloadComplete && progress > 0) {
+		if (progress > 0f) {
 			Progress.fillAmount = progress;
 			return;
 		} 
-		
-		if (!download.IsDone()) {
-			OnRequestStarted();
-		}
 	}
 	
 	public void OnRequestStarted() {
@@ -48,9 +53,6 @@ public class DownloadProgressBar : MonoBehaviour, IDownloadListener {
 			Progress.fillAmount = 0f;
 			ProgressBar.SetActive(true);
 		}
-		//		if (download.FileExists()) {
-		//			text.text = "File Exists";
-		//		}
 	}
 	
 	public void OnDownloadComplete() {
@@ -58,11 +60,10 @@ public class DownloadProgressBar : MonoBehaviour, IDownloadListener {
 		if (string.IsNullOrEmpty(download.GetError())) {
 			downloadComplete = true;
 			ProgressBar.SetActive(false);
-			//download.PlayVideoOnMobile();
 		}
 	}
 	
-	public void OnDownloadError(string error) {
+	public void OnDownloadError(string error = null) {
 		ProgressBar.SetActive(false);
 	}
 }

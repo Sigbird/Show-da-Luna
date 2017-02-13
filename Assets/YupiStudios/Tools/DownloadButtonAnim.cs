@@ -7,6 +7,8 @@ public class DownloadButtonAnim : MonoBehaviour, IDownloadListener {
 	private bool downloadComplete = false;
 	private string error = null;
 
+	private bool isAnimating;
+
 	// Use this for initialization
 	void Start () {		
 	}
@@ -14,6 +16,17 @@ public class DownloadButtonAnim : MonoBehaviour, IDownloadListener {
 	// Update is called once per frame
 	void Update () {
 		if (!downloadComplete) {
+			OnProgress();
+
+			if (download.hasError()) {
+				OnDownloadError();
+				return;
+			}
+
+			if (!string.IsNullOrEmpty(download.GetError())) {
+				OnDownloadError(error);
+			}
+
 			if (download.IsDone()) {
 				OnDownloadComplete();
 				
@@ -21,28 +34,17 @@ public class DownloadButtonAnim : MonoBehaviour, IDownloadListener {
 					OnDownloadError(error);
 				}
 				return;
-			}
-		}
-		
-		OnProgress();
-	}
-	
-	public void OnProgress() {
-		float progress = download.GetProgress();
-		
-		if (!downloadComplete && progress > 0) {
-			animator.SetTrigger("AnimateButton");
-			return;
-		} 
-		
-		if (!download.IsDone()) {
-			OnRequestStarted();
+			}				
 		}
 	}
 	
+	public void OnProgress() {						
+		OnRequestStarted();
+	}
+
 	public void OnRequestStarted() {
-		if (download.IsDownloadStarted()) {
-			//animator.SetTrigger("AnimateButton");
+		if (download.IsDownloadStarted() && !animator.GetCurrentAnimatorStateInfo(0).IsName("DownloadAnim")) {
+			animator.SetTrigger("AnimateButton");	
 		}
 	}
 	
@@ -53,7 +55,7 @@ public class DownloadButtonAnim : MonoBehaviour, IDownloadListener {
 		}
 	}
 	
-	public void OnDownloadError(string error) {
+	public void OnDownloadError(string error = null) {
 		animator.SetTrigger("DownloadIdle");
 	}
 }

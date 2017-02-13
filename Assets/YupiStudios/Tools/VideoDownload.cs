@@ -37,8 +37,13 @@ public class VideoDownload : MonoBehaviour {
 
     private int timesTried = 0;
     private int myPriority = 1;
+	private int timesTriedCurrentPriority = 0;
+	private float progress = 0;
 
 	private string offlineFile;
+	private const float timeLimit = 30f;
+	private float timeOut = 0f;
+	private float oldProgress = 0f;
 
 	void Awake() {
 		if (!BuildConfiguration.VideoDownloadsEnabled) {			
@@ -66,53 +71,27 @@ public class VideoDownload : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!downloadComplete) {
-			if (request != null && request.isDone){
-				if (string.IsNullOrEmpty(request.error)) {
-					downloadComplete = true;
-					downloadStarted = false;
-					downloadError = false;
-					SaveFile();
-				} else {
-					if (OnDownloadStartError != null) {
-                        timesTried++;
+		if (!downloadComplete && downloadStarted) {		
 
-                        int currentPriorityCount = DownloadRedundant.Instance.GetCurrentPriorityCount();
+			if (timeOut >= timeLimit) {
+				downloadError = true;
+				downloadStarted = false;
+				downloadComplete = true;
 
-                        if (timesTried < currentPriorityCount) {
-                            downloadStarted = false;
-                            DownloadFile();
-                            return;
-                        }
-                        myPriority++;
+				DeleteFile();
 
-                        //se ja tentou todos
-                        if (timesTried >= DownloadRedundant.Instance.GetCount()) {
-                            myPriority = 1;
-                            OnDownloadStartError(request.error);
-
-                            downloadComplete = true;
-                            downloadStarted = false;
-                            downloadError = true;
-
-                            DeleteFile();
-                            return;    
-                        }                        					
-                    }                    
-				}
-			}
-
-			if (request != null && !string.IsNullOrEmpty(request.error)) {
 				if (OnDownloadStartError != null) {
-					OnDownloadStartError(request.error);
-					
-					downloadComplete = true;
-					downloadStarted = false;
-					downloadError = true;
-					
-					DeleteFile();
-				}     
+					OnDownloadStartError(request.error);	
+				}
+				return;
+			}	
+
+			if (request.progress > 0 && request.progress > oldProgress) {
+				timeOut = 0f;
 			}
+
+			timeOut += Time.unscaledDeltaTime;
+			if (request.progress > 0) oldProgress = request.progress;
 		}
 	}	
 
@@ -126,16 +105,66 @@ public class VideoDownload : MonoBehaviour {
 		downloadError = false;
 
 		if ((!FileExists() && !downloadStarted) || downloadError) {	
-			request = new WWW(getVideoUrl());
-
-			downloadStarted = true;
+			StartCoroutine(Downloader());
 			return;
 		}
 
 		if (!downloadError && !downloadStarted) {
 			PlayVideoOnMobile();
 		}
+	}
 
+	private IEnumerator Downloader() {
+		request = new WWW(getVideoUrl());
+		downloadStarted = true;
+		timeOut = 0f;
+
+		yield return request;
+
+		if (!string.IsNullOrEmpty(request.error)) {
+			timesTried++;
+			timesTriedCurrentPriority++;
+
+			int currentPriorityCount = DownloadRedundant.Instance.GetCurrentPriorityCount();
+			int mirrorsCount = DownloadRedundant.Instance.GetCount();
+
+			downloadStarted = false;
+			if (timesTriedCurrentPriority < currentPriorityCount) {				
+				DownloadFile();
+				yield break;
+			} else if (timesTried < mirrorsCount) {
+				myPriority++;
+				timesTriedCurrentPriority = 0;
+				DownloadFile();
+				yield break;
+			}
+
+			//se ja tentou todos
+			if (timesTried >= DownloadRedundant.Instance.GetCount()) {
+				myPriority = 1;
+				timesTried = 0;
+				timesTriedCurrentPriority = 0;
+
+				downloadComplete = true;
+				downloadStarted = false;
+				downloadError = true;
+
+				DeleteFile();
+
+				if (OnDownloadStartError != null) {
+					OnDownloadStartError(request.error);	
+				}
+					
+				yield break;
+			} 
+		}
+
+		if (request.isDone && string.IsNullOrEmpty(request.error)) {
+			downloadComplete = true;
+			downloadStarted = false;
+			downloadError = false;
+			SaveFile();
+		}
 	}
 
 	public float GetProgress() {
@@ -205,6 +234,10 @@ public class VideoDownload : MonoBehaviour {
 		return null;
 	}
 
+	public bool hasError() {
+		return downloadError;
+	}
+
 	public void PlayVideoOnMobile() {
 #if UNITY_IOS
 		Handheld.PlayFullScreenMovie(iosPath);
@@ -255,4 +288,58 @@ public class VideoDownload : MonoBehaviour {
 			Directory.Delete(dirPath, true);
 		}
 	}
+
+	/*
+	private void OldDownloaderUpdate() {
+		if (!downloadComplete) {
+			if (request != null && request.isDone){
+				if (string.IsNullOrEmpty(request.error)) {
+					downloadComplete = true;
+					downloadStarted = false;
+					downloadError = false;
+					SaveFile();
+				} else {
+					timesTried++;
+
+					int currentPriorityCount = DownloadRedundant.Instance.GetCurrentPriorityCount();
+
+					if (timesTried < currentPriorityCount) {
+						downloadStarted = false;
+						DownloadFile();
+						return;
+					}
+					myPriority++;
+
+					//se ja tentou todos
+					if (timesTried >= DownloadRedundant.Instance.GetCount()) {
+						myPriority = 1;
+
+						downloadComplete = true;
+						downloadStarted = false;
+						downloadError = true;
+
+						DeleteFile();
+
+						if (OnDownloadStartError != null) {
+							OnDownloadStartError(request.error);	
+						}
+
+						return;    
+					}                        					                                       
+				}
+			}
+
+			if (request != null && !string.IsNullOrEmpty(request.error)) {
+				if (OnDownloadStartError != null) {
+					OnDownloadStartError(request.error);
+
+					downloadComplete = true;
+					downloadStarted = false;
+					downloadError = true;
+
+					DeleteFile();
+				}     
+			}
+		}
+	}*/
 }

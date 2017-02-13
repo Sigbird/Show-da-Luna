@@ -7,6 +7,8 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 
 	private bool downloadComplete = false;
 	private string error = null;
+
+	private float oldProgress = 0f;
 	// Use this for initialization
 	void Start () {
 	}
@@ -14,6 +16,13 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 	// Update is called once per frame
 	void Update () {
 		if (!downloadComplete) {
+			OnProgress();
+
+			if (download.hasError()) {
+				OnDownloadError();
+				return;
+			}
+
 			if (download.IsDone()) {
 				OnDownloadComplete();
 
@@ -21,44 +30,44 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 					OnDownloadError(error);
 				}
 				return;
-			}
-		}
-
-		OnProgress();
+			}				
+		}			
 	}
 
 	public void OnProgress() {
-		float progress = 100f * download.GetProgress();
-		
-		if (!downloadComplete && progress > 0) {
-			text.text = ((int) progress) + "%";
-			return;
-		} 
+		bool isdone = download.IsDone();
 
-		if (!download.IsDone()) {
+		if (string.IsNullOrEmpty(text.text) && !isdone) {
 			OnRequestStarted();
 		}
+
+		float rawProgress = download.GetProgress();
+
+		if (rawProgress > 0f) {
+			oldProgress = rawProgress;
+
+			float progress = 100f * rawProgress;
+			text.text = ((int) progress) + "%";
+			return;
+		}			
 	}
 
 	public void OnRequestStarted() {
-		if (download.IsDownloadStarted()) {
+		if (download.IsDownloadStarted()) {			
+			text.gameObject.SetActive(true);
 			text.text = "0%";
 		}
-//		if (download.FileExists()) {
-//			text.text = "File Exists";
-//		}
 	}
 
 	public void OnDownloadComplete() {
 		text.text = "100%";
 		if (string.IsNullOrEmpty(download.GetError())) {
 			downloadComplete = true;
-			text.gameObject.SetActive(false);
-			//download.PlayVideoOnMobile();
+			text.text = null;
 		}
 	}
 
-	public void OnDownloadError(string error) {
-		text.text = "";
+	public void OnDownloadError(string error = null) {
+		text.text = null;
 	}
 }
