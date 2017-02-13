@@ -11,6 +11,7 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 	private float oldProgress = 0f;
 	// Use this for initialization
 	void Start () {
+		text.text = null;
 	}
 	
 	// Update is called once per frame
@@ -34,10 +35,8 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 		}			
 	}
 
-	public void OnProgress() {
-		bool isdone = download.IsDone();
-
-		if (string.IsNullOrEmpty(text.text) && !isdone) {
+	public void OnProgress() {		
+		if (string.IsNullOrEmpty(text.text) && !download.IsDone()) {
 			OnRequestStarted();
 		}
 
