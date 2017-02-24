@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YupiPlay.Luna;
@@ -7,6 +8,7 @@ using MiniJSON;
 
 public class Preset {
 	public string Name = "Google Play";
+	public string PackageId = "";
 	public BuildType PurchaseType = BuildType.IAP;
 	public bool EnableGPGS = true;
 	public bool EnableFacebook = true;
@@ -14,9 +16,10 @@ public class Preset {
 	public bool EnableYupiPlayButton = true;
 	public bool EnableVideoDownloads = true;
 
-	public Preset(string name, BuildType purchaseType, bool enableGPGS, bool enableFacebook, bool enablePush, 
+	public Preset(string name, string packageId, BuildType purchaseType, bool enableGPGS, bool enableFacebook, bool enablePush, 
 		bool enableYupiPlayButton, bool enableVideoDownloads) {
 		Name = name;
+		PackageId = packageId;
 		PurchaseType = purchaseType;
 		EnableGPGS = enableGPGS;
 		EnableFacebook = enableFacebook;
@@ -51,6 +54,7 @@ public class Preset {
 	private static Dictionary<string,object> ToDictionary(Preset preset) {
 		Dictionary<string,object> jsonObject = new Dictionary<string,object>();
 		jsonObject["Name"] = (object) preset.Name;
+		jsonObject["PackageId"] = (object) preset.PackageId;
 
 		int purchaseType = preset.PurchaseType == BuildType.Free ? 2 : 1;
 		jsonObject["PurchaseType"] = (object) purchaseType;
@@ -85,6 +89,7 @@ public class Preset {
 				Preset x = new Preset();
 
 				x.Name = (string) preset["Name"];
+				x.PackageId = (string) preset["PackageId"];
 				long purchaseType = (long) preset["PurchaseType"];
 				x.PurchaseType = purchaseType == 2 ? BuildType.Free : BuildType.IAP;
 				x.EnableGPGS = (bool) preset["EnableGPGS"];
@@ -113,3 +118,4 @@ public class Preset {
 		}
 	}		
 }
+#endif

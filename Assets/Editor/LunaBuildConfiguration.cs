@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -9,6 +10,15 @@ using UnityEditor.SceneManagement;
 
 public class LunaBuildConfiguration : EditorWindow {			
 	public static LunaBuildConfiguration MyWindow;
+
+	public string BaseVersionName = "2.2.5";
+
+	#if UNITY_ANDROID
+	private const string basePackageId = "com.YupiPlay.Luna";
+	#endif
+	#if UNITY_IOS
+	private const string basePackageId = "com.yupiplay.luna";
+	#endif
 
 	private Vector2 scrollPos;
 	private int selected = 0;
@@ -23,7 +33,9 @@ public class LunaBuildConfiguration : EditorWindow {
 
 	void OnGUI() {		
 		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+		BaseVersionName = EditorGUILayout.TextField("Bundle Version:", BaseVersionName);
 
+		EditorGUILayout.Space();
 		EditorGUILayout.BeginHorizontal();
 		if (presets != null && presets.Count > 0) {					
 			selected = EditorGUILayout.Popup("Select Preset:", selected, getLabelsArray());
@@ -60,15 +72,18 @@ public class LunaBuildConfiguration : EditorWindow {
 		LoadPresets();
 		options = new GUILayoutOption[1];
 		options[0] = GUILayout.MaxWidth(100f);
+        BaseVersionName = EditorPrefs.GetString("CustomVersionName");
 
 		string previouslySelected = EditorPrefs.GetString("SelectedPreset");	
-		if (!String.IsNullOrEmpty(previouslySelected)) {
+		if (!String.IsNullOrEmpty(previouslySelected) && presets != null) {
 			selected = presets.FindIndex(x => x.Name == previouslySelected);	
 		}			
 	}
 
 	public void ClearPresets() {
 		Preset.ClearPresets();
+		EditorPrefs.DeleteKey("SelectedPreset");
+		EditorPrefs.DeleteKey("CustomVersionName");
 		if (presets != null) presets.Clear();
 	}
 
@@ -77,6 +92,7 @@ public class LunaBuildConfiguration : EditorWindow {
 			foreach (Preset preset in presets) {				
 				EditorGUILayout.LabelField(preset.Name + ":", EditorStyles.boldLabel);
 				string purschaseType = preset.PurchaseType == BuildType.Free ? "Free" : "IAP";
+				EditorGUILayout.LabelField("Package Id:", preset.PackageId);
 				EditorGUILayout.LabelField(purschaseType);
 				EditorGUILayout.Toggle("GPGS", preset.EnableGPGS);
 				EditorGUILayout.Toggle("Facebook", preset.EnableFacebook);
@@ -120,13 +136,24 @@ public class LunaBuildConfiguration : EditorWindow {
 		return null;
 	}
 
-	private void ApplySelection(int selected) {
-		if (EditorSceneManager.GetActiveScene().name == "Splash") {
-            if (selected >= presets.Count && presets.Count > 0) {
-                selected = 0;
-            }
-			Preset preset = presets[selected];
+	private void ApplySelection(int selected) {		
+        if (selected >= presets.Count && presets.Count > 0) {
+            selected = 0;
+        }
+		Preset preset = presets[selected];
 
+        EditorPrefs.SetString("CustomVersionName", BaseVersionName);
+        PlayerSettings.bundleIdentifier = basePackageId + preset.PackageId;
+
+        string bundleVersion = BaseVersionName;
+        if (preset.Name != "Google Play" && preset.Name != "Apps Club")
+        {
+            bundleVersion = BaseVersionName + " " + preset.Name;
+        }
+
+        PlayerSettings.bundleVersion = bundleVersion;
+
+        if (EditorSceneManager.GetActiveScene().name == "Splash") {
 			BuildConfiguration config = GameObject.FindObjectOfType<BuildConfiguration>();
 			GoogleAnalyticsV3 analytics = GameObject.FindObjectOfType<GoogleAnalyticsV3>();
 
@@ -136,13 +163,9 @@ public class LunaBuildConfiguration : EditorWindow {
 			config.EnablePush = preset.EnablePush;
 			config.EnableYupiPlayButton = preset.EnableYupiPlayButton;
 			config.EnableVideoDownloads = preset.EnableVideoDownloads;
-
-			string bundleVersion = PlayerSettings.bundleVersion;
-
-			if (preset.Name != "Google Play") {
-				bundleVersion = PlayerSettings.bundleVersion + " " + preset.Name;	
-			}				
+						
 			analytics.bundleVersion = bundleVersion;
+            EditorUtility.SetDirty(analytics);
 
 			EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetSceneByName("Splash"));
 			EditorSceneManager.SaveOpenScenes();
@@ -167,3 +190,4 @@ public class LunaBuildConfiguration : EditorWindow {
 		presetWindow.Edit(preset);
 	}
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -7,6 +8,7 @@ using MiniJSON;
 
 public class BuildPreset : EditorWindow {
 	public string Name = "Google Play";
+	public string PackageId = "";
 	public BuildType PurchaseType = BuildType.IAP;
 	public bool EnableGPGS = true;
 	public bool EnableFacebook = true;
@@ -29,8 +31,10 @@ public class BuildPreset : EditorWindow {
 			EditorGUILayout.LabelField(Name, EditorStyles.boldLabel);
 		} else {
 			Name = EditorGUILayout.TextField("Preset Name", Name);	
-		}
+		}			
 		EditorGUILayout.Space();
+
+		PackageId = EditorGUILayout.TextField("Package Id:", PackageId);
 
 		PurchaseType = (BuildType)EditorGUILayout.EnumPopup("Purchase Type", PurchaseType);
 
@@ -45,7 +49,7 @@ public class BuildPreset : EditorWindow {
 		bool savePreset = GUILayout.Button("Save Preset");
 
 		if (savePreset) {	
-			Preset preset = new Preset(Name, PurchaseType, EnableGPGS, EnableFacebook, EnablePush, EnableYupiPlayButton,
+			Preset preset = new Preset(Name, PackageId, PurchaseType, EnableGPGS, EnableFacebook, EnablePush, EnableYupiPlayButton,
 				EnableVideoDownloads);
 
 			Preset.Save(preset);
@@ -58,6 +62,7 @@ public class BuildPreset : EditorWindow {
 	public void Edit(Preset preset) {
 		edit = true;
 		Name = preset.Name;
+		PackageId = preset.PackageId;
 		PurchaseType = preset.PurchaseType;
 		EnableGPGS = preset.EnableGPGS;
 		EnableFacebook = preset.EnableFacebook;
@@ -66,3 +71,4 @@ public class BuildPreset : EditorWindow {
 		EnableVideoDownloads = preset.EnableVideoDownloads;
 	}		
 }
+#endif
