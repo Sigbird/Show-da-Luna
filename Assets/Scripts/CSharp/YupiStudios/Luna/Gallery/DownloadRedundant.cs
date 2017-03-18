@@ -23,11 +23,14 @@ namespace YupiPlay {
 			}
 		}
 
-		private Server[] localServers = new Server[] {
-			new Server("https://yupiplay.blob.core.windows.net/luna/", 1),
-            new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
-            new Server("https://yupiplay.000webhostapp.com/luna/", 3),
-			new Server("https://yupistudios.000webhostapp.com/luna/", 3)
+        private Server[] localServers = new Server[] {            
+            new Server("https://lunacdn.azureedge.net", 1),
+  //            new Server("https://yupiplayluna.blob.core.windows.net/videos", 1),
+   //         new Server("https://yupiplay2.blob.core.windows.net/luna", 1),
+   //         new Server("https://yupiplay.blob.core.windows.net/luna", 1),
+   //         new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
+   //         new Server("https://yupiplay.000webhostapp.com/luna/", 3),
+			//new Server("https://yupistudios.000webhostapp.com/luna/", 3)
 		};
 
 		private const string FILENAME = "lunaservers.json";
@@ -63,13 +66,18 @@ namespace YupiPlay {
             StartCoroutine(init());
         }        		
 
-		private IEnumerator init() {			      
-			if (canReadFromNetwork()) {
-				readFromNetwork();
-				yield break;
-			}
-			readFromPlayerPrefs();
-		}
+		private IEnumerator init() {	
+			readFromSource();
+
+            //if (canReadFromNetwork())
+            //{
+            //    readFromNetwork();
+            //    yield break;
+            //}
+            //readFromPlayerPrefs();
+
+            yield break;
+        }
 
 		public int GetCurrentPriority() {
 			if (state == States.READY) {

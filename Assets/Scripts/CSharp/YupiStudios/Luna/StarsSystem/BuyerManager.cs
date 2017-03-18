@@ -8,25 +8,25 @@ public class BuyerManager : MonoBehaviour {
 
 	public void BuyVideo(){
 
-		BuyStarsParental.SetActive (true);
+		//BuyStarsParental.SetActive (true);
 
 		if (LunaStoreManager.Instance.CanAffordItem (LunaStoreAssets.STARS_VIDEO_01_COL_01_LTVG_ITEM_ID)) {
 			BuyStarsParental.SetActive(false);
 		} else {
-			BuyStarsParental.SetActive(false);
-			BuyStarsWindow.SetActive(true);
+			BuyStarsParental.SetActive(true);
+		//	BuyStarsWindow.SetActive(true);
 		}
 	}
 
 	public void BuyCollection(){
 
-		BuyStarsParental.SetActive(true);
+		//BuyStarsParental.SetActive(true);
 
 		if (LunaStoreManager.Instance.CanAffordItem (LunaStoreAssets.STARS_COLLECTION01_LTVG_ITEM_ID)) {
 				BuyStarsParental.SetActive(false);
 		} else {
-			BuyStarsParental.SetActive(false);
-			BuyStarsWindow.SetActive(true);
+			BuyStarsParental.SetActive(true);
+			//BuyStarsWindow.SetActive(true);
 		}
 	}
 
