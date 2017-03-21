@@ -615,4 +615,12 @@ public class LunaStoreManager : MonoBehaviour {
 			GameSave.WriteSave();
 		}
 	}
+
+    public static void CallBoughtStarsEvent()
+    {
+        if (OnBoughtStars != null)
+        {
+            OnBoughtStars();
+        }
+    }
 }

@@ -16,7 +16,10 @@ namespace YupiStudios.API.Language {
 
 		public LanguageObject[] languageObjects;
 		
-		public GameObject activateAsDefault; 
+		public GameObject activateAsDefault;
+        public GameObject Formatted;
+
+        private GameObject currentlyActive;
 
 		void Awake () {
 			SystemLanguage lang = Application.systemLanguage;
@@ -37,7 +40,8 @@ namespace YupiStudios.API.Language {
 					found = true;
 					if (l.ObjectToActivate)
 					{					
-						l.ObjectToActivate.SetActive(true);					
+						l.ObjectToActivate.SetActive(true);
+                        currentlyActive = l.ObjectToActivate;		
 					}
 					break;
 				}
@@ -47,8 +51,14 @@ namespace YupiStudios.API.Language {
 			if (!found && activateAsDefault)
 			{
 				activateAsDefault.SetActive(true);
+                currentlyActive = activateAsDefault;
 			}
 		}
+
+        public GameObject GetCurrent()
+        {
+            return currentlyActive;
+        }
 
 	}
 
