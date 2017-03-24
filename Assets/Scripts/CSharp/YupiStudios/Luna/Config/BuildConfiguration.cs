@@ -13,6 +13,7 @@ namespace YupiPlay.Luna {
 		public bool EnablePush = true;
 		public bool EnableYupiPlayButton = true;
 		public bool EnableVideoDownloads = true;
+		public bool EnableRedeemCode = true;
 
 		//variáveis que são verificadas nos scripts para determinar as coisas
 		public static BuildType CurrentPurchaseType {
@@ -39,6 +40,10 @@ namespace YupiPlay.Luna {
 			get {return _isVideoDownloadsEnabled;}
 		}
 
+		public static bool RedeemCodeEnabled {
+			get {return _isRedeemCodeEnabled;}
+		}
+
 		//variáveis internas
 		private static BuildType _currentBuild;
 		private static bool _isGPGSEnabled;
@@ -46,6 +51,7 @@ namespace YupiPlay.Luna {
 		private static bool _isPushEnabled;
 		private static bool _isYupiPlayButtonEnabled;
 		private static bool _isVideoDownloadsEnabled;
+		private static bool _isRedeemCodeEnabled;
 
 		void Awake() {
 			_currentBuild = PurchaseType;
@@ -54,6 +60,7 @@ namespace YupiPlay.Luna {
 			_isPushEnabled = EnablePush;
 			_isYupiPlayButtonEnabled = EnableYupiPlayButton;
 			_isVideoDownloadsEnabled = EnableVideoDownloads;
+			_isRedeemCodeEnabled = EnableRedeemCode;
 		}			
 	}	
 }
