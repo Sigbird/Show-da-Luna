@@ -1,25 +1,13 @@
 ﻿#if UNITY_EDITOR
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using YupiPlay.Luna;
-using MiniJSON;
 
-public class BuildPreset : EditorWindow {
-	public string Name = "Google Play";
-	public string PackageId = "";
-	public BuildType PurchaseType = BuildType.IAP;
-	public bool EnableGPGS = true;
-	public bool EnableFacebook = true;
-	public bool EnablePush = true;
-	public bool EnableYupiPlayButton = true;
-	public bool EnableVideoDownloads = true;
-
-	private int purchaseType;
-
+public class BuildPreset : EditorWindow {	
 	public static BuildPreset MyWindow;
 	private bool edit;
+
+    private Preset preset;
 
 	[@MenuItem ("Luna/New Preset", false, 2)]
 	public static void ShowWindow() {
@@ -27,48 +15,41 @@ public class BuildPreset : EditorWindow {
 	}
 
 	public void OnGUI() {
+        if (preset == null) {
+            preset = new Preset();
+        }       
+
 		if (edit) {
-			EditorGUILayout.LabelField(Name, EditorStyles.boldLabel);
+			EditorGUILayout.LabelField(preset.Name, EditorStyles.boldLabel);
 		} else {
-			Name = EditorGUILayout.TextField("Preset Name", Name);	
+            preset.Name = EditorGUILayout.TextField("Preset Name", preset.Name);	
 		}			
 		EditorGUILayout.Space();
 
-		PackageId = EditorGUILayout.TextField("Package Id:", PackageId);
+		preset.PackageId = EditorGUILayout.TextField("Package Id:", preset.PackageId);
 
-		PurchaseType = (BuildType)EditorGUILayout.EnumPopup("Purchase Type", PurchaseType);
+		preset.PurchaseType = (BuildType)EditorGUILayout.EnumPopup("Purchase Type", preset.PurchaseType);		
 
-		purchaseType = PurchaseType == BuildType.Free ? 2 : 1;
+		preset.EnableGPGS = EditorGUILayout.Toggle("Enable GPGS", preset.EnableGPGS);
+		preset.EnableFacebook = EditorGUILayout.Toggle("Enable Facebook", preset.EnableFacebook);
+		preset.EnablePush = EditorGUILayout.Toggle("Enable Push", preset.EnablePush);
+		preset.EnableYupiPlayButton = EditorGUILayout.Toggle("Enable Yupi Play Button", preset.EnableYupiPlayButton);
+		preset.EnableVideoDownloads = EditorGUILayout.Toggle("Enable Video Downloads", preset.EnableVideoDownloads);
+        preset.EnableRedeemCode = EditorGUILayout.Toggle("Enable Redeem Code", preset.EnableRedeemCode);
 
-		EnableGPGS = EditorGUILayout.Toggle("Enable GPGS", EnableGPGS);
-		EnableFacebook = EditorGUILayout.Toggle("Enable Facebook", EnableFacebook);
-		EnablePush = EditorGUILayout.Toggle("Enable Push", EnablePush);
-		EnableYupiPlayButton = EditorGUILayout.Toggle("Enable Yupi Play Button", EnableYupiPlayButton);
-		EnableVideoDownloads = EditorGUILayout.Toggle("Enable Video Downloads", EnableVideoDownloads);
+        bool savePreset = GUILayout.Button("Save Preset");
 
-		bool savePreset = GUILayout.Button("Save Preset");
-
-		if (savePreset) {	
-			Preset preset = new Preset(Name, PackageId, PurchaseType, EnableGPGS, EnableFacebook, EnablePush, EnableYupiPlayButton,
-				EnableVideoDownloads);
-
-			Preset.Save(preset);
-			MyWindow.Close();
-			LunaBuildConfiguration presetsWindow = EditorWindow.GetWindow<LunaBuildConfiguration>(true, "Configuration Presets");
-			presetsWindow.LoadPresets();
-		}
-	}			
+        if (savePreset) {           
+            Preset.Save(preset);
+            MyWindow.Close();
+            LunaBuildConfiguration presetsWindow = EditorWindow.GetWindow<LunaBuildConfiguration>(true, "Configuration Presets");
+            presetsWindow.LoadPresets();
+        }
+    }			
 
 	public void Edit(Preset preset) {
 		edit = true;
-		Name = preset.Name;
-		PackageId = preset.PackageId;
-		PurchaseType = preset.PurchaseType;
-		EnableGPGS = preset.EnableGPGS;
-		EnableFacebook = preset.EnableFacebook;
-		EnablePush = preset.EnablePush;
-		EnableYupiPlayButton = preset.EnableYupiPlayButton;
-		EnableVideoDownloads = preset.EnableVideoDownloads;
+        this.preset = preset;		
 	}		
 }
 #endif

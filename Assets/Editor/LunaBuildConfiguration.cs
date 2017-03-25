@@ -98,9 +98,10 @@ public class LunaBuildConfiguration : EditorWindow {
 				EditorGUILayout.Toggle("Facebook", preset.EnableFacebook);
 				EditorGUILayout.Toggle("Push", preset.EnablePush);
 				EditorGUILayout.Toggle("YP Button", preset.EnableYupiPlayButton);
-				EditorGUILayout.Toggle("V.Downloads", preset.EnableVideoDownloads);				
+				EditorGUILayout.Toggle("V.Downloads", preset.EnableVideoDownloads);
+                EditorGUILayout.Toggle("Redeem", preset.EnableRedeemCode);
 
-				EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.BeginHorizontal();
 				bool edit = GUILayout.Button("Edit", options);
 				if (edit) {
 					EditPreset(preset);
@@ -163,6 +164,7 @@ public class LunaBuildConfiguration : EditorWindow {
 			config.EnablePush = preset.EnablePush;
 			config.EnableYupiPlayButton = preset.EnableYupiPlayButton;
 			config.EnableVideoDownloads = preset.EnableVideoDownloads;
+            config.EnableRedeemCode = preset.EnableRedeemCode;
 						
 			analytics.bundleVersion = bundleVersion;
             EditorUtility.SetDirty(analytics);
