@@ -24,10 +24,10 @@ namespace YupiPlay {
 		}
 
         private Server[] localServers = new Server[] {            
-            new Server("https://lunacdn.azureedge.net", 1),
-  //            new Server("https://yupiplayluna.blob.core.windows.net/videos", 1),
-   //         new Server("https://yupiplay2.blob.core.windows.net/luna", 1),
-   //         new Server("https://yupiplay.blob.core.windows.net/luna", 1),
+            new Server("https://lunacdn.azureedge.net/", 1)
+  //            new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
+   //         new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
+   //         new Server("https://yupiplay.blob.core.windows.net/luna/", 1),
    //         new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
    //         new Server("https://yupiplay.000webhostapp.com/luna/", 3),
 			//new Server("https://yupistudios.000webhostapp.com/luna/", 3)
@@ -67,16 +67,17 @@ namespace YupiPlay {
         }        		
 
 		private IEnumerator init() {	
-			readFromSource();
+			readFromClass();		
 
-            //if (canReadFromNetwork())
-            //{
-            //    readFromNetwork();
-            //    yield break;
-            //}
-            //readFromPlayerPrefs();
+//            if (canReadFromNetwork())
+//            {
+//                readFromNetwork();
+//                yield break;
+//			} else if (!readFromPlayerPrefs()) {
+//				readFromClass();
+//			}            
 
-            yield break;
+			yield break;
         }
 
 		public int GetCurrentPriority() {
@@ -159,17 +160,10 @@ namespace YupiPlay {
 			string url = FILEURL + FILENAME;
 
 			StartCoroutine(readServerList(url));
-		}
+		}				
 
-		private void readFromSource() {					
+		private void readFromClass() {
 			state = States.READING;
-
-            string content = PlayerPrefs.GetString(SERVERSKEY);
-            if (!String.IsNullOrEmpty(content)) {
-                parseJson(content);
-                state = States.READY;
-                return;
-            }
 
 			foreach (Server s in localServers) {
 				determinateMaxPriority(s.priority);
@@ -177,15 +171,20 @@ namespace YupiPlay {
 			}
 
 			state = States.READY;
-		}			
+		}
 
-		private void readFromPlayerPrefs() {
+		private bool readFromPlayerPrefs() {
 			state = States.READING;
 			string content = PlayerPrefs.GetString(SERVERSKEY);
 
 			if (!String.IsNullOrEmpty(content)) {
 				parseJson(content);
+				state = States.READY;
+				return true;
 			}
+
+			state = States.READING;
+			return false;
 		}
 
 		private bool canReadFromNetwork() {
@@ -221,9 +220,7 @@ namespace YupiPlay {
 			if (data != null && data["servers"] != null) {
 				List<object> serverList = data["servers"] as List<object>;
 
-				if (serverList != null) {					
-					servers = new LinkedList<Server>();
-
+				if (serverList != null) {										
 					foreach (object server in serverList) {
 						Dictionary<string,object> mServer = server as Dictionary<string,object>;
 
@@ -231,13 +228,10 @@ namespace YupiPlay {
 						int mPriority = (int) ((long) mServer["priority"]);
 
 						determinateMaxPriority(mPriority);
-
 						addServer(url, mPriority);
 					}
 
-					if (servers.Count >= 1) {
-						state = States.READY;	
-
+					if (servers.Count >= 1) {						
 						PlayerPrefs.SetString(SERVERSKEY, content);
 						PlayerPrefs.SetString(LASTSERVERCHECK, DateTime.Now.ToString());
 						PlayerPrefs.Save();
@@ -257,7 +251,9 @@ namespace YupiPlay {
 				Debug.Log(req2.error);
 
 				if (isRemote) {
-					readFromSource();		
+					if (!readFromPlayerPrefs()) {
+						readFromClass();
+					}
 				}
 				yield break;
 			}
@@ -279,11 +275,15 @@ namespace YupiPlay {
 		}
 
 		private void addServer(Server server) {
+			if (servers == null) {
+				servers = new LinkedList<Server>();
+			}
+
 			if (Uri.IsWellFormedUriString(server.site, UriKind.Absolute)) {
 				Uri uri = new Uri(server.site);
 
 				if (server.priority > 0 && uri.Scheme == Uri.UriSchemeHttps) {
-					LinkedListNode<Server> node = servers.AddLast(server);	
+					servers.AddLast(server);	
 				}	
 			}
 		}			

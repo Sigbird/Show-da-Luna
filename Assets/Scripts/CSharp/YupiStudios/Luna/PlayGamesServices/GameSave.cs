@@ -103,6 +103,7 @@ public class GameSave : MonoBehaviour {
 				restoreSavedItem(LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID, dict);
 				restoreSavedItem(LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID, dict);
 				restoreSavedItem(LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID, dict);
+				restoreSavedItem(LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID, dict);
 
 				restoreSavedItem(LunaStoreAssets.VIDEO_01_COL_01_LTVG_ITEM_ID, dict);
 				restoreSavedItem(LunaStoreAssets.VIDEO_02_COL_01_LTVG_ITEM_ID, dict);
@@ -279,6 +280,7 @@ public class GameSave : MonoBehaviour {
 		dict[LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID] = storeManager.AcquiredCollection(3);
 		dict[LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID] = storeManager.AcquiredCollection(4);
 		dict[LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID] = storeManager.AcquiredCollection(5);
+		dict[LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID] = storeManager.AcquiredCollection(6);
 
 		dict[LunaStoreAssets.VIDEO_01_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 1);
 		dict[LunaStoreAssets.VIDEO_02_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 1);

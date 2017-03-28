@@ -58,7 +58,7 @@ public class VideoDownload : MonoBehaviour {
 		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
 		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
-		//Debug.Log(absoluteFileName);
+		Debug.Log(absoluteFileName);
 
 #if UNITY_IOS
 		iosPath = "file://" + absoluteFileName;

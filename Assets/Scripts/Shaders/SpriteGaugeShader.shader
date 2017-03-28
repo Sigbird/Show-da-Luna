@@ -1,4 +1,6 @@
-﻿Shader "YupiStudios/Luna/SpriteGaugeShader" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "YupiStudios/Luna/SpriteGaugeShader" {
 
 	 Properties { 
 		 _MainTex ("Base (RGB)", 2D) = "white" {}
@@ -62,7 +64,7 @@
 			v2f vert( appdata_t v ) { 
 			
 				v2f OUT;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				OUT.vertex = UnityObjectToClipPos(v.vertex);
 				
 				OUT.color = v.color;
 								

@@ -144,7 +144,7 @@ public class LunaBuildConfiguration : EditorWindow {
 		Preset preset = presets[selected];
 
         EditorPrefs.SetString("CustomVersionName", BaseVersionName);
-        PlayerSettings.bundleIdentifier = basePackageId + preset.PackageId;
+        PlayerSettings.applicationIdentifier = basePackageId + preset.PackageId;
 
         string bundleVersion = BaseVersionName;
         if (preset.Name != "Google Play" && preset.Name != "Apps Club")

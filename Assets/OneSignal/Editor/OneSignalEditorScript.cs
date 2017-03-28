@@ -75,7 +75,7 @@ public class OneSignalEditorScriptAndroid {
       string body = streamReader.ReadToEnd();
       streamReader.Close();
 
-      body = body.Replace("${manifestApplicationId}", PlayerSettings.bundleIdentifier);
+      body = body.Replace("${manifestApplicationId}", PlayerSettings.applicationIdentifier);
       using (var streamWriter = new StreamWriter(manifestFullPath, false))
       {
          streamWriter.Write(body);

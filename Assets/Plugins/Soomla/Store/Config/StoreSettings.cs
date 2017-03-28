@@ -118,7 +118,7 @@ namespace Soomla.Store
 			if (showAndroidSettings)
 			{
 				EditorGUILayout.BeginHorizontal();
-				SoomlaEditorScript.SelectableLabelField(packageNameLabel, PlayerSettings.bundleIdentifier);
+				SoomlaEditorScript.SelectableLabelField(packageNameLabel, PlayerSettings.applicationIdentifier);
 				EditorGUILayout.EndHorizontal();
 
 				EditorGUILayout.Space();
