@@ -24,17 +24,16 @@ namespace YupiPlay {
 		}
 
         private Server[] localServers = new Server[] {            
-            new Server("https://lunacdn.azureedge.net/", 1)
-  //            new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
-   //         new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
-   //         new Server("https://yupiplay.blob.core.windows.net/luna/", 1),
-   //         new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
-   //         new Server("https://yupiplay.000webhostapp.com/luna/", 3),
-			//new Server("https://yupistudios.000webhostapp.com/luna/", 3)
+           // new Server("https://lunacdn.azureedge.net/", 4),
+              new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
+              new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),              
+              new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
+              new Server("https://yupiplay.000webhostapp.com/luna/", 3),
+			  new Server("https://yupistudios.000webhostapp.com/luna/", 3)
 		};
 
 		private const string FILENAME = "lunaservers.json";
-		private const string FILEURL = "https://yupiplay.000webhostapp.com/luna/";
+		private const string FILEURL = "https://yupiplayluna.blob.core.windows.net/videos/";
 		private const string SERVERSKEY = "lunaservers";
 		private const string LASTSERVERCHECK = "lunaserversday";
 
@@ -67,15 +66,15 @@ namespace YupiPlay {
         }        		
 
 		private IEnumerator init() {	
-			readFromClass();		
+			//readFromClass();		
 
-//            if (canReadFromNetwork())
-//            {
-//                readFromNetwork();
-//                yield break;
-//			} else if (!readFromPlayerPrefs()) {
-//				readFromClass();
-//			}            
+            if (canReadFromNetwork())
+            {
+                readFromNetwork();
+                yield break;
+			} else if (!readFromPlayerPrefs()) {
+				readFromClass();
+			}            
 
 			yield break;
         }

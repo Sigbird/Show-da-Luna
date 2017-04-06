@@ -3,6 +3,7 @@ using System.IO;
 using YupiPlay;
 using YupiPlay.Luna;
 using System.Collections;
+using System;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -55,6 +56,7 @@ public class VideoDownload : MonoBehaviour {
 		if (Application.systemLanguage == SystemLanguage.Portuguese) {
 			filename = FileName;
 		}
+
 		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
 		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
@@ -189,10 +191,16 @@ public class VideoDownload : MonoBehaviour {
 	}
 
 	public bool SaveFile() {
-		FileStream stream = File.OpenWrite(absoluteFileName);
+		try {
+			FileStream stream = File.OpenWrite(absoluteFileName);
 
-		stream.Write(request.bytes, 0, request.bytesDownloaded);
-		return true;
+			stream.Write(request.bytes, 0, request.bytesDownloaded);
+			stream.Close();
+			return true;	
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 
 	public bool FileExists() {
