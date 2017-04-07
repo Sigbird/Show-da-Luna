@@ -100,6 +100,7 @@ public class LunaBuildConfiguration : EditorWindow {
 				EditorGUILayout.Toggle("YP Button", preset.EnableYupiPlayButton);
 				EditorGUILayout.Toggle("V.Downloads", preset.EnableVideoDownloads);
                 EditorGUILayout.Toggle("Redeem", preset.EnableRedeemCode);
+				EditorGUILayout.Toggle("Ads", preset.EnableAds);
 
                 EditorGUILayout.BeginHorizontal();
 				bool edit = GUILayout.Button("Edit", options);
@@ -165,6 +166,7 @@ public class LunaBuildConfiguration : EditorWindow {
 			config.EnableYupiPlayButton = preset.EnableYupiPlayButton;
 			config.EnableVideoDownloads = preset.EnableVideoDownloads;
             config.EnableRedeemCode = preset.EnableRedeemCode;
+			config.EnableAds = preset.EnableAds;
 						
 			analytics.bundleVersion = bundleVersion;
             EditorUtility.SetDirty(analytics);

@@ -36,6 +36,7 @@ public class BuildPreset : EditorWindow {
 		preset.EnableYupiPlayButton = EditorGUILayout.Toggle("Enable Yupi Play Button", preset.EnableYupiPlayButton);
 		preset.EnableVideoDownloads = EditorGUILayout.Toggle("Enable Video Downloads", preset.EnableVideoDownloads);
         preset.EnableRedeemCode = EditorGUILayout.Toggle("Enable Redeem Code", preset.EnableRedeemCode);
+		preset.EnableAds = EditorGUILayout.Toggle("Enable Ads", preset.EnableAds);
 
         bool savePreset = GUILayout.Button("Save Preset");
 

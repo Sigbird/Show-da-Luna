@@ -16,9 +16,10 @@ public class Preset {
 	public bool EnableYupiPlayButton = true;
 	public bool EnableVideoDownloads = true;
     public bool EnableRedeemCode = true;
+	public bool EnableAds = true;
 
     public Preset(string name, string packageId, BuildType purchaseType, bool enableGPGS, bool enableFacebook, bool enablePush, 
-		bool enableYupiPlayButton, bool enableVideoDownloads, bool enableRedeemCode) {
+		bool enableYupiPlayButton, bool enableVideoDownloads, bool enableRedeemCode, bool enableAds) {
 		Name = name;
 		PackageId = packageId;
 		PurchaseType = purchaseType;
@@ -28,6 +29,7 @@ public class Preset {
 		EnableYupiPlayButton = enableYupiPlayButton;
 		EnableVideoDownloads = enableVideoDownloads;
         EnableRedeemCode = enableRedeemCode;        
+		EnableAds = enableAds;
 	}
 
 	public Preset() {}
@@ -67,6 +69,7 @@ public class Preset {
 		jsonObject["EnableYupiPlayButton"] = (object) preset.EnableYupiPlayButton;
 		jsonObject["EnableVideoDownloads"] = (object) preset.EnableVideoDownloads;
         jsonObject["EnableRedeemCode"] = (object) preset.EnableRedeemCode;
+		jsonObject["EnableAds"] = (object) preset.EnableAds;
 
 		return jsonObject;
 	}
@@ -104,6 +107,10 @@ public class Preset {
                 if (preset.ContainsKey("EnableRedeemCode")) {
                     x.EnableRedeemCode = (bool) preset["EnableRedeemCode"];
                 } else { x.EnableRedeemCode = false; }
+
+				if (preset.ContainsKey("EnableAds")) {
+					x.EnableAds = (bool) preset["EnableAds"];
+				} else { x.EnableAds = false; }
 
 				presetList.Add(x);
 			}

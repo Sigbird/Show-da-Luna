@@ -149,6 +149,12 @@ public class GameSave : MonoBehaviour {
 				string date  = dict[StarsSystemManager.DATE_KEY] as string;
 				PlayerPrefs.SetString(StarsSystemManager.DATE_KEY, date);
 				PlayerPrefs.SetInt(LOADEDSAVEKEY, 1);
+
+				if (dict.ContainsKey(AdsManager.LastRewardTime)) {
+					string lastRewardTime = dict[AdsManager.LastRewardTime] as string;	
+					PlayerPrefs.SetString(AdsManager.LastRewardTime, lastRewardTime);
+				}					
+
 				PlayerPrefs.Save ();
 
 				OnCallInitEvents();
@@ -324,6 +330,7 @@ public class GameSave : MonoBehaviour {
 		dict[GPGSIds.achievement_share_earth_to_luna] = PlayerPrefs.GetInt(GPGSIds.achievement_share_earth_to_luna);
 		dict[GPGSIds.achievement_share_a_painting_on_facebook] = PlayerPrefs.GetInt(GPGSIds.achievement_share_a_painting_on_facebook);
 
+		dict[AdsManager.LastRewardTime] = PlayerPrefs.GetString(AdsManager.LastRewardTime);
 
 		string json = Json.Serialize(dict);
 		return Encoding.UTF8.GetBytes(json);
