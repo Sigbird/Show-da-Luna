@@ -55,7 +55,7 @@ public class FacebookManager : MonoBehaviour {
 		if (FB.IsLoggedIn) {
 			share();
 		} else {
-            List<string> perms = new List<string>(){"publish_action"};
+            List<string> perms = new List<string>(){"publish_actions"};
 			FB.LogInWithPublishPermissions(perms, loginCallback);
 		}
 	}
