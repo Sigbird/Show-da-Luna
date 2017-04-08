@@ -41,7 +41,7 @@ public class AdsManager : MonoBehaviour {
 
 	private RewardBasedVideoAd rewardVideoAd;
 	private string videoTestId = "ca-app-pub-3940256099942544/5224354917";
-
+	private AdRequest adRequest;
 
 	void Awake() {
 		if (_instance == null) {
@@ -56,6 +56,7 @@ public class AdsManager : MonoBehaviour {
 
 	void Start() {
 		if (BuildConfiguration.AdsEnabled) {
+			//StartCoroutine(RequestVideoWorker());
 			StartCoroutine(init());
 		}
 	}
@@ -63,7 +64,7 @@ public class AdsManager : MonoBehaviour {
 	private IEnumerator init() {
 		yield return new WaitForEndOfFrame();
 
-		RequestVideoWorker();
+		LoadVideoAd();
 	}
 
 	public static bool IsVideoLoaded() {
@@ -89,6 +90,10 @@ public class AdsManager : MonoBehaviour {
 
 	public static bool IsVideoAdAvailable() {
 		return Instance.canLoadVideo() && Instance.rewardVideoAd.IsLoaded();
+	}
+
+	public static bool isOnCooldown() {
+		return !string.IsNullOrEmpty(PlayerPrefs.GetString(LastRewardTime));
 	}
 
 	private RewardedVideoAdType getRewarededVideoInfo () {
@@ -128,6 +133,16 @@ public class AdsManager : MonoBehaviour {
 		return false;
 	}
 
+	private AdRequest getAdRequest() {
+		if (adRequest != null) return adRequest;
+
+		return adRequest = new AdRequest.Builder()		
+			//.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
+			.TagForChildDirectedTreatment(true)
+			.AddExtra("is_designed_for_families", "true")									
+			.Build();	
+	}
+
 	private void requestRewardedVideo() {
 		RewardedVideoAdType videoAdInfo = getRewarededVideoInfo();
 
@@ -144,21 +159,26 @@ public class AdsManager : MonoBehaviour {
 		#endif
 
 		RewardBasedVideoAd rv = RewardBasedVideoAd.Instance;
-		AdRequest req = new AdRequest.Builder()			            
-			.Build();
+		AdRequest req = getAdRequest();
 		rv.LoadAd(req, videoTestId);
 
 		if (rewardVideoAd == null) {
 			rewardVideoAd = rv;
 
 			rewardVideoAd.OnAdLoaded += onVideoLoaded;
+			rewardVideoAd.OnAdFailedToLoad += onVideoFailedToLoad;
 			rewardVideoAd.OnAdRewarded += onVideoRewarded;
 		}
-	}		
+	}				
 
 	private void onVideoLoaded(object sender, EventArgs e) {
-		
+
+		Debug.Log("Video Loaded");
 		if (OnVideoLoadedEvent != null) OnVideoLoadedEvent();
+	}
+
+	private void onVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args) {
+		Debug.Log("VideoAd Load Failed: " + args.Message);		
 	}
 
 	private void onVideoRewarded(object sender, Reward reward) {
@@ -171,8 +191,10 @@ public class AdsManager : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator RequestVideoWorker() {
+	private IEnumerator RequestVideoWorker() {	
 		yield return new WaitForEndOfFrame();
+
+		requestRewardedVideo();
 
 		while (canLoadVideo() &&  ! rewardVideoAd.IsLoaded()) {
 			requestRewardedVideo();
