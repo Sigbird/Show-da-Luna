@@ -9,6 +9,7 @@ public class GamesServicesDependency : MonoBehaviour {
 	public UnityEvent IsLoggedIn;
 	public UnityEvent NotLoggedIn;
 	public UnityEvent OnLoginSuccess;
+    public UnityEvent OnLoginFailure;
 
 	// Use this for inaitialization
 	void Start () {
@@ -21,7 +22,12 @@ public class GamesServicesDependency : MonoBehaviour {
 	}
 
 	public void CheckLogin() {
-		if (Social.localUser.authenticated) {
+    #if UNITY_EDITOR
+        IsLoggedIn.Invoke();
+        return;
+    #endif
+
+        if (Social.localUser.authenticated) {
 			IsLoggedIn.Invoke();
 		} else {
 			NotLoggedIn.Invoke();
@@ -46,6 +52,7 @@ public class GamesServicesDependency : MonoBehaviour {
 		} else {
 			Debug.Log ("auth failed");
 			GameSave.CallInitEvent();
+            OnLoginFailure.Invoke();
 		}
 
 	}

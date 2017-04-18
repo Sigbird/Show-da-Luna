@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using System;
+using YupiPlay.Luna;
 using UnityEngine;
 using UnityEngine.UI;
-using YupiPlay.Ads;
 using UnityEngine.Advertisements;
+using YupiPlay.Ads;
 
 public class AdsController : MonoBehaviour {	
 	public Button AdButton;
@@ -12,21 +12,34 @@ public class AdsController : MonoBehaviour {
 	public GameObject FreeRewardPackage;
 
 	void OnEnable() {		
-        if (AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo")) {
-            SetButtonToFree();
+        if (BuildConfiguration.AdsEnabled) {
+            StartCoroutine(CheckAdsAndUpdate());
         } else {
-            SetButtonToClock();
-            StartCoroutine(UpdateClock());
+            FreeRewardPackage.SetActive(false);
         }
+
+        //if (AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo")) {
+        //    SetButtonToFree();
+        //} else if (!AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo")) {
+        //    SetButtonToClock();
+        //    StartCoroutine(UpdateClock());            
+        //} else {
+        //    FreeRewardPackage.SetActive(false);
+        //}
 	}
 
-    private IEnumerator UpdateClock() {
-        while (true)
-        {            
-            if (AdsCooldown.CanShowRewardedVideo()) {
+    private IEnumerator CheckAdsAndUpdate() {
+        while (true) {
+            bool showRewardVideo = AdsCooldown.CanShowRewardedVideo();
+            Debug.Log("show reward vid " + showRewardVideo);
+            if (showRewardVideo && Advertisement.IsReady("rewardedVideo")) {
                 SetButtonToFree();
-            } else {               
+            } else if (!AdsCooldown.CanShowRewardedVideo()) {
+                SetButtonToClock();
                 Clock.text = AdsCooldown.GetRewardedVideoClockString();
+            }
+            else {
+                FreeRewardPackage.SetActive(false);
             }
 
             yield return new WaitForSecondsRealtime(1);
@@ -35,6 +48,7 @@ public class AdsController : MonoBehaviour {
 
     public void SetButtonToFree()
     {
+        FreeRewardPackage.SetActive(true);
         ButtonTexts.SetActive(true);
         Clock.gameObject.SetActive(false);
         AdButton.interactable = true;
@@ -42,48 +56,17 @@ public class AdsController : MonoBehaviour {
 
     public void SetButtonToClock()
     {
-        ButtonTexts.SetActive(false);
-        AdButton.interactable = false;
-        Clock.gameObject.SetActive(true);
-    }
-
-    private void CheckAdsGoogle()
-    {
-        AdsManager.OnVideoLoadedEvent += OnVideoLoaded;
-
-        if (AdsManager.IsVideoAdAvailable() || AdsManager.IsOnCooldown())
-        {
-            EnableFreeRewardPackage();
-        } else
-        {
-            DisableFreeRewardPackage();
-        }
-    }
-
-    private void EnableFreeRewardPackage()
-    {
-        ButtonTexts.SetActive(true);
         FreeRewardPackage.SetActive(true);
-    }
-
-    private void DisableFreeRewardPackage()
-    {
-        FreeRewardPackage.SetActive(false);
         ButtonTexts.SetActive(false);
-        Clock.gameObject.SetActive(true);
         AdButton.interactable = false;
-    }
+        Clock.gameObject.SetActive(true);
+    }       
 
     void OnDisable() {
-		AdsManager.OnVideoLoadedEvent -= OnVideoLoaded;
-	}
-		
+        StopAllCoroutines();
+	}		
 
 	private void OnVideoLoaded() {
 		
-	}
-
-	public void ShowVideoAd() {
-		AdsManager.ShowVideo();
-	}
+	}	
 }
