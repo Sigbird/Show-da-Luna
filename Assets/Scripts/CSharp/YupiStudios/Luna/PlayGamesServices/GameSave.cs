@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
@@ -8,6 +7,7 @@ using Soomla.Store;
 using System;
 using MiniJSON;
 using System.Text;
+using YupiPlay.Ads;
 
 public class GameSave : MonoBehaviour {
 	//production filename luna_save_production_0003

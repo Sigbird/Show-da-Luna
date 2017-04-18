@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Soomla.Store;
 using System;
 using YupiStudios.Analytics;
