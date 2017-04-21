@@ -4,6 +4,7 @@ using YupiPlay;
 using YupiPlay.Luna;
 using System.Collections;
 using System;
+using YupiPlay.Luna.LunaPlayer;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -12,12 +13,13 @@ public class VideoDownload : MonoBehaviour {
 	[Tooltip("Nome do arquivo em ingles")]
 	public string FileNameEnglish;
 
-	[Tooltip("URL do arquivo")]
-	public string Url;
-	[Tooltip("URL do arquivo em ingles")]
-	public string UrlEnglish;
-	[Tooltip("URL do arquivo em espanhol")]
-	public string UrlSpanish;
+    // deprecated
+	//[Tooltip("URL do arquivo")]
+	//public string Url;
+	//[Tooltip("URL do arquivo em ingles")]
+	//public string UrlEnglish;
+	//[Tooltip("URL do arquivo em espanhol")]
+	//public string UrlSpanish;
 
     public string FilePT;
     public string FileEN;
@@ -38,15 +40,14 @@ public class VideoDownload : MonoBehaviour {
 
     private int timesTried = 0;
     private int myPriority = 1;
-	private int timesTriedCurrentPriority = 0;
-	private float progress = 0;
+	private int timesTriedCurrentPriority = 0;	
 
 	private string offlineFile;
 	private const float timeLimit = 30f;
 	private float timeOut = 0f;
-	private float oldProgress = 0f;
+    private float oldProgress;
 
-	void Awake() {
+    void Awake() {
 		if (!BuildConfiguration.VideoDownloadsEnabled) {			
 			offlineFile = System.IO.Path.Combine(Application.streamingAssetsPath, VIDEODIR);		
 			offlineFile = System.IO.Path.Combine(offlineFile, FileEN);
@@ -59,8 +60,7 @@ public class VideoDownload : MonoBehaviour {
 
 		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
-		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
-		Debug.Log(absoluteFileName);
+		absoluteFileName = System.IO.Path.Combine(dirPath, filename);		
 
 #if UNITY_IOS
 		iosPath = "file://" + absoluteFileName;
@@ -198,6 +198,7 @@ public class VideoDownload : MonoBehaviour {
 			stream.Close();
 			return true;	
 		} catch (Exception e) {
+            Debug.LogError(e.Message);
 			return false;
 		}
 
@@ -247,12 +248,16 @@ public class VideoDownload : MonoBehaviour {
 	}
 
 	public void PlayVideoOnMobile() {
+        string fileToPlay = absoluteFileName;
 #if UNITY_IOS
-		Handheld.PlayFullScreenMovie(iosPath);
-		return;
+		//Handheld.PlayFullScreenMovie(iosPath);
+        fileToPlay = iosPath;		
 #endif
-		Handheld.PlayFullScreenMovie(absoluteFileName);
-	}
+        //Handheld.PlayFullScreenMovie(absoluteFileName);        
+
+        VideoPlayerController.Instance.Play(fileToPlay);
+        //VideoPlayerController.Instance.Play();
+    }
 
 	public string getVideoUrl() {          
         string hostUrl = DownloadRedundant.Instance.GetServerRoundRobin(myPriority);
@@ -295,59 +300,5 @@ public class VideoDownload : MonoBehaviour {
 		if (Directory.Exists(dirPath)) {
 			Directory.Delete(dirPath, true);
 		}
-	}
-
-	/*
-	private void OldDownloaderUpdate() {
-		if (!downloadComplete) {
-			if (request != null && request.isDone){
-				if (string.IsNullOrEmpty(request.error)) {
-					downloadComplete = true;
-					downloadStarted = false;
-					downloadError = false;
-					SaveFile();
-				} else {
-					timesTried++;
-
-					int currentPriorityCount = DownloadRedundant.Instance.GetCurrentPriorityCount();
-
-					if (timesTried < currentPriorityCount) {
-						downloadStarted = false;
-						DownloadFile();
-						return;
-					}
-					myPriority++;
-
-					//se ja tentou todos
-					if (timesTried >= DownloadRedundant.Instance.GetCount()) {
-						myPriority = 1;
-
-						downloadComplete = true;
-						downloadStarted = false;
-						downloadError = true;
-
-						DeleteFile();
-
-						if (OnDownloadStartError != null) {
-							OnDownloadStartError(request.error);	
-						}
-
-						return;    
-					}                        					                                       
-				}
-			}
-
-			if (request != null && !string.IsNullOrEmpty(request.error)) {
-				if (OnDownloadStartError != null) {
-					OnDownloadStartError(request.error);
-
-					downloadComplete = true;
-					downloadStarted = false;
-					downloadError = true;
-
-					DeleteFile();
-				}     
-			}
-		}
-	}*/
+	}	
 }

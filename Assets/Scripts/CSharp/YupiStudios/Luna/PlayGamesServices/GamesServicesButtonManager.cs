@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID
+
+using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
@@ -71,3 +73,5 @@ public class GamesServicesButtonManager : MonoBehaviour {
 		GameSave.OnCallInitEvents -= PlayGamesOn;
 	}
 }
+
+#endif

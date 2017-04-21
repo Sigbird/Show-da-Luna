@@ -7,8 +7,7 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 
 	private bool downloadComplete = false;
 	private string error = null;
-
-	private float oldProgress = 0f;
+	
 	// Use this for initialization
 	void Start () {
 		text.text = null;
@@ -42,9 +41,7 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 
 		float rawProgress = download.GetProgress();
 
-		if (rawProgress > 0f) {
-			oldProgress = rawProgress;
-
+		if (rawProgress > 0f) {			
 			float progress = 100f * rawProgress;
 			text.text = ((int) progress) + "%";
 			return;

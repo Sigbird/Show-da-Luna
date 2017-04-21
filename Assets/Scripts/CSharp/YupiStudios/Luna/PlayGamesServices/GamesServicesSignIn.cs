@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID
+
+using UnityEngine;
 using System.Collections;
 
 public class GamesServicesSignIn : MonoBehaviour {
@@ -27,3 +29,5 @@ public class GamesServicesSignIn : MonoBehaviour {
 
 	}
 }
+
+#endif

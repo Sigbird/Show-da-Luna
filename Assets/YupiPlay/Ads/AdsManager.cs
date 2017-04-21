@@ -8,9 +8,7 @@ using Soomla.Store;
 
 namespace YupiPlay.Ads
 {
-    public class AdsManager : MonoBehaviour {    	    
-	    public const string LastRewardTime = "LastRewardTime";
-
+    public class AdsManager : MonoBehaviour {    	    	    
 	    public AdInfo[] NativeAds;
 	    public AdInfo[] RewardedVideoAd;
 
@@ -45,48 +43,36 @@ namespace YupiPlay.Ads
 	    }
 
 	    void Start() {
-		    if (BuildConfiguration.AdsEnabled) {
+		    //if (BuildConfiguration.AdsEnabled) {
 			    //StartCoroutine(RequestVideoWorker());
 			    StartCoroutine(init());
-		    }
+		    //}
 	    }
 
 	    private IEnumerator init() {
 		    yield return new WaitForEndOfFrame();
 
-            RequestNativeAd();
+            
+                RequestNativeAd();
+                RequestRewardedVideo();
+                        
 		    //LoadVideoAd();
 	    }
 
-	    public static bool IsVideoLoaded() {
-		    if (BuildConfiguration.AdsEnabled) {
-			    return Instance.rewardVideoAd.IsLoaded();	
-		    }
-		    return false;
+	    public static bool IsVideoLoaded() {		    
+			return Instance.rewardVideoAd.IsLoaded();			    
 	    }
 
-	    public static void ShowVideo() {
-		    if (BuildConfiguration.AdsEnabled) {
-			    if (Instance.rewardVideoAd.IsLoaded()) {
-				    Instance.rewardVideoAd.Show();	
-			    }
-		    }
+	    public static void ShowVideo() {		   
+		    if (Instance.rewardVideoAd.IsLoaded()) {
+			    Instance.rewardVideoAd.Show();	
+			}		    
 	    }
 
-	    public static void LoadVideoAd() {
-		    if (Instance.canLoadVideo()) {
-			    Instance.requestRewardedVideo();	
-		    }
-	    }
-
-	    public static bool IsVideoAdAvailable() {
-		    return Instance.canLoadVideo() && Instance.rewardVideoAd.IsLoaded();
-	    }
-
-	    public static bool IsOnCooldown() {
-		    return !string.IsNullOrEmpty(PlayerPrefs.GetString(LastRewardTime));
-	    }
-
+	    public static void LoadVideoAd() {		    
+			    Instance.RequestRewardedVideo();			    
+	    }	    
+	   
 	    private AdInfo getRewarededVideoInfo () {		    
 			return rewardedVideoAds[0];		    					    
 	    }
@@ -99,38 +85,25 @@ namespace YupiPlay.Ads
 		    }			
 
 		    return null;
-	    }
+	    }	    
 
-	    //Só carrega ad se o ultimo premio foi há 1 dia
-	    private bool canLoadVideo() {
-		    string lastReward = PlayerPrefs.GetString(LastRewardTime);
-
-		    if (string.IsNullOrEmpty(lastReward)) {
-			    return true;
-		    }
-
-		    DateTime lastTime = DateTime.Parse(lastReward);
-		    DateTime compareTime = lastTime.AddDays(1);
-		    DateTime now = DateTime.Now;
-
-		    if (compareTime.CompareTo(now) > 0)  {
-			    return true;
-		    }
-
-		    return false;
-	    }
-
-	    private AdRequest getAdRequest() {
-		    if (adRequest != null) return adRequest;
-
-		    return adRequest = new AdRequest.Builder()		
+	    private AdRequest getAdRequest() {		    
+		    return new AdRequest.Builder()		
 			    //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
 			    //.TagForChildDirectedTreatment(true)
 			    //.AddExtra("is_designed_for_families", "true")									
 			    .Build();	
 	    }
 
-	    private void requestRewardedVideo() {
+        private AdRequest getRewardedVideoRequest() {
+            return new AdRequest.Builder()
+                //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
+                //.TagForChildDirectedTreatment(true)
+                //.AddExtra("is_designed_for_families", "true")
+                .Build();
+        }
+
+	    private void RequestRewardedVideo() {
 		    AdInfo videoAdInfo = getRewarededVideoInfo();
 
 		    if (videoAdInfo == null) {
@@ -145,7 +118,7 @@ namespace YupiPlay.Ads
 			    rewardVideoAd.OnAdRewarded += onVideoRewarded;
 		    }
 
-            rewardVideoAd.LoadAd(getAdRequest(), videoAdInfo.Id);
+            rewardVideoAd.LoadAd(getRewardedVideoRequest(), videoTestId);
         }				
 
 	    private void onVideoLoaded(object sender, EventArgs e) {
@@ -159,24 +132,24 @@ namespace YupiPlay.Ads
 	    }
 
 	    private void onVideoRewarded(object sender, Reward reward) {
-		    double amount = reward.Amount;
-		    StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 10);
+		    //double amount = reward.Amount;
+		    //StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 10);
 
-		    if (Social.localUser.authenticated) {
-			    PlayerPrefs.SetString(LastRewardTime, DateTime.Now.ToString());
-			    GameSave.WriteSave();
-		    }
+		    //if (Social.localUser.authenticated) {
+			   // PlayerPrefs.SetString(LastRewardTime, DateTime.Now.ToString());
+			   // GameSave.WriteSave();
+		    //}
 	    }
 
 	    private IEnumerator RequestVideoWorker() {	
 		    yield return new WaitForEndOfFrame();
 
-		    requestRewardedVideo();
+		    RequestRewardedVideo();
 
-		    while (canLoadVideo() &&  ! rewardVideoAd.IsLoaded()) {
-			    requestRewardedVideo();
+		    while (!rewardVideoAd.IsLoaded()) {
+			    RequestRewardedVideo();
 
-			    yield return new WaitForSecondsRealtime(10);
+			    yield return new WaitForSecondsRealtime(1);
 		    }
 	    }
 
@@ -190,7 +163,7 @@ namespace YupiPlay.Ads
 
             Debug.Log("Native Ad Id: " + nAd.Id);
 
-            nativeAd = new NativeExpressAdView(nAd.Id, new AdSize(320, 150), AdPosition.Top);
+            nativeAd = new NativeExpressAdView(nAd.Id, new AdSize(360, 320), AdPosition.Center);
 
             nativeAd.OnAdLoaded += OnNativeAdLoaded;
             nativeAd.OnAdFailedToLoad += OnNativeAdFailedToLoad;
@@ -214,7 +187,7 @@ namespace YupiPlay.Ads
             return _instance.IsNativeAdReady;
         }
 
-        public static  void ShowNativeAd()
+        public static void ShowNativeAd()
         {
             if (CanShowNativeAd())
             {

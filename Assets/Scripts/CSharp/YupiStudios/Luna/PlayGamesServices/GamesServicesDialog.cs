@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID
+using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
 
@@ -11,3 +12,5 @@ public class GamesServicesDialog : MonoBehaviour {
 		GamesServicesSignIn.SignIn();
 	}
 }
+
+#endif

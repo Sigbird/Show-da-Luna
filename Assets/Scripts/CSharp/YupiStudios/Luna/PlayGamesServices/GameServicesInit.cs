@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID
+
+using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
@@ -24,3 +26,5 @@ public class GameServicesInit : MonoBehaviour {
 
 	}
 }
+
+#endif

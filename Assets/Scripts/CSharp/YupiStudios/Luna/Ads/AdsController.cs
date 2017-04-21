@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#if UNITY_ANDROID || UNITY_IOS
+
+using System.Collections;
 using YupiPlay.Luna;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,3 +72,5 @@ public class AdsController : MonoBehaviour {
 		
 	}	
 }
+
+#endif

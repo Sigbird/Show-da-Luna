@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID || UNITY_IOS
+
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Advertisements;
 using Soomla.Store;
@@ -31,8 +33,8 @@ namespace YupiPlay.Ads
             while (true) {
                 simpleAd = AdsCooldown.CanShowAd() && Advertisement.IsReady();
                 rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo");
-                Debug.Log("reward bool " + rewardedVideoAd);
-                Debug.Log("ad bool " + simpleAd);                
+                //Debug.Log("reward bool " + rewardedVideoAd);
+                //Debug.Log("ad bool " + simpleAd);                
 
                 if (rewardedVideoAd || simpleAd) {
                     NewMessage.SetActive(true);                    
@@ -40,7 +42,7 @@ namespace YupiPlay.Ads
                     NewMessage.SetActive(false);
                 }
 
-                yield return new WaitForSecondsRealtime(AdsCheckIntervalSeconds);
+                yield return new WaitForEndOfFrame();
             }
         }
 
@@ -92,3 +94,4 @@ namespace YupiPlay.Ads
     }
 }
 
+#endif

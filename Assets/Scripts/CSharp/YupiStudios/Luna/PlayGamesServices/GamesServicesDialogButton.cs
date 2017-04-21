@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID
+using UnityEngine;
 using System.Collections;
 using YupiPlay.Luna;
 
@@ -28,3 +29,5 @@ public class GamesServicesDialogButton : MonoBehaviour {
 	
 	}
 }
+
+#endif
