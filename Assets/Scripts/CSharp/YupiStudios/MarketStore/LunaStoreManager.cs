@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
-
 using Soomla;
 using Soomla.Store;
-
 using YupiStudios.Analytics;
 
 public class LunaStoreManager : MonoBehaviour {
@@ -102,17 +99,23 @@ public class LunaStoreManager : MonoBehaviour {
 
 			return (hasItem || hasItemStars);
 		//TODO REMAINING COLLECTIONS
-		case 2:
-			return checkIfPurchased(LunaStoreAssets.COLLECTION02_LTVG_ITEM_ID);
-		case 3:
-			return checkIfPurchased(LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID);
-		case 4:
-			return checkIfPurchased(LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID);
-		case 5:
-			return checkIfPurchased(LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID);
-		case 6:
-			return checkIfPurchased(LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID);		
-		}
+		    case 2:
+			    return checkIfPurchased(LunaStoreAssets.COLLECTION02_LTVG_ITEM_ID);
+		    case 3:
+			    return checkIfPurchased(LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID);
+	        case 4:
+		        return checkIfPurchased(LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID);
+		    case 5:
+			    return checkIfPurchased(LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID);
+	        case 6:
+		        return checkIfPurchased(LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID);
+            case 7:
+                return checkIfPurchased(LunaStoreAssets.COLLECTION07_LTVG_ITEM_ID);
+            case 8:
+                return checkIfPurchased(LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID);
+            case 9:
+                return checkIfPurchased(LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID);
+        }
 		return false;
 	}
 
@@ -123,6 +126,7 @@ public class LunaStoreManager : MonoBehaviour {
 		
 		bool hasItem;
 		bool hasItemStars;
+
 		if (collection == 1) {
 			switch (number) {
 			case 1:
@@ -211,7 +215,52 @@ public class LunaStoreManager : MonoBehaviour {
 			}
 			return false;
 		}
-		return false;
+        if (collection == 7) {
+            switch (number) {
+                case 1:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_01_COL_07_LTVG_ITEM_ID);
+                case 2:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_02_COL_07_LTVG_ITEM_ID);
+                case 3:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_03_COL_07_LTVG_ITEM_ID);
+                case 4:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_04_COL_07_LTVG_ITEM_ID);
+                case 5:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_05_COL_07_LTVG_ITEM_ID);
+            }
+            return false;
+        }
+        if (collection == 8) {
+            switch (number) {
+                case 1:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_01_COL_08_LTVG_ITEM_ID);
+                case 2:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_02_COL_08_LTVG_ITEM_ID);
+                case 3:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_03_COL_08_LTVG_ITEM_ID);
+                case 4:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_04_COL_08_LTVG_ITEM_ID);
+                case 5:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_05_COL_08_LTVG_ITEM_ID);
+            }
+            return false;
+        }
+        if (collection == 9) {
+            switch (number) {
+                case 1:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_01_COL_09_LTVG_ITEM_ID);
+                case 2:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_02_COL_09_LTVG_ITEM_ID);
+                case 3:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_03_COL_09_LTVG_ITEM_ID);
+                case 4:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_04_COL_09_LTVG_ITEM_ID);
+                case 5:
+                    return checkIfPurchased(LunaStoreAssets.VIDEO_05_COL_09_LTVG_ITEM_ID);
+            }
+            return false;
+        }
+        return false;
 	}
 
 	public bool AcquiredMinigameAsas() {
@@ -372,7 +421,16 @@ public class LunaStoreManager : MonoBehaviour {
 			case 6:
 				BuyItem(LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID, COLLECTION);
 				return;
-			default:
+            case 7:
+                BuyItem(LunaStoreAssets.COLLECTION07_LTVG_ITEM_ID, COLLECTION);
+                return;
+            case 8:
+                BuyItem(LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID, COLLECTION);
+                return;
+            case 9:
+                BuyItem(LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID, COLLECTION);
+                return;
+            default:
 				return;
 			}
 		}
@@ -482,7 +540,7 @@ public class LunaStoreManager : MonoBehaviour {
 					return;
 				}
 			}
-			if(collection == 6){
+			if(collection == 6) {
 				switch (videoNumber) {
 				case 1:
 					BuyItem(LunaStoreAssets.VIDEO_01_COL_06_LTVG_ITEM_ID, VIDEO);
@@ -500,7 +558,70 @@ public class LunaStoreManager : MonoBehaviour {
 					return;
 				}
 			}
-			return;
+            if (collection == 7) {
+                switch (videoNumber) {
+                    case 1:
+                        BuyItem(LunaStoreAssets.VIDEO_01_COL_07_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 2:
+                        BuyItem(LunaStoreAssets.VIDEO_02_COL_07_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 3:
+                        BuyItem(LunaStoreAssets.VIDEO_03_COL_07_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 4:
+                        BuyItem(LunaStoreAssets.VIDEO_04_COL_07_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 5:
+                        BuyItem(LunaStoreAssets.VIDEO_05_COL_07_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    default:
+                        return;
+                }
+            }
+            if (collection == 8) {
+                switch (videoNumber) {
+                    case 1:
+                        BuyItem(LunaStoreAssets.VIDEO_01_COL_08_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 2:
+                        BuyItem(LunaStoreAssets.VIDEO_02_COL_08_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 3:
+                        BuyItem(LunaStoreAssets.VIDEO_03_COL_08_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 4:
+                        BuyItem(LunaStoreAssets.VIDEO_04_COL_08_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 5:
+                        BuyItem(LunaStoreAssets.VIDEO_05_COL_08_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    default:
+                        return;
+                }
+            }
+            if (collection == 9) {
+                switch (videoNumber) {
+                    case 1:
+                        BuyItem(LunaStoreAssets.VIDEO_01_COL_09_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 2:
+                        BuyItem(LunaStoreAssets.VIDEO_02_COL_09_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 3:
+                        BuyItem(LunaStoreAssets.VIDEO_03_COL_09_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 4:
+                        BuyItem(LunaStoreAssets.VIDEO_04_COL_09_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    case 5:
+                        BuyItem(LunaStoreAssets.VIDEO_05_COL_09_LTVG_ITEM_ID, VIDEO);
+                        return;
+                    default:
+                        return;
+                }
+            }
+            return;
 		}
 		Debug.LogError("Soomla Store Not Initialized");
 	}

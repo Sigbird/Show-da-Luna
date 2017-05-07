@@ -125,6 +125,32 @@ public class LunaStoreAssets : IStoreAssets {
 	#endregion VIRTUAL_GOODS_MARKET
 
 	#region VirtualGoods_PurchaseWithVirtualItem
+	//Full Game
+	public const string STARS_FULL_GAME_ITEM_ID = "stars_luna_full_game";
+	public static VirtualGood STARS_FULL_GAME = new LifetimeVG(
+		"O Show da Luna! Vamos Colorir. Versão Completa",
+		"Permite o acesso ao jogo completo",
+		STARS_FULL_GAME_ITEM_ID,
+		new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 20)
+		);
+
+	//Asas para Voar
+	public const string MINIGAME_ASAS_ITEM_ID = "minigame_asas";
+	public static VirtualGood MINIGAME_ASAS = new LifetimeVG(
+			"O Show da Luna! Minigame Asas para Voar!",
+			"Permite acesso ao minigame Asas para Voar!",
+			MINIGAME_ASAS_ITEM_ID,
+			new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+		);
+
+	//Corrida Caracol
+	public const string MINIGAME_CARACOL_ITEM_ID = "minigame_caracol";
+	public static VirtualGood MINIGAME_CARACOL = new LifetimeVG(
+		"O Show da Luna! Minigame Asas para Voar!",
+		"Permite acesso ao minigame Asas para Voar!",
+		MINIGAME_CARACOL_ITEM_ID,
+		new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+		);
 
 	//COLLECTION 01
 	public const string STARS_COLLECTION01_LTVG_ITEM_ID = "stars_collection01_id";					//ID do item
@@ -171,7 +197,7 @@ public class LunaStoreAssets : IStoreAssets {
 		                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
 		                );
 
-	//COLLECTION 05
+	//COLLECTION 06
 	public const string COLLECTION06_LTVG_ITEM_ID = "collection_06_id";								//ID do item
 	public static VirtualGood COLLECTION_06_LTVG = 
 		new LifetimeVG ("O Show da Luna! Coleção de vídeos 06",										//Nome		
@@ -179,6 +205,35 @@ public class LunaStoreAssets : IStoreAssets {
 		                COLLECTION06_LTVG_ITEM_ID,													//Id do item
 		                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
 		                );
+
+	//COLLECTION 07
+	public const string COLLECTION07_LTVG_ITEM_ID = "collection_07_id";								//ID do item
+	public static VirtualGood COLLECTION_07_LTVG = 
+		new LifetimeVG ("O Show da Luna! Coleção de vídeos 07",										//Nome		
+		                "Coleção com quatro vídeos que podem ser baixados para o seu dispositivo.",	//Descriçao
+		                COLLECTION07_LTVG_ITEM_ID,													//Id do item
+		                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
+		                );
+
+	//COLLECTION 08
+	public const string COLLECTION08_LTVG_ITEM_ID = "collection_08_id";								//ID do item
+	public static VirtualGood COLLECTION_08_LTVG = 
+		new LifetimeVG ("O Show da Luna! Coleção de vídeos 08",										//Nome		
+		                "Coleção com quatro vídeos que podem ser baixados para o seu dispositivo.",	//Descriçao
+		                COLLECTION08_LTVG_ITEM_ID,													//Id do item
+		                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
+		                );
+
+	//COLLECTION 09
+	public const string COLLECTION09_LTVG_ITEM_ID = "collection_09_id";								//ID do item
+	public static VirtualGood COLLECTION_09_LTVG = 
+		new LifetimeVG ("O Show da Luna! Coleção de vídeos 09",										//Nome		
+		                "Coleção com quatro vídeos que podem ser baixados para o seu dispositivo.",	//Descriçao
+		                COLLECTION09_LTVG_ITEM_ID,													//Id do item
+		                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
+		                );
+
+
 
 	//VIDEO 01 		
 	public const string STARS_VIDEO_01_COL_01_LTVG_ITEM_ID = "stars_video_01_col_01_id";
@@ -400,40 +455,147 @@ public class LunaStoreAssets : IStoreAssets {
 	public const string VIDEO_04_COL_06_LTVG_ITEM_ID = "video_04_col_06_id";
 	public static VirtualGood VIDEO_04_COL_06_LTVG = new LifetimeVG(
 		"O Show da Luna! Doce ou Salgado?",
-		"O Show da Luna! Video 03 Coleçao 06",
+		"O Show da Luna! Video 04 Coleçao 06",
 		VIDEO_04_COL_06_LTVG_ITEM_ID,
 		new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
 		);
 
-	//Full Game
-	public const string STARS_FULL_GAME_ITEM_ID = "stars_luna_full_game";
-	public static VirtualGood STARS_FULL_GAME = new LifetimeVG(
-		"O Show da Luna! Vamos Colorir. Versão Completa",
-		"Permite o acesso ao jogo completo",
-		STARS_FULL_GAME_ITEM_ID,
-		new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 20)
-		);
+    //Video 01 C7    
+    public const string VIDEO_01_COL_07_LTVG_ITEM_ID = "video_01_col_07_id";
+    public static VirtualGood VIDEO_01_COL_07_LTVG = new LifetimeVG(
+        "O Show da Luna! Dó Ré Mi Flauta",
+        "O Show da Luna! Video 01 Coleçao 07",
+        VIDEO_01_COL_07_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
 
-	//Asas para Voar
-	public const string MINIGAME_ASAS_ITEM_ID = "minigame_asas";
-	public static VirtualGood MINIGAME_ASAS = new LifetimeVG(
-			"O Show da Luna! Minigame Asas para Voar!",
-			"Permite acesso ao minigame Asas para Voar!",
-			MINIGAME_ASAS_ITEM_ID,
-			new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
-		);
+    //Video 02 C7    
+    public const string VIDEO_02_COL_07_LTVG_ITEM_ID = "video_02_col_07_id";
+    public static VirtualGood VIDEO_02_COL_07_LTVG = new LifetimeVG(
+        "O Show da Luna! Cola de Largatixa?",
+        "O Show da Luna! Video 02 Coleçao 07",
+        VIDEO_02_COL_07_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
 
-	//Corrida Caracol
-	public const string MINIGAME_CARACOL_ITEM_ID = "minigame_caracol";
-	public static VirtualGood MINIGAME_CARACOL = new LifetimeVG(
-		"O Show da Luna! Minigame Asas para Voar!",
-		"Permite acesso ao minigame Asas para Voar!",
-		MINIGAME_CARACOL_ITEM_ID,
-		new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
-		);
+    //Video 03 C7    
+    public const string VIDEO_03_COL_07_LTVG_ITEM_ID = "video_03_col_07_id";
+    public static VirtualGood VIDEO_03_COL_07_LTVG = new LifetimeVG(
+        "O Show da Luna! Bem Vinda, Neve!",
+        "O Show da Luna! Video 03 Coleçao 07",
+        VIDEO_03_COL_07_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
 
+    //Video 04 C7    
+    public const string VIDEO_04_COL_07_LTVG_ITEM_ID = "video_04_col_07_id";
+    public static VirtualGood VIDEO_04_COL_07_LTVG = new LifetimeVG(
+        "O Show da Luna! Pula-Pula Pipoca",
+        "O Show da Luna! Video 04 Coleçao 07",
+        VIDEO_04_COL_07_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
 
-	#endregion VirtualGoods_PurchaseWithVirtualItem
+    //Video 05 C7    
+    public const string VIDEO_05_COL_07_LTVG_ITEM_ID = "video_05_col_07_id";
+    public static VirtualGood VIDEO_05_COL_07_LTVG = new LifetimeVG(
+        "O Show da Luna! Um Conto de Caudas",
+        "O Show da Luna! Video 05 Coleçao 07",
+        VIDEO_05_COL_07_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 01 C8    
+    public const string VIDEO_01_COL_08_LTVG_ITEM_ID = "video_01_col_08_id";
+    public static VirtualGood VIDEO_01_COL_08_LTVG = new LifetimeVG(
+        "O Show da Luna! Tecendo Teias",
+        "O Show da Luna! Video 01 Coleçao 08",
+        VIDEO_01_COL_08_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 02 C8    
+    public const string VIDEO_02_COL_08_LTVG_ITEM_ID = "video_02_col_08_id";
+    public static VirtualGood VIDEO_02_COL_08_LTVG = new LifetimeVG(
+        "O Show da Luna! Um Trovão, Dois Trovões, Três!",
+        "O Show da Luna! Video 02 Coleçao 08",
+        VIDEO_02_COL_08_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 03 C8    
+    public const string VIDEO_03_COL_08_LTVG_ITEM_ID = "video_03_col_08_id";
+    public static VirtualGood VIDEO_03_COL_08_LTVG = new LifetimeVG(
+        "O Show da Luna! Um Recadinho do Algodão",
+        "O Show da Luna! Video 03 Coleçao 08",
+        VIDEO_03_COL_08_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 04 C8    
+    public const string VIDEO_04_COL_08_LTVG_ITEM_ID = "video_04_col_08_id";
+    public static VirtualGood VIDEO_04_COL_08_LTVG = new LifetimeVG(
+        "O Show da Luna! O Grande AStro",
+        "O Show da Luna! Video 04 Coleçao 08",
+        VIDEO_04_COL_08_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 05 C8    
+    public const string VIDEO_05_COL_08_LTVG_ITEM_ID = "video_05_col_08_id";
+    public static VirtualGood VIDEO_05_COL_08_LTVG = new LifetimeVG(
+        "O Show da Luna! Parece Mas Não É",
+        "O Show da Luna! Video 05 Coleçao 08",
+        VIDEO_05_COL_08_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 01 C9    
+    public const string VIDEO_01_COL_09_LTVG_ITEM_ID = "video_01_col_09_id";
+    public static VirtualGood VIDEO_01_COL_09_LTVG = new LifetimeVG(
+        "O Show da Luna! A Maravilhosa Floresta de Chocolate",
+        "O Show da Luna! Video 01 Coleçao 09",
+        VIDEO_01_COL_09_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 02 C9    
+    public const string VIDEO_02_COL_09_LTVG_ITEM_ID = "video_02_col_09_id";
+    public static VirtualGood VIDEO_02_COL_09_LTVG = new LifetimeVG(
+        "O Show da Luna! Bicho da Seda",
+        "O Show da Luna! Video 02 Coleçao 09",
+        VIDEO_02_COL_09_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 03 C9    
+    public const string VIDEO_03_COL_09_LTVG_ITEM_ID = "video_03_col_09_id";
+    public static VirtualGood VIDEO_03_COL_09_LTVG = new LifetimeVG(
+        "O Show da Luna! Dirigir, Rodar e Deslizar",
+        "O Show da Luna! Video 03 Coleçao 09",
+        VIDEO_03_COL_09_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 04 C9    
+    public const string VIDEO_04_COL_09_LTVG_ITEM_ID = "video_04_col_09_id";
+    public static VirtualGood VIDEO_04_COL_09_LTVG = new LifetimeVG(
+        "O Show da Luna! Assombrados",
+        "O Show da Luna! Video 04 Coleçao 09",
+        VIDEO_04_COL_09_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    //Video 05 C9    
+    public const string VIDEO_05_COL_09_LTVG_ITEM_ID = "video_05_col_09_id";
+    public static VirtualGood VIDEO_05_COL_09_LTVG = new LifetimeVG(
+        "O Show da Luna! Eco, Eco, Eco",
+        "O Show da Luna! Video 05 Coleçao 09",
+        VIDEO_05_COL_09_LTVG_ITEM_ID,
+        new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+        );
+
+    #endregion VirtualGoods_PurchaseWithVirtualItem
 
     #region IStoreAssets Impl
     public VirtualCategory[] GetCategories()
@@ -450,7 +612,8 @@ public class LunaStoreAssets : IStoreAssets {
     public VirtualCurrencyPack[] GetCurrencyPacks()
     {
         return new VirtualCurrencyPack[] { 
-			SIMPLE_STAR_PACK, SUPER_STAR_PACK, MEGA_STAR_PACK};
+			SIMPLE_STAR_PACK, SUPER_STAR_PACK, MEGA_STAR_PACK
+        };
     }
 
     public VirtualGood[] GetGoods()
@@ -469,7 +632,10 @@ public class LunaStoreAssets : IStoreAssets {
 			COLLECTION_04_LTVG,
 			COLLECTION_05_LTVG,
 			COLLECTION_06_LTVG,
-			STARS_VIDEO_01_COL_01_LTVG,
+			COLLECTION_07_LTVG,
+            COLLECTION_08_LTVG,
+            COLLECTION_09_LTVG,
+            STARS_VIDEO_01_COL_01_LTVG,
 			STARS_VIDEO_02_COL_01_LTVG,
 			STARS_VIDEO_03_COL_01_LTVG,
 			STARS_VIDEO_04_COL_01_LTVG,
@@ -494,14 +660,29 @@ public class LunaStoreAssets : IStoreAssets {
 			VIDEO_02_COL_06_LTVG,
 			VIDEO_03_COL_06_LTVG,
 			VIDEO_04_COL_06_LTVG,
-			MINIGAME_ASAS,
+            VIDEO_01_COL_07_LTVG,
+            VIDEO_02_COL_07_LTVG,
+            VIDEO_03_COL_07_LTVG,
+            VIDEO_04_COL_07_LTVG,
+            VIDEO_05_COL_07_LTVG,
+            VIDEO_01_COL_08_LTVG,
+            VIDEO_02_COL_08_LTVG,
+            VIDEO_03_COL_08_LTVG,
+            VIDEO_04_COL_08_LTVG,
+            VIDEO_05_COL_08_LTVG,
+            VIDEO_01_COL_09_LTVG,
+            VIDEO_02_COL_09_LTVG,
+            VIDEO_03_COL_09_LTVG,
+            VIDEO_04_COL_09_LTVG,
+            VIDEO_05_COL_09_LTVG,
+            MINIGAME_ASAS,
 			MINIGAME_CARACOL
 		};
     }
 
     public int GetVersion()
     {
-        return 25;
+        return 26;
     }
     #endregion //IStoreAssets Impl
 

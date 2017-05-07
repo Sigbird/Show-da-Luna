@@ -18,10 +18,12 @@ public class OneSignalPushInit : MonoBehaviour {
 			gameObject.SetActive(false);
 			return;
 		}
+        
+		OneSignal.StartInit(ONESIGNALID)
+			.HandleNotificationOpened(HandleNotificationOpened)            
+			.EndInit();
 
-		OneSignal.StartInit(ONESIGNALID, GOOGLEAPPID)
-			.HandleNotificationOpened(HandleNotificationOpened)
-				.EndInit();
+        OneSignal.PromptLocation();
 	}
 	
 

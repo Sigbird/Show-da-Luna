@@ -250,12 +250,14 @@ public class VideoDownload : MonoBehaviour {
 	public void PlayVideoOnMobile() {
         string fileToPlay = absoluteFileName;
 #if UNITY_IOS
-		//Handheld.PlayFullScreenMovie(iosPath);
-        fileToPlay = iosPath;		
+        fileToPlay = iosPath;				
 #endif
-        //Handheld.PlayFullScreenMovie(absoluteFileName);        
-
+#if UNITY_ANDROID || UNITY_IOS
+        Handheld.PlayFullScreenMovie(fileToPlay);  
+#endif
+#if UNITY_EDITOR || UNITY_STANDALONE
         VideoPlayerController.Instance.Play(fileToPlay);
+#endif
         //VideoPlayerController.Instance.Play();
     }
 
