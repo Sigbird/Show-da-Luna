@@ -16,8 +16,10 @@ public class SaveData {
         Dictionary<string, object> dict = new Dictionary<string, object>();
 
         dict[LunaStoreAssets.STARS_CURRENCY_ID] = balance;
-        dict[LunaStoreAssets.FULLGAME_LTVG_ITEM_ID] = storeManager.AcquiredFullGame();
-        dict[LunaStoreAssets.MINIGAME_ASAS_ITEM_ID] = storeManager.AcquiredMinigameAsas();
+
+        dict[LunaStoreAssets.FULLGAME_LTVG_ITEM_ID]    = storeManager.AcquiredFullGame();
+        dict[LunaStoreAssets.MINIGAME_ASAS_ITEM_ID]    = storeManager.AcquiredMinigameAsas();
+        dict[LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID] = storeManager.AcquiredMinigameCaracol();
 
         dict[LunaStoreAssets.COLLECTION01_LTVG_ITEM_ID] = storeManager.AcquiredCollection(1);
         dict[LunaStoreAssets.COLLECTION02_LTVG_ITEM_ID] = storeManager.AcquiredCollection(2);
@@ -25,6 +27,9 @@ public class SaveData {
         dict[LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID] = storeManager.AcquiredCollection(4);
         dict[LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID] = storeManager.AcquiredCollection(5);
         dict[LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID] = storeManager.AcquiredCollection(6);
+        dict[LunaStoreAssets.COLLECTION07_LTVG_ITEM_ID] = storeManager.AcquiredCollection(7);
+        dict[LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID] = storeManager.AcquiredCollection(8);
+        dict[LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID] = storeManager.AcquiredCollection(9);
 
         dict[LunaStoreAssets.VIDEO_01_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 1);
         dict[LunaStoreAssets.VIDEO_02_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 1);
@@ -57,6 +62,24 @@ public class SaveData {
         dict[LunaStoreAssets.VIDEO_03_COL_06_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 6);
         dict[LunaStoreAssets.VIDEO_04_COL_06_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 6);
 
+        dict[LunaStoreAssets.VIDEO_01_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 7);
+        dict[LunaStoreAssets.VIDEO_02_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 7);
+        dict[LunaStoreAssets.VIDEO_03_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 7);
+        dict[LunaStoreAssets.VIDEO_04_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 7);
+        dict[LunaStoreAssets.VIDEO_05_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 7);
+
+        dict[LunaStoreAssets.VIDEO_01_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 8);
+        dict[LunaStoreAssets.VIDEO_02_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 8);
+        dict[LunaStoreAssets.VIDEO_03_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 8);
+        dict[LunaStoreAssets.VIDEO_04_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 8);
+        dict[LunaStoreAssets.VIDEO_05_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 8);
+
+        dict[LunaStoreAssets.VIDEO_01_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 9);
+        dict[LunaStoreAssets.VIDEO_02_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 9);
+        dict[LunaStoreAssets.VIDEO_03_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 9);
+        dict[LunaStoreAssets.VIDEO_04_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 9);
+        dict[LunaStoreAssets.VIDEO_05_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 9);
+
         dict[StarsSystemManager.EVENT01_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT01_KEY);
         dict[StarsSystemManager.EVENT03_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT03_KEY);
         dict[StarsSystemManager.EVENT04_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT04_KEY);
@@ -72,5 +95,143 @@ public class SaveData {
 
         string json = Json.Serialize(dict);
         return Encoding.UTF8.GetBytes(json);
+    }
+
+    public static void LoadFromBytes(byte[] data) {
+        string json = Encoding.UTF8.GetString(data);
+        Dictionary<string, object> dict = Json.Deserialize(json) as Dictionary<string, object>;
+
+        RestoreStarsBalance(dict);
+
+        RestoreSavedItem(LunaStoreAssets.FULLGAME_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.MINIGAME_ASAS_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.COLLECTION01_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION02_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION07_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_01_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_01_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_01_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_01_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_02_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_02_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_02_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_02_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_03_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_03_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_03_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_03_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_04_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_04_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_04_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_04_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_05_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_05_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_05_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_05_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_05_COL_05_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_06_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_06_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_06_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_06_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_07_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_07_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_07_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_07_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_05_COL_07_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_08_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_08_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_08_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_08_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_05_COL_08_LTVG_ITEM_ID, dict);
+
+        RestoreSavedItem(LunaStoreAssets.VIDEO_01_COL_09_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_02_COL_09_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_03_COL_09_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_04_COL_09_LTVG_ITEM_ID, dict);
+        RestoreSavedItem(LunaStoreAssets.VIDEO_05_COL_09_LTVG_ITEM_ID, dict);
+
+        RestoreIntSetting(StarsSystemManager.EVENT01_KEY, dict);
+        RestoreIntSetting(StarsSystemManager.EVENT03_KEY, dict);
+        RestoreIntSetting(StarsSystemManager.EVENT04_KEY, dict);
+
+        RestoreIntSetting(GPGSIds.achievement_welcome_to_earth_to_luna, dict);
+        RestoreIntSetting(GPGSIds.achievement_it_is_good_to_see_you_again, dict);
+        RestoreIntSetting(GPGSIds.achievement_you_finished_earth_to_luna_lets_color, dict);
+        RestoreIntSetting(GPGSIds.achievement_share_earth_to_luna, dict);
+        RestoreIntSetting(GPGSIds.achievement_share_a_painting_on_facebook, dict);
+
+        string date = dict[StarsSystemManager.DATE_KEY] as string;
+        PlayerPrefs.SetString(StarsSystemManager.DATE_KEY, date);
+        PlayerPrefs.SetInt(GameSave.LOADEDSAVEKEY, 1);
+
+        if (dict.ContainsKey(AdsCooldown.LastVideoRewardTime)) {
+            string lastRewardTime = dict[AdsCooldown.LastVideoRewardTime] as string;
+            PlayerPrefs.SetString(AdsCooldown.LastVideoRewardTime, lastRewardTime);
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private static long RestoreStarsBalance(Dictionary<string, object> values) {
+        object o;
+        if (values.TryGetValue(LunaStoreAssets.STARS_CURRENCY_ID, out o)) {
+            long balance = (long)o;
+            Debug.Log("balance:" + balance);
+            VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
+            starsCurrency.ResetBalance((int)balance);
+
+            LunaStoreManager.CallBalanceChangeEvent();
+            return balance;
+        }
+
+        return 0;
+    }
+
+    private static bool RestoreSavedItem(string ITEM_ID, Dictionary<string, object> values) {
+        if (LunaStoreManager.checkIfPurchased(ITEM_ID)) {
+            return true;
+        }
+
+        object o;
+        if (values.TryGetValue(ITEM_ID, out o)) {
+            bool isPurchased = (bool)o;
+
+            if (isPurchased) {
+                StoreInventory.GiveItem(ITEM_ID, 1);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static void RestoreIntSetting(string id, Dictionary<string, object> dict) {
+        object o;
+
+        if (dict.TryGetValue(id, out o)) {
+            if (o is long) {
+                long setting = (long)o;
+
+                if (setting == 1) {
+                    PlayerPrefs.SetInt(id, (int)1);
+                }
+            }
+        }
     }
 }
