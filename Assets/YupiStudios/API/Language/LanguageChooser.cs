@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using YupiPlay.Luna;
 
 
 namespace YupiStudios.API.Language {
@@ -23,6 +23,10 @@ namespace YupiStudios.API.Language {
 
 		void Awake () {
 			SystemLanguage lang = Application.systemLanguage;
+
+            if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+                lang = BuildConfiguration.ManualLanguage;
+            }
 
 			if (YupiPlay.Luna.BuildConfiguration.VideoDownloadsEnabled == false) {
 				lang = SystemLanguage.English;

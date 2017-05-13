@@ -25,7 +25,7 @@ namespace YupiPlay {
 
         private Server[] localServers = new Server[] {            
            // new Server("https://lunacdn.azureedge.net/", 4),
-           //   new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
+              new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
               new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),             
            // new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
            // new Server("https://yupiplay.000webhostapp.com/luna/", 3),
@@ -65,18 +65,17 @@ namespace YupiPlay {
             StartCoroutine(init());
         }        		
 
-		private IEnumerator init() {	
-			readFromClass();		
+		private IEnumerator init() {
+            // readFromClass();
 
-   //         if (canReadFromNetwork())
-   //         {
-   //             readFromNetwork();
-   //             yield break;
-			//} else if (!readFromPlayerPrefs()) {
-			//	readFromClass();
-			//}            
+            if (canReadFromNetwork()) {
+                readFromNetwork();
+                yield break;
+            } else if (!readFromPlayerPrefs()) {
+                readFromClass();
+            }
 
-			yield break;
+            yield break;
         }
 
 		public int GetCurrentPriority() {

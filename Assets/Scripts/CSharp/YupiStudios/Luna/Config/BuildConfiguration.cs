@@ -16,6 +16,8 @@ namespace YupiPlay.Luna {
 		public bool EnableRedeemCode = true;
 		public bool EnableAds = true;
 
+        public SystemLanguage ManualLanguageSetup;
+
 		//variáveis que são verificadas nos scripts para determinar as coisas
 		public static BuildType CurrentPurchaseType {
 			get {return _currentBuild == null ? BuildType.IAP : _currentBuild;}
@@ -49,6 +51,10 @@ namespace YupiPlay.Luna {
 			get {return _isAdsEnabled;}
 		}
 
+        public static SystemLanguage ManualLanguage {
+            get { return _manualLanguage; }
+        }
+
 		//variáveis internas
 		private static BuildType _currentBuild;
 		private static bool _isGPGSEnabled;
@@ -59,6 +65,8 @@ namespace YupiPlay.Luna {
 		private static bool _isRedeemCodeEnabled;
 		private static bool _isAdsEnabled;
 
+        private static SystemLanguage _manualLanguage;
+
 		void Awake() {
 			_currentBuild = PurchaseType;
 			_isGPGSEnabled = EnableGPGS;
@@ -68,6 +76,9 @@ namespace YupiPlay.Luna {
 			_isVideoDownloadsEnabled = EnableVideoDownloads;
 			_isRedeemCodeEnabled = EnableRedeemCode;
 			_isAdsEnabled = EnableAds;
+
+            _manualLanguage = ManualLanguageSetup;
+           
 		}			
 	}	
 }

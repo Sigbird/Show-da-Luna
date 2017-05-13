@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using YupiPlay.Luna;
 using UnityEngine.UI;
 
 namespace YupiStudios.API.Language {
@@ -21,7 +21,12 @@ namespace YupiStudios.API.Language {
 		void Awake () {
 
 			SystemLanguage lang = Application.systemLanguage;
-			InputField input = GetComponent<InputField>();
+
+            if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+                lang = BuildConfiguration.ManualLanguage;
+            }
+
+            InputField input = GetComponent<InputField>();
 			//Teste
 			//Debug.Log (lang.ToString());
 			
