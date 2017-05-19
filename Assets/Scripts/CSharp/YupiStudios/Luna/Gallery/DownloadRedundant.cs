@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using UnityEngine.Networking;
 using MiniJSON;
-using UnityEngine.UI;
 
 namespace YupiPlay {		
 	public class DownloadRedundant : MonoBehaviour {
@@ -23,17 +22,19 @@ namespace YupiPlay {
 			}
 		}
 
-        private Server[] localServers = new Server[] {            
+        private Server[] localServers = new Server[] {
+           
            // new Server("https://lunacdn.azureedge.net/", 4),
-              new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
-              new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),             
+            new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
+            new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
+            new Server("https://storage.googleapis.com/luna-ac595.appspot.com/", 2),
            // new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
            // new Server("https://yupiplay.000webhostapp.com/luna/", 3),
 	       // new Server("https://yupistudios.000webhostapp.com/luna/", 3)
 		};
 
 		private const string FILENAME = "lunaservers.json";
-		private const string FILEURL = "https://yupiplayluna.blob.core.windows.net/videos/";
+		//private const string FILEURL = "https://yupiplayluna.blob.core.windows.net/videos/";
 		private const string SERVERSKEY = "lunaservers";
 		private const string LASTSERVERCHECK = "lunaserversday";
 
@@ -66,7 +67,7 @@ namespace YupiPlay {
         }        		
 
 		private IEnumerator init() {
-            // readFromClass();
+            //readFromClass();
 
             if (canReadFromNetwork()) {
                 readFromNetwork();
@@ -155,9 +156,9 @@ namespace YupiPlay {
 
 		private void readFromNetwork() {	
 			state = States.READING;
-			string url = FILEURL + FILENAME;
+			//string url = FILEURL + FILENAME;
 
-			StartCoroutine(readServerList(url));
+			StartCoroutine(readServerList());
 		}				
 
 		private void readFromClass() {
@@ -199,7 +200,8 @@ namespace YupiPlay {
 			}
 
 			DateTime lastDate =  DateTime.Parse(lastServerCheck);
-			lastDate = lastDate.AddDays(1f);
+            //lastDate = lastDate.AddSeconds(1f);
+            lastDate = lastDate.AddDays(1f);
 
 			if (DateTime.Now.CompareTo(lastDate) > 0) {
 				return true;
@@ -238,22 +240,24 @@ namespace YupiPlay {
 			}
 		}
 
-		private IEnumerator readServerList(string OriginUri) {		
-			Uri uri = new Uri(OriginUri);
-			bool isRemote = uri.Scheme == Uri.UriSchemeHttps;											
+		private IEnumerator readServerList(int serverNum = 0) {
+            int numServers = localServers.Length;
+            string OriginUri = localServers[serverNum].site + FILENAME;
+            Uri uri = new Uri(OriginUri);			
 
 			UnityWebRequest req2 = UnityWebRequest.Get(OriginUri);				
 			yield return req2.Send();
 
 			if (req2.isError) {
 				Debug.Log(req2.error);
+				
+                if (serverNum < numServers) {
+                    readServerList(++serverNum);
+                } else if (!readFromPlayerPrefs()) {
+                    readFromClass();
+                }
 
-				if (isRemote) {
-					if (!readFromPlayerPrefs()) {
-						readFromClass();
-					}
-				}
-				yield break;
+                yield break;
 			}
 				
 			parseJson(req2.downloadHandler.text);
