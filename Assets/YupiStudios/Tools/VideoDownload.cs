@@ -264,12 +264,18 @@ public class VideoDownload : MonoBehaviour {
 	public string getVideoUrl() {          
         string hostUrl = DownloadRedundant.Instance.GetServerRoundRobin(myPriority);
 
-		if (Application.systemLanguage == SystemLanguage.Portuguese) {
-			return hostUrl + FilePT;
-		} else if (Application.systemLanguage == SystemLanguage.Spanish) {
-			return hostUrl + FilePT;
-		}
-		return hostUrl + FileEN;
+        try {
+            if (Application.systemLanguage == SystemLanguage.Portuguese) {
+                return hostUrl + FilePT;
+            } else if (Application.systemLanguage == SystemLanguage.Spanish) {
+                return hostUrl + FilePT;
+            }
+
+            string videoUrl = hostUrl + FileEN;            
+            return videoUrl;
+        } catch (NullReferenceException e) {
+            return "";
+        }		
 	}
 
 	public bool IsDownloadStarted() {

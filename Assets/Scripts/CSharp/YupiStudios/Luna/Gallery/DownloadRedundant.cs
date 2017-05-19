@@ -25,9 +25,9 @@ namespace YupiPlay {
         private Server[] localServers = new Server[] {
            
            // new Server("https://lunacdn.azureedge.net/", 4),
-            new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
-            new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
-            new Server("https://storage.googleapis.com/luna-ac595.appspot.com/", 2),
+           // new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
+            //new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
+            new Server("https://storage.googleapis.com/lunavideos/", 1),
            // new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
            // new Server("https://yupiplay.000webhostapp.com/luna/", 3),
 	       // new Server("https://yupistudios.000webhostapp.com/luna/", 3)
@@ -123,6 +123,8 @@ namespace YupiPlay {
 
 		public string GetServerRoundRobin(int priority) {
 			LinkedListNode<Server> current = null;
+
+            if (servers == null) return null;
 
 			if (priority > currentPriority && priority <= minPriority) {
 				currentPriority = priority;
