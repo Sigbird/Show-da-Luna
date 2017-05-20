@@ -5,6 +5,7 @@ using YupiPlay.Luna;
 using System.Collections;
 using System;
 using YupiPlay.Luna.LunaPlayer;
+using UnityEngine.Networking;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -81,6 +82,7 @@ public class VideoDownload : MonoBehaviour {
 				downloadComplete = true;
 
 				DeleteFile();
+                Debug.Log("file deleted");
 
 				if (OnDownloadStartError != null) {
 					OnDownloadStartError(request.error);	
@@ -93,7 +95,10 @@ public class VideoDownload : MonoBehaviour {
 			}
 
 			timeOut += Time.unscaledDeltaTime;
-			if (request.progress > 0) oldProgress = request.progress;
+            if (request.progress > 0 && request.progress < 1) {                
+                oldProgress = request.progress;
+                Debug.Log(oldProgress);
+            }
 		}
 	}	
 
@@ -118,6 +123,8 @@ public class VideoDownload : MonoBehaviour {
 
 	private IEnumerator Downloader() {
 		request = new WWW(getVideoUrl());
+        //var newRequest = UnityWebRequest.Get(getVideoUrl());
+        
 		downloadStarted = true;
 		timeOut = 0f;
 
