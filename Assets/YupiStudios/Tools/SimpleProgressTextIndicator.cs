@@ -39,7 +39,7 @@ public class SimpleProgressTextIndicator : MonoBehaviour, IDownloadListener {
 			OnRequestStarted();
 		}
 
-		float rawProgress = download.GetProgress();
+		float rawProgress = download.GetProgress();        
 
 		if (rawProgress > 0f) {			
 			float progress = 100f * rawProgress;

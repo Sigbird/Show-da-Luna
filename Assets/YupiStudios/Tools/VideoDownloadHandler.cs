@@ -11,7 +11,7 @@ public class VideoDownloadHandler : DownloadHandlerScript {
         this.fileName = fileName;
     }
 
-    protected void OnContentComplete() {
+    override protected void CompleteContent() {
         byte[] videoData = this.data;
 
         if (isDone) {
@@ -28,5 +28,9 @@ public class VideoDownloadHandler : DownloadHandlerScript {
         }
         
     }
+
+    //override protected float GetProgress() : base() {
+        
+    //}
     
 }
