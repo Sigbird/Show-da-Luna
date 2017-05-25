@@ -1,7 +1,7 @@
-﻿namespace YupiStudios.YupiPlay.Plugin {
+﻿namespace YupiStudiosOld.YupiPlay.Plugin {
 
 	using UnityEngine;
-	using YupiStudios.YupiPlay.API;
+	using YupiStudiosOld.YupiPlay.API;
 	
 	public class YupiPlayInit : MonoBehaviour {
 		

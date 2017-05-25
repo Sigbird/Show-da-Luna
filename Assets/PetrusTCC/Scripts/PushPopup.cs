@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using YupiStudios.YupiPlay.Plugin;
+using YupiStudiosOld.YupiPlay.Plugin;
 
 public class PushPopup : MonoBehaviour {
 	public GameObject Popup;

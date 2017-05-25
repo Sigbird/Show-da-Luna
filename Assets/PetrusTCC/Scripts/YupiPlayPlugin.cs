@@ -1,4 +1,4 @@
-namespace YupiStudios.YupiPlay.Plugin {
+namespace YupiStudiosOld.YupiPlay.Plugin {
 
 	using UnityEngine;
 

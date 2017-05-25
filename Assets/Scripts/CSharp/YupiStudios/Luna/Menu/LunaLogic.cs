@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using YupiStudios.Luna.Config;
+using YupiPlay.Luna;
 
 namespace YupiStudios.Luna.Menu {
 

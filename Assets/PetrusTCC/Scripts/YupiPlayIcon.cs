@@ -2,12 +2,13 @@
 using System.Collections;
 
 using UnityEngine.UI;
-using YupiStudios.Fico;
-using YupiStudios.YupiPlay.API;
+//using YupiStudios.Fico;
+using YupiStudiosOld.YupiPlay.API;
 
-using YupiStudios.Fico.Managers;
+//using YupiStudios.Fico.Managers;
+using YupiStudiosOld.YupiPlay.Plugin;
 
-namespace YupiStudios.YupiPlay.Plugin.Icon {
+namespace YupiStudiosOld.YupiPlay.Plugin.Icon {
 
 	
 	public class YupiPlayIcon : MonoBehaviour {
@@ -33,7 +34,7 @@ namespace YupiStudios.YupiPlay.Plugin.Icon {
 
 		private YupiPlayAPI apiInstance = null;
 	
-		GameFacade facade;
+		//GameFacade facade;
 	
 		void Awake() {
 			apiInstance = YupiPlayInit.getAPI();
@@ -43,13 +44,13 @@ namespace YupiStudios.YupiPlay.Plugin.Icon {
 		
 		// Use this for initialization
 		void Start () {
-			facade = GameFacade.Instance;
+			//facade = GameFacade.Instance;
 
-			if (facade.LevelManager.StartedGame)
-			{
-				popupTime = 0.0f;
-				facade.LevelManager.StartedGame = false;
-			}
+			//if (facade.LevelManager.StartedGame)
+			//{
+			//	popupTime = 0.0f;
+			//	facade.LevelManager.StartedGame = false;
+			//}
 
 			updateNotifications = 180.0f;
 			yupiPlayPlugin = YupiPlayPlugin.getInstance();
@@ -63,20 +64,20 @@ namespace YupiStudios.YupiPlay.Plugin.Icon {
 		}
 		
 		public void OnClickYupiplayButton() {
-			YupiStudios.GoogleAnalytics.GAEventHandler eHandler = YupiStudios.GoogleAnalytics.GAEventHandler.Instance;
+			//YupiStudios.GoogleAnalytics.GAEventHandler eHandler = YupiStudios.GoogleAnalytics.GAEventHandler.Instance;
 			int access = PlayerPrefs.GetInt ("yupiplay_access",0);
-			int starts = PlayerManager.Instance.StartNumber;
-			eHandler.YupiPlayEvent ("Yupiplay Click", access.ToString (), starts);
+			//int starts = PlayerManager.Instance.StartNumber;
+			//eHandler.YupiPlayEvent ("Yupiplay Click", access.ToString (), starts);
 			PlayerPrefs.SetInt("yupiplay_access",++access);
 			Debug.Log ("openYupiPlay");
 			yupiPlayPlugin.openYupiPlay();
 		}
 
 		public void OnClickAvatarButton() {
-			YupiStudios.GoogleAnalytics.GAEventHandler eHandler = YupiStudios.GoogleAnalytics.GAEventHandler.Instance;
+			//YupiStudios.GoogleAnalytics.GAEventHandler eHandler = YupiStudios.GoogleAnalytics.GAEventHandler.Instance;
 			int access = PlayerPrefs.GetInt ("avatar_access",0);
-			int starts = PlayerManager.Instance.StartNumber;
-			eHandler.YupiPlayEvent ("Avatar Click", access.ToString(), starts);
+			//int starts = PlayerManager.Instance.StartNumber;
+			//eHandler.YupiPlayEvent ("Avatar Click", access.ToString(), starts);
 			PlayerPrefs.SetInt("avatar_access",++access);
 			Debug.Log ("openAvatar");
 			yupiPlayPlugin.openAvatar();
@@ -101,9 +102,8 @@ namespace YupiStudios.YupiPlay.Plugin.Icon {
 			Debug.Log (avatarName);
 
 			AvatarButton.image.sprite = Sprite.Create(tex,
-			                                            new Rect(0, 0, tex.width, tex.height),
-			                                            new Vector2(0.5f,0.5f),AvatarButton.image.sprite.pixelsPerUnit
-			                                            );
+			    new Rect(0, 0, tex.width, tex.height),
+                new Vector2(0.5f,0.5f),AvatarButton.image.sprite.pixelsPerUnit);
 			
 			//texture.texture = avatarTexture;
 		}
@@ -117,11 +117,11 @@ namespace YupiStudios.YupiPlay.Plugin.Icon {
 			if ( string.IsNullOrEmpty( id ) )
 			{
 				changeAvatar("_reset");
-				facade.PlayerManager.SetPlayerInfos("", "", "");
+				//facade.PlayerManager.SetPlayerInfos("", "", "");
 			}
 			else
 			{
-				facade.PlayerManager.SetPlayerInfos(name, age, gender, id);
+				//facade.PlayerManager.SetPlayerInfos(name, age, gender, id);
 				PlayerNameText.text = name;
 			}
 
@@ -134,8 +134,8 @@ namespace YupiStudios.YupiPlay.Plugin.Icon {
 
 			if (popupTime < 11.0f)
 			{
-				PlayerManager player = PlayerManager.Instance;
-				string pid = player.PlayerId;
+				//PlayerManager player = PlayerManager.Instance;
+				string pid = yupiPlayPlugin.getChildId();
 
 				if (pid != "guest" && !string.IsNullOrEmpty(pid))
 				{

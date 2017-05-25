@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace YupiStudios.YupiPlay {
+namespace YupiStudiosOld.YupiPlay {
 
 	public class LogoPosition : MonoBehaviour {
 		public float marginRight;
