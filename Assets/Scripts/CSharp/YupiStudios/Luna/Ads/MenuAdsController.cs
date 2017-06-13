@@ -31,8 +31,11 @@ namespace YupiPlay.Ads
 
         private IEnumerator CheckAds() {
             while (true) {
-                simpleAd = AdsCooldown.CanShowAd() && Advertisement.IsReady();
-                rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo");
+                //simpleAd = AdsCooldown.CanShowAd() && Advertisement.IsReady();
+                //rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo");
+
+                rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && AdsManager.IsVideoLoaded();
+                
                 //Debug.Log("reward bool " + rewardedVideoAd);
                 //Debug.Log("ad bool " + simpleAd);                
 
@@ -53,8 +56,10 @@ namespace YupiPlay.Ads
         }
 
         private void ShowRewardedVideo() {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show("rewardedVideo", options);
+            // UnityAds
+            //var options = new ShowOptions { resultCallback = HandleShowResult };
+            //Advertisement.Show("rewardedVideo", options);
+            AdsManager.ShowVideo();
         }
 
         void HandleShowResult(ShowResult result) {

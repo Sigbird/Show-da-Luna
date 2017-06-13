@@ -25,8 +25,7 @@ namespace YupiPlay.Ads
 	    private static AdInfo[] rewardedVideoAds;
 
 	    private RewardBasedVideoAd rewardVideoAd;
-	    private string videoTestId = "ca-app-pub-3940256099942544/5224354917";
-	    private AdRequest adRequest;
+	    private string videoTestId = "ca-app-pub-3940256099942544/5224354917";	    
 
         private NativeExpressAdView nativeAd;
         private bool IsNativeAdReady = false;
@@ -53,7 +52,7 @@ namespace YupiPlay.Ads
 		    yield return new WaitForEndOfFrame();
 
             
-                RequestNativeAd();
+                //RequestNativeAd();
                 RequestRewardedVideo();
                         
 		    //LoadVideoAd();
@@ -70,7 +69,7 @@ namespace YupiPlay.Ads
 	    }
 
 	    public static void LoadVideoAd() {		    
-			    Instance.RequestRewardedVideo();			    
+			Instance.RequestRewardedVideo();			    
 	    }	    
 	   
 	    private AdInfo getRewarededVideoInfo () {		    
@@ -118,7 +117,7 @@ namespace YupiPlay.Ads
 			    rewardVideoAd.OnAdRewarded += onVideoRewarded;
 		    }
 
-            rewardVideoAd.LoadAd(getRewardedVideoRequest(), videoTestId);
+            rewardVideoAd.LoadAd(getRewardedVideoRequest(), videoAdInfo.AndroidId);
         }				
 
 	    private void onVideoLoaded(object sender, EventArgs e) {
