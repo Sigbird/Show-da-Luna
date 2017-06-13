@@ -8,7 +8,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
     
-    <permission android:name="com.YupiPlay.Lunacom.YupiPlay.LunaLP.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <permission android:name="com.YupiPlay.Luna.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="com.YupiPlay.Luna.permission.C2D_MESSAGE" />
     <application>
       <receiver
