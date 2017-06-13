@@ -25,8 +25,7 @@ namespace YupiPlay.Ads
 	    private static AdInfo[] rewardedVideoAds;
 
 	    private RewardBasedVideoAd rewardVideoAd;
-	    private string videoTestId = "ca-app-pub-3940256099942544/5224354917";
-	    private AdRequest adRequest;
+	    private string videoTestId = "ca-app-pub-3940256099942544/5224354917";	    
 
         private NativeExpressAdView nativeAd;
         private bool IsNativeAdReady = false;
