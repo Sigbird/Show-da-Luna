@@ -56,8 +56,9 @@ namespace YupiPlay.Ads
         }
 
         private void ShowRewardedVideo() {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show("rewardedVideo", options);
+            // var options = new ShowOptions { resultCallback = HandleShowResult };
+            //Advertisement.Show("rewardedVideo", options);
+            AdsManager.ShowVideo();
         }
 
         void HandleShowResult(ShowResult result) {

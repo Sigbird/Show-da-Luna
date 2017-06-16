@@ -42,9 +42,14 @@ namespace YupiPlay.Ads
 	    }
 
 	    void Start() {
-		    //if (BuildConfiguration.AdsEnabled) {
-			    //StartCoroutine(RequestVideoWorker());
-			    StartCoroutine(init());
+            rewardVideoAd = RewardBasedVideoAd.Instance;
+            rewardVideoAd.OnAdLoaded += onVideoLoaded;
+            rewardVideoAd.OnAdFailedToLoad += onVideoFailedToLoad;
+            rewardVideoAd.OnAdRewarded += onVideoRewarded;
+            
+            //if (BuildConfiguration.AdsEnabled) {
+            //StartCoroutine(RequestVideoWorker());
+            StartCoroutine(init());
 		    //}
 	    }
 
@@ -52,7 +57,7 @@ namespace YupiPlay.Ads
 		    yield return new WaitForEndOfFrame();
 
             
-                RequestNativeAd();
+                //RequestNativeAd();
                 RequestRewardedVideo();
                         
 		    //LoadVideoAd();
@@ -105,19 +110,11 @@ namespace YupiPlay.Ads
 	    private void RequestRewardedVideo() {
 		    AdInfo videoAdInfo = getRewarededVideoInfo();
 
-		    if (videoAdInfo == null) {
-			    return;
-		    }		    
-            		    		    
-		    if (rewardVideoAd == null) {
-                rewardVideoAd = RewardBasedVideoAd.Instance;
+            if (videoAdInfo == null) {
+                return;
+            }            		    		    		   
 
-                rewardVideoAd.OnAdLoaded += onVideoLoaded;
-			    rewardVideoAd.OnAdFailedToLoad += onVideoFailedToLoad;
-			    rewardVideoAd.OnAdRewarded += onVideoRewarded;
-		    }
-
-            rewardVideoAd.LoadAd(getRewardedVideoRequest(), videoTestId);
+            rewardVideoAd.LoadAd(getRewardedVideoRequest(), videoAdInfo.AndroidId);
         }				
 
 	    private void onVideoLoaded(object sender, EventArgs e) {
