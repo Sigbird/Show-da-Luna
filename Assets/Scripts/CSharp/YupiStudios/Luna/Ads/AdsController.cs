@@ -34,7 +34,7 @@ public class AdsController : MonoBehaviour {
         while (true) {
             bool showRewardVideo = AdsCooldown.CanShowRewardedVideo();
             Debug.Log("show reward vid " + showRewardVideo);
-            if (showRewardVideo && Advertisement.IsReady("rewardedVideo")) {
+            if (showRewardVideo && AdsManager.IsVideoLoaded()) {
                 SetButtonToFree();
             } else if (!AdsCooldown.CanShowRewardedVideo()) {
                 SetButtonToClock();
@@ -66,11 +66,7 @@ public class AdsController : MonoBehaviour {
 
     void OnDisable() {
         StopAllCoroutines();
-	}		
-
-	private void OnVideoLoaded() {
-		
-	}	
+	}			
 }
 
 #endif

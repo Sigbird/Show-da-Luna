@@ -17,8 +17,10 @@ namespace YupiPlay.Ads
 
         public UnityEvent OnRewardedVideoClick;
 
-        private bool simpleAd;
-        private bool rewardedVideoAd;
+        private bool simpleAd = false;
+        private bool rewardedVideoAd = false;
+
+        private int starsToReward;
 
         // Use this for initialization
         void Start() {
@@ -33,8 +35,11 @@ namespace YupiPlay.Ads
             while (true) {
                 //simpleAd = AdsCooldown.CanShowAd() && Advertisement.IsReady();
                 //rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo");
-
-                rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && AdsManager.IsVideoLoaded();
+                bool isAdLoaded = AdsManager.IsVideoLoaded();
+                if (!isAdLoaded) {
+                    AdsManager.LoadVideoAd();
+                }
+                rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && isAdLoaded;
 
                 //Debug.Log("reward bool " + rewardedVideoAd);
                 //Debug.Log("ad bool " + simpleAd);                
@@ -57,7 +62,7 @@ namespace YupiPlay.Ads
 
         private void ShowRewardedVideo() {
             // var options = new ShowOptions { resultCallback = HandleShowResult };
-            //Advertisement.Show("rewardedVideo", options);
+            //Advertisement.Show("rewardedVideo", options);            
             AdsManager.ShowVideo();
         }
 
@@ -73,9 +78,12 @@ namespace YupiPlay.Ads
         }
 
         public void RewardPlayer() {
-            StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, AdsCooldown.StarsToReward);
+            //StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, AdsCooldown.StarsToReward);
+            StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, starsToReward);
             AdsCooldown.UpdateLastVideoRewardTime();
             LunaStoreManager.CallBoughtStarsEvent();
+
+            this.starsToReward = 0;
 
             if (Social.localUser.authenticated) {
                 GameSave.WriteSave();
@@ -95,7 +103,33 @@ namespace YupiPlay.Ads
                 ShowSimpleAd();
             }
         }
-    }
+
+        void OnEnable() {
+            AdsManager.OnRewardPlayer += KeepStarsFromGoogleAds;
+        }
+
+        private void OnDisable() {
+            AdsManager.OnRewardPlayer -= KeepStarsFromGoogleAds;
+        }
+
+        private void KeepStarsFromGoogleAds(int stars) {
+            Debug.Log("Showing Reward to Player");
+            this.starsToReward = stars;            
+        }
+
+        private void OnApplicationFocus(bool hasFocus) {
+            if (hasFocus && this.starsToReward > 0) {
+                ShowRewardPanel();
+                NewMessage.SetActive(false);
+            }
+        }
+
+        private void ShowRewardPanel() {
+            Debug.Log("Ad Finished");
+            RewardPanel.SetActive(true);            
+        }
+
+    }    
 }
 
 #endif

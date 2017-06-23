@@ -26,6 +26,11 @@ namespace YupiStudios.API.Language {
                 lang = BuildConfiguration.ManualLanguage;
             }
 
+            if (YupiPlay.Luna.BuildConfiguration.VideoDownloadsEnabled == false)
+            {
+                lang = SystemLanguage.English;
+            }
+
             InputField input = GetComponent<InputField>();
 			//Teste
 			//Debug.Log (lang.ToString());

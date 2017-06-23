@@ -18,6 +18,8 @@ namespace YupiPlay.Ads
 
 	    public delegate void VideoLoadedCallback();
 	    public static event VideoLoadedCallback OnVideoLoadedEvent;
+        public delegate void RewardPlayerCallback(int stars);
+        public static event RewardPlayerCallback OnRewardPlayer;
 
 	    private static AdsManager _instance;
 
@@ -25,10 +27,10 @@ namespace YupiPlay.Ads
 	    private static AdInfo[] rewardedVideoAds;
 
 	    private RewardBasedVideoAd rewardVideoAd;
-	    private string videoTestId = "ca-app-pub-3940256099942544/5224354917";	    
+	    //private string videoTestId = "ca-app-pub-3940256099942544/5224354917";	    
 
         private NativeExpressAdView nativeAd;
-        private bool IsNativeAdReady = false;
+        private bool IsNativeAdReady = false;        
 
 	    void Awake() {
 		    if (_instance == null) {
@@ -46,7 +48,9 @@ namespace YupiPlay.Ads
             rewardVideoAd.OnAdLoaded += onVideoLoaded;
             rewardVideoAd.OnAdFailedToLoad += onVideoFailedToLoad;
             rewardVideoAd.OnAdRewarded += onVideoRewarded;
-            
+            rewardVideoAd.OnAdClosed += onVideoClosed;
+            rewardVideoAd.OnAdLeavingApplication += onVideoLeaving;
+
             //if (BuildConfiguration.AdsEnabled) {
             //StartCoroutine(RequestVideoWorker());
             StartCoroutine(init());
@@ -81,23 +85,7 @@ namespace YupiPlay.Ads
 			return rewardedVideoAds[0];		    					    
 	    }
 
-	    private AdInfo getNativeAdInfo() {
-		    foreach (AdInfo ad in nativeAds) {
-			    if (ad.Language == Application.systemLanguage) {
-				    return ad;
-			    }
-		    }			
-
-		    return null;
-	    }	    
-
-	    private AdRequest getAdRequest() {		    
-		    return new AdRequest.Builder()		
-			    //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
-			    //.TagForChildDirectedTreatment(true)
-			    //.AddExtra("is_designed_for_families", "true")									
-			    .Build();	
-	    }
+	  
 
         private AdRequest getRewardedVideoRequest() {
             return new AdRequest.Builder()
@@ -127,30 +115,51 @@ namespace YupiPlay.Ads
 		    Debug.Log("VideoAd Load Failed: " + args.Message);		
 	    }
 
-	    private void onVideoRewarded(object sender, Reward reward) {
-		    //double amount = reward.Amount;
-		    //StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 10);
+	    private void onVideoRewarded(object sender, Reward reward) {           
+            Debug.Log("called OnVideoReward, stars: " + reward.Amount);            
+           
+            if (OnRewardPlayer != null) {
+                Debug.Log("calling event");
+                OnRewardPlayer((int) reward.Amount);
+            }
 
-		    //if (Social.localUser.authenticated) {
-			   // PlayerPrefs.SetString(LastRewardTime, DateTime.Now.ToString());
-			   // GameSave.WriteSave();
-		    //}
-	    }
+            RequestRewardedVideo();
+            Debug.Log("Requested another video");
+        }        
 
-	    private IEnumerator RequestVideoWorker() {	
-		    yield return new WaitForEndOfFrame();
+        private void onVideoClosed(object sender, EventArgs e) {
+            Debug.Log("Video Closed");
+        }        
 
-		    RequestRewardedVideo();
+        private void onVideoLeaving(object sender, EventArgs e) {
+            Debug.Log("leaving video");
+        }
 
-		    while (!rewardVideoAd.IsLoaded()) {
-			    RequestRewardedVideo();
 
-			    yield return new WaitForSecondsRealtime(1);
-		    }
-	    }
-
-        private void RequestNativeAd()
+        #region NativeAd
+        private AdInfo getNativeAdInfo()
         {
+            foreach (AdInfo ad in nativeAds)
+            {
+                if (ad.Language == Application.systemLanguage)
+                {
+                    return ad;
+                }
+            }
+
+            return null;
+        }
+
+        private AdRequest getAdRequest()
+        {
+            return new AdRequest.Builder()
+                //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
+                //.TagForChildDirectedTreatment(true)
+                //.AddExtra("is_designed_for_families", "true")									
+                .Build();
+        }
+
+        private void RequestNativeAd() {
             AdInfo nAd = getNativeAdInfo();
 
             if (nAd == null) {
@@ -167,28 +176,25 @@ namespace YupiPlay.Ads
             nativeAd.LoadAd(getAdRequest());            
         }
 
-        private void OnNativeAdLoaded(object sender, EventArgs args)
-        {
+        private void OnNativeAdLoaded(object sender, EventArgs args) {
             IsNativeAdReady = true;
             Debug.Log("Native Ad Loaded");
         }
 
-        private void OnNativeAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
-        {
+        private void OnNativeAdFailedToLoad(object sender, AdFailedToLoadEventArgs args) {
             Debug.Log("Native Ad Failed to Load");
         }
 
-        public static bool CanShowNativeAd()
-        {
+        public static bool CanShowNativeAd() {
             return _instance.IsNativeAdReady;
         }
 
-        public static void ShowNativeAd()
-        {
+        public static void ShowNativeAd() {
             if (CanShowNativeAd())
             {
                 _instance.nativeAd.Show();
             }
-        }        
+        }
+        #endregion NativeAd
     }
 }

@@ -56,7 +56,7 @@ public class VideoDownload : MonoBehaviour {
 		}
 
 		string filename = FileNameEnglish;
-		if (Application.systemLanguage == SystemLanguage.Portuguese) {
+		if (Application.systemLanguage != SystemLanguage.English) {
 			filename = FileName;
 		}
 
@@ -221,15 +221,20 @@ public class VideoDownload : MonoBehaviour {
 	public string getVideoUrl() {          
         string hostUrl = DownloadRedundant.Instance.GetServerRoundRobin(myPriority);
 
+        SystemLanguage language = Application.systemLanguage;
+        if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+            language = BuildConfiguration.ManualLanguage;
+        }
+
         try {
-            if (Application.systemLanguage == SystemLanguage.Portuguese) {
-                return hostUrl + FilePT;
-            } else if (Application.systemLanguage == SystemLanguage.Spanish) {
+            if (language == SystemLanguage.Portuguese) {
                 return hostUrl + FilePT;
             }
-
-            string videoUrl = hostUrl + FileEN;            
-            return videoUrl;
+            if (language == SystemLanguage.Spanish) {
+                return hostUrl + FileES;
+            }
+                    
+            return hostUrl + FileEN;
         } catch (NullReferenceException e) {
             return "";
         }		
