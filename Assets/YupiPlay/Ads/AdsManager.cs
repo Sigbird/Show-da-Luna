@@ -50,23 +50,10 @@ namespace YupiPlay.Ads
             rewardVideoAd.OnAdRewarded += onVideoRewarded;
             rewardVideoAd.OnAdClosed += onVideoClosed;
             rewardVideoAd.OnAdLeavingApplication += onVideoLeaving;
-
-            //if (BuildConfiguration.AdsEnabled) {
-            //StartCoroutine(RequestVideoWorker());
-            StartCoroutine(init());
-		    //}
-	    }
-
-	    private IEnumerator init() {
-		    yield return new WaitForEndOfFrame();
-
             
-                //RequestNativeAd();
-                RequestRewardedVideo();
-                        
-		    //LoadVideoAd();
+            StartCoroutine(init());		    
 	    }
-
+	   
 	    public static bool IsVideoLoaded() {		    
 			return Instance.rewardVideoAd.IsLoaded();			    
 	    }
@@ -78,15 +65,25 @@ namespace YupiPlay.Ads
 	    }
 
 	    public static void LoadVideoAd() {		    
-			    Instance.RequestRewardedVideo();			    
-	    }	    
-	   
-	    private AdInfo getRewarededVideoInfo () {		    
-			return rewardedVideoAds[0];		    					    
+		    Instance.RequestRewardedVideo();			    
 	    }
 
-	  
+        public static void LoadNativeAd() {
+            Instance.RequestNativeAd();
+        }
 
+        private IEnumerator init()
+        {
+            yield return new WaitForEndOfFrame();
+
+            RequestNativeAd();
+            RequestRewardedVideo();
+        }
+
+        private AdInfo getRewarededVideoInfo () {		    
+			return rewardedVideoAds[0];		    					    
+	    }
+	  
         private AdRequest getRewardedVideoRequest() {
             return new AdRequest.Builder()
                 //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
@@ -122,12 +119,12 @@ namespace YupiPlay.Ads
                 Debug.Log("calling event");
                 OnRewardPlayer((int) reward.Amount);
             }
-
-            RequestRewardedVideo();
+            
             Debug.Log("Requested another video");
         }        
 
         private void onVideoClosed(object sender, EventArgs e) {
+            RequestRewardedVideo();
             Debug.Log("Video Closed");
         }        
 
@@ -135,12 +132,16 @@ namespace YupiPlay.Ads
             Debug.Log("leaving video");
         }
 
-
         #region NativeAd
         private AdInfo getNativeAdInfo()
         {
             foreach (AdInfo ad in nativeAds)
             {
+                if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+                    if (ad.Language == BuildConfiguration.ManualLanguage) {
+                        return ad;
+                    }
+                }
                 if (ad.Language == Application.systemLanguage)
                 {
                     return ad;
@@ -160,8 +161,9 @@ namespace YupiPlay.Ads
         }
 
         private void RequestNativeAd() {
-            AdInfo nAd = getNativeAdInfo();
+            IsNativeAdReady = false;
 
+            AdInfo nAd = getNativeAdInfo();
             if (nAd == null) {
                 return;
             }
@@ -172,11 +174,13 @@ namespace YupiPlay.Ads
 
             nativeAd.OnAdLoaded += OnNativeAdLoaded;
             nativeAd.OnAdFailedToLoad += OnNativeAdFailedToLoad;
-
-            nativeAd.LoadAd(getAdRequest());            
+            
+            nativeAd.LoadAd(getAdRequest());
+            nativeAd.Hide();
         }
 
         private void OnNativeAdLoaded(object sender, EventArgs args) {
+            nativeAd.Hide();
             IsNativeAdReady = true;
             Debug.Log("Native Ad Loaded");
         }
@@ -185,15 +189,22 @@ namespace YupiPlay.Ads
             Debug.Log("Native Ad Failed to Load");
         }
 
-        public static bool CanShowNativeAd() {
-            return _instance.IsNativeAdReady;
+        public static bool CanShowNativeAd() {            
+            return Instance.IsNativeAdReady;
         }
 
         public static void ShowNativeAd() {
             if (CanShowNativeAd())
             {
-                _instance.nativeAd.Show();
+                Instance.nativeAd.Show();
+                Debug.Log("Showing Native Ad");
             }
+        }
+
+        public static void DestroyNativeAd()
+        {
+            Instance.IsNativeAdReady = false;
+            Instance.nativeAd.Destroy();
         }
         #endregion NativeAd
     }

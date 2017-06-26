@@ -14,6 +14,7 @@ namespace YupiPlay.Ads
         public float AdsCheckIntervalSeconds = 1f;
         public GameObject NewMessage;
         public GameObject RewardPanel;
+        public GameObject NativeAdPanel; 
 
         public UnityEvent OnRewardedVideoClick;
 
@@ -35,11 +36,18 @@ namespace YupiPlay.Ads
             while (true) {
                 //simpleAd = AdsCooldown.CanShowAd() && Advertisement.IsReady();
                 //rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo");
-                bool isAdLoaded = AdsManager.IsVideoLoaded();
-                if (!isAdLoaded) {
+                bool isNativeLoaded   = AdsManager.CanShowNativeAd();
+                bool isRewardedLoaded = AdsManager.IsVideoLoaded();
+
+                if (!isNativeLoaded) {
+                    AdsManager.LoadNativeAd();
+                }
+                if (!isRewardedLoaded) {
                     AdsManager.LoadVideoAd();
                 }
-                rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && isAdLoaded;
+
+                rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && isRewardedLoaded;
+                simpleAd        = AdsCooldown.CanShowAd() && isNativeLoaded;
 
                 //Debug.Log("reward bool " + rewardedVideoAd);
                 //Debug.Log("ad bool " + simpleAd);                
@@ -55,14 +63,16 @@ namespace YupiPlay.Ads
         }
 
         private void ShowSimpleAd() {
-            Advertisement.Show();
+            NativeAdPanel.SetActive(true);
+            AdsManager.ShowNativeAd();
             AdsCooldown.UpdateLastAdTime();
-            NewMessage.SetActive(false);
+            NewMessage.SetActive(false);            
         }
 
         private void ShowRewardedVideo() {
             // var options = new ShowOptions { resultCallback = HandleShowResult };
-            //Advertisement.Show("rewardedVideo", options);            
+            //Advertisement.Show("rewardedVideo", options);       
+            this.starsToReward = 0;
             AdsManager.ShowVideo();
         }
 
@@ -104,6 +114,10 @@ namespace YupiPlay.Ads
             }
         }
 
+        public void CloseNativeAd() {
+            AdsManager.DestroyNativeAd();
+        }
+
         void OnEnable() {
             AdsManager.OnRewardPlayer += KeepStarsFromGoogleAds;
         }
@@ -128,7 +142,6 @@ namespace YupiPlay.Ads
             Debug.Log("Ad Finished");
             RewardPanel.SetActive(true);            
         }
-
     }    
 }
 
