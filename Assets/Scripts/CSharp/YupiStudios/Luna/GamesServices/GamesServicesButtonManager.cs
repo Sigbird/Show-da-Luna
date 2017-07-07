@@ -1,15 +1,11 @@
-﻿#if UNITY_ANDROID
-
-using UnityEngine;
-using System.Collections;
-using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
+﻿using UnityEngine;
 using YupiPlay.Luna;
 
 public class GamesServicesButtonManager : MonoBehaviour {
 
 	public GameObject LoginText;
 	public GameObject LogoutText;
+
 	// Use this for initialization
 	void Start () {
 		if (!BuildConfiguration.GPGSEnabled) {
@@ -26,7 +22,7 @@ public class GamesServicesButtonManager : MonoBehaviour {
         bool auth = Social.localUser.authenticated;
         Debug.Log(auth);
 
-		if (Social.localUser.authenticated) {
+		if (auth) {
 			LoginText.SetActive(false);
 			LogoutText.SetActive(true);
 		} else {
@@ -42,8 +38,8 @@ public class GamesServicesButtonManager : MonoBehaviour {
 
 	public void ButtonAction() {
 		if (Social.localUser.authenticated) {
-			PlayGamesPlatform.Instance.SignOut();
-			LoginText.SetActive(true);
+            GamesServicesSignIn.SignOut();
+            LoginText.SetActive(true);
 			LogoutText.SetActive(false);
 
 		} else {
@@ -54,24 +50,22 @@ public class GamesServicesButtonManager : MonoBehaviour {
 
 			Social.localUser.Authenticate((bool success) => {
 				GameSave.WriteSave();
-				PlayGamesOn();
+				GamesServicesOn();
 			});
 		}
 	}
 
-	private void PlayGamesOn() {
+	private void GamesServicesOn() {
 		LoginText.SetActive(false);
 		LogoutText.SetActive(true);
 	}
 
 	void OnEnable() {
-		GameSave.OnCallInitEvents += PlayGamesOn;
+		GameSave.OnCallInitEvents += GamesServicesOn;
 		setButtonState();
 	}
 
 	void OnDisable() {
-		GameSave.OnCallInitEvents -= PlayGamesOn;
+		GameSave.OnCallInitEvents -= GamesServicesOn;
 	}
 }
-
-#endif

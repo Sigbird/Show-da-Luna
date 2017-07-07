@@ -1,9 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using Soomla.Store;
-using System.Collections;
-using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
 
 public class StarsSystemManager : MonoBehaviour {
 
@@ -24,20 +19,7 @@ public class StarsSystemManager : MonoBehaviour {
 	}	
 
 	private void checkInitEvents() {
-		LunaStoreManager storeManager = LunaStoreManager.Instance;
-
-		//evento 03
-//		if (!PlayerPrefs.HasKey(EVENT03_KEY)) {		
-//			if (storeManager.AcquiredAnyMarketItens()) {
-//				PlayerPrefs.SetInt(EVENT03_KEY, 1);
-//				PlayerPrefs.SetInt(EVENT01_KEY, 1);
-//				PlayerPrefs.Save();
-//				Notification.Events[2].SetActive(true);
-//				StarsSystemEvents.Event03();
-//				BalanceUI.UpdateBalance();
-//				return;
-//			}
-//		} 
+		LunaStoreManager storeManager = LunaStoreManager.Instance;		
 
 		//evento 01
 		if (!PlayerPrefs.HasKey(EVENT01_KEY)) {

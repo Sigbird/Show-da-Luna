@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using System;
+
+#if UNITY_ANDROID
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
-using Soomla.Store;
-using System;
-using MiniJSON;
-using System.Text;
-using YupiPlay.Ads;
+#endif
 
-public class GameSave : MonoBehaviour {
+#if UNITY_IOS
+//dependências UNITY_IOS
+#endif
+
+public class GameSave {
 	//production filename luna_save_production_0003
 	private const string FILENAME = "luna_save_production_0003";
 	private const string STARS_BALANCE_KEY = "stars_balance";
@@ -23,13 +25,16 @@ public class GameSave : MonoBehaviour {
 	public static event CallInitEventsAction OnCallInitEvents;
 
 	public static void InitSave() {
-		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+#if UNITY_ANDROID
+        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 		savedGameClient.OpenWithAutomaticConflictResolution(FILENAME, DataSource.ReadCacheOrNetwork, 
 		                                                    ConflictResolutionStrategy.UseOriginal,
 		                                                    initOnSavedGameOpened);
-	}
+#endif
+    }
 
-	private static void initOnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
+#if UNITY_ANDROID
+    private static void initOnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
 		if (status == SavedGameRequestStatus.Success) {
 			Debug.LogError ("save open success");
 
@@ -49,27 +54,7 @@ public class GameSave : MonoBehaviour {
 		}
 	}
 
-	private static void showSelectUI() {
-		uint maxToDisplay = 1;
-		bool allowCreateNew = false;
-		bool allowDelete = false;
-
-		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-		savedGameClient.ShowSelectSavedGameUI(getSaveTitle(), maxToDisplay, allowCreateNew, allowDelete, onSavedGameSelected);
-
-	}
-
-	private static string getSaveTitle() {
-		switch (Application.systemLanguage) {
-		case SystemLanguage.Portuguese:
-			return LOADSAVETITLE_PT;
-		case SystemLanguage.Spanish:
-			return LOADSAVETITLE_ES;
-		}
-		return LOADSAVETITLE_EN;
-	}
-
-	private static void onSavedGameSelected (SelectUIStatus status, ISavedGameMetadata game) {
+    private static void onSavedGameSelected (SelectUIStatus status, ISavedGameMetadata game) {
 		if (status == SelectUIStatus.SavedGameSelected) {
 			readSave(game);
 		} else {
@@ -77,13 +62,12 @@ public class GameSave : MonoBehaviour {
 		}
 	}
 
-
-	private static void readSave(ISavedGameMetadata game) {
+    private static void readSave(ISavedGameMetadata game) {
 		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 		savedGameClient.ReadBinaryData(game, onSavedGameDataRead);
 	}
 
-	private static void onSavedGameDataRead(SavedGameRequestStatus status, byte[] data) {
+    private static void onSavedGameDataRead(SavedGameRequestStatus status, byte[] data) {
 		if (status == SavedGameRequestStatus.Success) {
 			Debug.LogError("read success");
 			Debug.LogError(data.Length);
@@ -97,16 +81,20 @@ public class GameSave : MonoBehaviour {
 		} else {
 			Debug.LogError("read fail");
 		}
-	}			
+	}
+#endif
 
-	public static void LoadSave() {
-		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+    public static void LoadSave() {
+#if UNITY_ANDROID
+        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 		savedGameClient.OpenWithAutomaticConflictResolution(FILENAME, DataSource.ReadCacheOrNetwork, 
 		                                                    ConflictResolutionStrategy.UseOriginal,
 		                                                    onSavedGameOpenedRead);
-	}
+#endif
+    }
 
-	private static void onSavedGameOpenedRead(SavedGameRequestStatus status, ISavedGameMetadata game) {
+#if UNITY_ANDROID
+    private static void onSavedGameOpenedRead(SavedGameRequestStatus status, ISavedGameMetadata game) {
 		if (status == SavedGameRequestStatus.Success) {
 			readSave(game);
 		} else {
@@ -114,15 +102,19 @@ public class GameSave : MonoBehaviour {
 			error();
 		}
 	}
+#endif
 
-	public static void WriteSave() {
-		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+    public static void WriteSave() {
+#if UNITY_ANDROID
+        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 		savedGameClient.OpenWithAutomaticConflictResolution(FILENAME, DataSource.ReadCacheOrNetwork, 
 		                                                    ConflictResolutionStrategy.UseOriginal,
 		                                                    onSavedGameOpenedWrite);
+#endif
 	}
 
-	private static void onSavedGameOpenedWrite(SavedGameRequestStatus status, ISavedGameMetadata game) {
+#if UNITY_ANDROID
+    private static void onSavedGameOpenedWrite(SavedGameRequestStatus status, ISavedGameMetadata game) {
 		if (status == SavedGameRequestStatus.Success) {
 			newSave(game);
 		} else {
@@ -131,7 +123,7 @@ public class GameSave : MonoBehaviour {
 		}
 	}
 
-	private static void newSave(ISavedGameMetadata game) {
+    private static void newSave(ISavedGameMetadata game) {
 		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 		SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
@@ -155,9 +147,10 @@ public class GameSave : MonoBehaviour {
 		} else {
 			// handle error
 		}
-	}	
+	}
+#endif
 
-	private static void error() {
+    private static void error() {
 
 	}
 

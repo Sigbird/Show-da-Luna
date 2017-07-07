@@ -28,8 +28,9 @@ public class LunaStoreManager : MonoBehaviour {
                 _instace = value;
         }
     }
+    #endregion
 
-	private bool _updated;
+    private bool _updated;
 
 	public bool NeedUpdate { 
 		get
@@ -60,7 +61,6 @@ public class LunaStoreManager : MonoBehaviour {
 	public static event AsasPurchasedAction OnAsasPurchased;
 	public static event UpdateBalanceAction OnBalanceChanged;
 	public static event BoughtStarsAction OnBoughtStars;
-
 
 	public static bool checkIfPurchased(string ITEM_ID) {
 		try {
@@ -275,9 +275,7 @@ public class LunaStoreManager : MonoBehaviour {
 			return false;
 		
 		return checkIfPurchased(LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID);
-	}
-	
-    #endregion
+	}	    
 
     public bool StoreInitialized { get; private set; }
 

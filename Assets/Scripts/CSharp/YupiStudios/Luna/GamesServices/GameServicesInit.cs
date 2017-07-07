@@ -1,30 +1,38 @@
-﻿#if UNITY_ANDROID
+﻿using UnityEngine;
+using YupiPlay.Luna;
 
-using UnityEngine;
-using System.Collections;
+#if UNITY_ANDROID
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using UnityEngine.SocialPlatforms;
-using YupiPlay.Luna;
+#endif
+
+#if UNITY_IOS
+//dependências IOS
+using UnityEngine.SocialPlatforms.GameCenter;
+#endif
 
 public class GameServicesInit : MonoBehaviour {	
 
 	// Use this for initialization
 	void Start () {
+        //GPGSEnabled é uma configuração multiplataforma
 		if (BuildConfiguration.GPGSEnabled == false) {
 			gameObject.SetActive(false);
 			return;
 		}
 
-		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+#if UNITY_ANDROID
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
 			.EnableSavedGames()
 				.Build();
 
 		PlayGamesPlatform.InitializeInstance(config);
 		PlayGamesPlatform.DebugLogEnabled = true;
 		PlayGamesPlatform.Activate();
-
-	}
-}
-
 #endif
+
+#if UNITY_IOS
+        //vem IOS        
+#endif
+    }
+}
