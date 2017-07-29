@@ -12,12 +12,13 @@ public class LunaBuildConfiguration : EditorWindow {
 	public static LunaBuildConfiguration MyWindow;
 
 	public string BaseVersionName = "2.2.5";
-	
-	private string basePackageId = "com.YupiPlay.Luna";
-	
-	#if UNITY_IOS
+
+#if UNITY_ANDROID
+    private string basePackageId = "com.YupiPlay.Luna";
+#endif
+#if UNITY_IOS
 	private string basePackageId = "com.yupiplay.luna";
-	#endif
+#endif
 
 	private Vector2 scrollPos;
 	private int selected = 0;

@@ -134,6 +134,7 @@ namespace GooglePlayGames.Editor
                 { IOSBUNDLEIDPLACEHOLDER, IOSBUNDLEIDKEY },
                 { PLUGINVERSIONPLACEHOLDER, PLUGINVERSIONKEY}
             };
+        internal static string REQUIREGOOGLEPLUSKEY;
 
         /// <summary>
         /// Replaces / in file path to be the os specific separator.

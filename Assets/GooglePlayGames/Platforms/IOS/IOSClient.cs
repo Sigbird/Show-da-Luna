@@ -47,6 +47,10 @@ namespace GooglePlayGames.IOS
             return config;
         }
 
+        public PlatformConfiguration CreatePlatformConfiguration(PlayGamesClientConfiguration clientConfig) {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Creates the token client.
         /// </summary>
@@ -56,6 +60,10 @@ namespace GooglePlayGames.IOS
         public TokenClient CreateTokenClient(string playerId, bool reset)
         {
             return new IOSTokenClient();
+        }
+
+        public TokenClient CreateTokenClient(bool reset) {
+            throw new NotImplementedException();
         }
 
         public void GetPlayerStats(IntPtr apiClientPtr,

@@ -17,6 +17,8 @@
 // Keep the strings even if NO_GPGS 
 #if (UNITY_ANDROID || UNITY_IPHONE)
 
+using UnityEngine;
+
 namespace GooglePlayGames.Editor
 {
     public class GPGSStrings
@@ -63,6 +65,8 @@ namespace GooglePlayGames.Editor
                                                  "namespace naming rules.";
 
             public const string SetupButton = "Setup";
+            internal static Texture RequiresGPlusTitle;
+            internal static Texture RequiresGPlusBlurb;
         }
 
         public class IOSSetup
