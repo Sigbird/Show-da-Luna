@@ -87,8 +87,8 @@ namespace YupiPlay.Ads
         private AdRequest getRewardedVideoRequest() {
             return new AdRequest.Builder()
                 //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
-                //.TagForChildDirectedTreatment(true)
-                //.AddExtra("is_designed_for_families", "true")
+                .TagForChildDirectedTreatment(true)
+                .AddExtra("is_designed_for_families", "true")
                 .Build();
         }
 
@@ -155,8 +155,8 @@ namespace YupiPlay.Ads
         {
             return new AdRequest.Builder()
                 //.AddTestDevice("57D98E23BB9C9FFF4D03C514925FF6E1")
-                //.TagForChildDirectedTreatment(true)
-                //.AddExtra("is_designed_for_families", "true")									
+                .TagForChildDirectedTreatment(true)
+                .AddExtra("is_designed_for_families", "true")									
                 .Build();
         }
 
