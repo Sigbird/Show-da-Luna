@@ -61,6 +61,7 @@ public class LunaStoreManager : MonoBehaviour {
 	public static event AsasPurchasedAction OnAsasPurchased;
 	public static event UpdateBalanceAction OnBalanceChanged;
 	public static event BoughtStarsAction OnBoughtStars;
+    public static event BoughtStarsAction OnPurchaseTrySaveEvent;
 
 	public static bool checkIfPurchased(string ITEM_ID) {
 		try {
@@ -335,6 +336,7 @@ public class LunaStoreManager : MonoBehaviour {
     /// <param name="purchaseToken">Purchase token.</param>
     private void onMarketPurchase(PurchasableVirtualItem pvi, string payload, Dictionary<string, string> extra)
     {
+        Debug.Log("MARKET PURCHASE");
 		NeedUpdate = true;
         YupiAnalyticsEventHandler.PurchaseEvent("Complete Purchase", pvi.Name);
 
@@ -344,7 +346,9 @@ public class LunaStoreManager : MonoBehaviour {
 
 		if (Social.localUser.authenticated) {
 			GameSave.WriteSave();
-		}
+		} else {
+            if (OnPurchaseTrySaveEvent != null) OnPurchaseTrySaveEvent();
+        }
     }
 
     private void onUnexpectedStoreError(int errorCode)
@@ -383,6 +387,15 @@ public class LunaStoreManager : MonoBehaviour {
 		}
 
 	}
+
+    public static void BuyStarPack(string ITEM_ID, string payload) {
+        try {            
+            StoreInventory.BuyItem(ITEM_ID, payload);
+        }
+        catch (VirtualItemNotFoundException e) {
+            Debug.Log(e.Message);
+        }        
+    }
 
     public void PurchaseFullGame()
     {
@@ -644,21 +657,24 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public void PurchaseSimpleStarPack() {
 		if (StoreInitialized) {
-			BuyItem(LunaStoreAssets.SIMPLE_STAR_PACK_ID, STARS_CREDIT_10);
+			BuyStarPack(LunaStoreAssets.SIMPLE_STAR_PACK_ID, STARS_CREDIT_10);
+            return;
 		}	
 		Debug.LogError("Soomla Store Not Initialized");
 	}
 
 	public void PurchaseSuperStarPack() {
 		if (StoreInitialized) {
-			BuyItem(LunaStoreAssets.SUPER_STAR_PACK_ID, STARS_CREDIT_60);
+			BuyStarPack(LunaStoreAssets.SUPER_STAR_PACK_ID, STARS_CREDIT_60);
+            return;
 		}	
 		Debug.LogError("Soomla Store Not Initialized");
 	}
 
 	public void PurchaseMegaStarPack() {
 		if (StoreInitialized) {
-			BuyItem(LunaStoreAssets.MEGA_STAR_PACK_ID, STARS_CREDIT_150);
+			BuyStarPack(LunaStoreAssets.MEGA_STAR_PACK_ID, STARS_CREDIT_150);
+            return;
 		}	
 		Debug.LogError("Soomla Store Not Initialized");
 	}
@@ -702,7 +718,15 @@ public class LunaStoreManager : MonoBehaviour {
 	}
 
 	public void onItemPurchased(PurchasableVirtualItem pvi, string payload) {
-		int amount = ((PurchaseWithVirtualItem) pvi.PurchaseType).Amount;
+        //((PurchaseWithVirtualItem) pvi.PurchaseType).A
+        Debug.Log(payload);
+        int amount = 0;
+
+        if (payload != STARS_CREDIT_10 && payload != STARS_CREDIT_60
+            && payload != STARS_CREDIT_150) {
+            amount = ((PurchaseWithVirtualItem)pvi.PurchaseType).Amount;
+        }
+        
 		YupiAnalyticsEventHandler.VirtualItemEvent(pvi.ItemId, Application.systemLanguage.ToString(), amount);
 
 		//if any of the minigames was purchased

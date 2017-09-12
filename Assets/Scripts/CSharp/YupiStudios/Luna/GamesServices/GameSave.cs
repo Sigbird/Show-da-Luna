@@ -27,7 +27,7 @@ public class GameSave {
 	public static void InitSave() {
 #if UNITY_ANDROID
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-		savedGameClient.OpenWithAutomaticConflictResolution(FILENAME, DataSource.ReadCacheOrNetwork, 
+		savedGameClient.OpenWithAutomaticConflictResolution(FILENAME, DataSource.ReadNetworkOnly, 
 		                                                    ConflictResolutionStrategy.UseOriginal,
 		                                                    initOnSavedGameOpened);
 #endif
@@ -50,7 +50,7 @@ public class GameSave {
 		} else {
 			Debug.LogError ("save open error");
 			error();
-			OnCallInitEvents();
+			//OnCallInitEvents();
 		}
 	}
 

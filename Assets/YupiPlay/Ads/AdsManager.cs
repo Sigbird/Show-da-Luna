@@ -51,7 +51,9 @@ namespace YupiPlay.Ads
             rewardVideoAd.OnAdClosed += onVideoClosed;
             rewardVideoAd.OnAdLeavingApplication += onVideoLeaving;
             
-            StartCoroutine(init());		    
+            if (BuildConfiguration.AdsEnabled) {
+                StartCoroutine(init());
+            }            
 	    }
 	   
 	    public static bool IsVideoLoaded() {		    

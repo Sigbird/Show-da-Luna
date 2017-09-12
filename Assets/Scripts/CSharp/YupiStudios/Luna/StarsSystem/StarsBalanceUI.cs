@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using Soomla.Store;
 using YupiPlay.Luna;
+using YupiPlay.Luna.Store;
 
 public class StarsBalanceUI : MonoBehaviour {
 	public Text StarsBalance;
@@ -17,14 +18,20 @@ public class StarsBalanceUI : MonoBehaviour {
 	}
 	void Start() {
 		UpdateBalance();
-	}
+
+
+        //pega saldo do inventário novo, para testes
+#if UNITY_EDITOR
+        //StarsBalance.text = Inventory.Instance.GetBalance().ToString();
+#endif
+    }
 
 	public void UpdateBalance() {		
 		if (SoomlaStore.Initialized) {
-			VirtualCurrency starsCurrency = (VirtualCurrency) StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);		
-			StarsBalance.text = starsCurrency.GetBalance().ToString();	
-		}
-	}
+            VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
+            StarsBalance.text = starsCurrency.GetBalance().ToString();
+        }        
+    }
 
 	public void BuyStarsEffects() {
 		if (BuyStarsWindow != null) {
@@ -38,13 +45,20 @@ public class StarsBalanceUI : MonoBehaviour {
 
 	}
 
-	void OnEnable() {
+    private void OnBoughtStars(int amount, int newBalance) {
+        StarsBalance.text = newBalance.ToString();
+        BuyStarsEffects();
+    }
+
+    void OnEnable() {
 		LunaStoreManager.OnBalanceChanged += UpdateBalance;
 		LunaStoreManager.OnBoughtStars += BuyStarsEffects;
-	}
+        StoreManager.OnBoughtStarsEvent += OnBoughtStars;
+    }
 
 	void OnDisable() {
 		LunaStoreManager.OnBalanceChanged -= UpdateBalance;
 		LunaStoreManager.OnBoughtStars -= BuyStarsEffects;
-	}		
+        StoreManager.OnBoughtStarsEvent -= OnBoughtStars;
+    }		
 }

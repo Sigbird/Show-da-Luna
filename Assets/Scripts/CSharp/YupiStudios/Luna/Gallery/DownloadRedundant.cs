@@ -23,11 +23,11 @@ namespace YupiPlay {
 		}
 
         private Server[] localServers = new Server[] {
-           
+           new Server("https://s3-sa-east-1.amazonaws.com/lunavideos/", 1),
            // new Server("https://lunacdn.azureedge.net/", 4),
            // new Server("https://yupiplayluna.blob.core.windows.net/videos/", 1),
-            //new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
-            new Server("https://storage.googleapis.com/lunavideos/", 1),
+           // new Server("https://yupiplay2.blob.core.windows.net/luna/", 1),
+           // new Server("https://storage.googleapis.com/lunavideos/", 1),            
            // new Server("https://s3.amazonaws.com/yupiplay-luna/videos/", 2),
            // new Server("https://yupiplay.000webhostapp.com/luna/", 3),
 	       // new Server("https://yupistudios.000webhostapp.com/luna/", 3)
@@ -216,7 +216,8 @@ namespace YupiPlay {
 			return state == States.READY;
 		}
 
-		private void parseJson(string content) {			
+		private void parseJson(string content) {
+            Debug.Log(content);
 			Dictionary<string,object> data = Json.Deserialize(content) as Dictionary<string,object>;
 
 			if (data != null && data["servers"] != null) {
@@ -245,6 +246,7 @@ namespace YupiPlay {
 		private IEnumerator readServerList(int serverNum = 0) {
             int numServers = localServers.Length;
             string OriginUri = localServers[serverNum].site + FILENAME;
+            Debug.Log(OriginUri);
             Uri uri = new Uri(OriginUri);			
 
 			UnityWebRequest req2 = UnityWebRequest.Get(OriginUri);				

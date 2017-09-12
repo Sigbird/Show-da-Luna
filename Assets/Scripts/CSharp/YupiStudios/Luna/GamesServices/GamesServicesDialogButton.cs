@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using YupiPlay.Luna;
+using UnityEngine.UI;
 
 public class GamesServicesDialogButton : MonoBehaviour {
 	void Awake() {
@@ -21,9 +22,26 @@ public class GamesServicesDialogButton : MonoBehaviour {
 			this.gameObject.SetActive(false);
 		} 
 	}
+
+    public void OnSignInResult(bool success) {
+        if (success) {
+            gameObject.SetActive(false);
+        } else {            
+            gameObject.SetActive(true);
+        }
+
+        GetComponent<Button>().interactable = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    private void OnEnable() {
+        GamesServicesSignIn.OnSignInResultEvent += OnSignInResult;
+    }
+    private void OnDisable() {
+        GamesServicesSignIn.OnSignInResultEvent -= OnSignInResult;
+    }
 }

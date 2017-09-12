@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using YupiPlay.Luna;
+using UnityEngine.UI;
+using System.Collections;
 
 public class GamesServicesButtonManager : MonoBehaviour {
 
 	public GameObject LoginText;
 	public GameObject LogoutText;
+
+    public GameObject GPGSButton;
 
 	// Use this for initialization
 	void Start () {
@@ -13,12 +17,14 @@ public class GamesServicesButtonManager : MonoBehaviour {
 			LoginText.SetActive(false);
 			LogoutText.SetActive(false);
 			return;
-		}
-	
-		setButtonState();
-	}
+		}        
+
+		setButtonState();        
+    }
 
 	private void setButtonState() {
+        GPGSButton.gameObject.SetActive(true);
+
         bool auth = Social.localUser.authenticated;
         Debug.Log(auth);
 
@@ -43,29 +49,29 @@ public class GamesServicesButtonManager : MonoBehaviour {
 			LogoutText.SetActive(false);
 
 		} else {
-			if (PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY) == 0) {
-				GamesServicesSignIn.SignIn();
-				return;
-			}
+            GPGSButton.GetComponent<Button>().interactable = false;
+            GamesServicesSignIn.SignIn();            
+        }
+	}	    
 
-			Social.localUser.Authenticate((bool success) => {
-				GameSave.WriteSave();
-				GamesServicesOn();
-			});
-		}
+    public void OnSignInResult(bool success) {               
+        if (success) {
+            LoginText.SetActive(false);
+            LogoutText.SetActive(true);            
+        } else {
+            LoginText.SetActive(true);
+            LogoutText.SetActive(false);
+        }
+                
+        GPGSButton.GetComponent<Button>().interactable = true;        
+    }
+
+    void OnEnable() {        
+        GamesServicesSignIn.OnSignInResultEvent += OnSignInResult;
+        setButtonState();
 	}
 
-	private void GamesServicesOn() {
-		LoginText.SetActive(false);
-		LogoutText.SetActive(true);
-	}
-
-	void OnEnable() {
-		GameSave.OnCallInitEvents += GamesServicesOn;
-		setButtonState();
-	}
-
-	void OnDisable() {
-		GameSave.OnCallInitEvents -= GamesServicesOn;
-	}
+	void OnDisable() {        
+        GamesServicesSignIn.OnSignInResultEvent -= OnSignInResult;
+    }
 }

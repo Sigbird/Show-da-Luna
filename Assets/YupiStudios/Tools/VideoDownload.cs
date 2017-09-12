@@ -123,9 +123,11 @@ public class VideoDownload : MonoBehaviour {
 		}
 	}
 
-	private void StartDownload() {		
+	private void StartDownload() {
         //webRequest = UnityWebRequest.Get(getVideoUrl());
-        webRequest = DownloadManager.AddDownload(getVideoUrl(), this);
+        var url = getVideoUrl();
+        Debug.Log(url);
+        webRequest = DownloadManager.AddDownload(url, this);
         //webRequest.downloadHandler = new VideoDownloadHandler(absoluteFileName);
         
 		downloadStarted = true;

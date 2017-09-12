@@ -18,6 +18,8 @@ namespace YupiPlay.Luna {
 
         public SystemLanguage ManualLanguageSetup;
 
+        public bool DeletePlayerPrefs = false;
+
 		//variáveis que são verificadas nos scripts para determinar as coisas
 		public static BuildType CurrentPurchaseType {
 			get {return _currentBuild == null ? BuildType.IAP : _currentBuild;}
@@ -79,7 +81,14 @@ namespace YupiPlay.Luna {
 
             _manualLanguage = ManualLanguageSetup;
            
-		}			
-	}	
+		}
+
+        void Start() {
+            if (DeletePlayerPrefs) {
+                PlayerPrefs.DeleteAll();
+                DeletePlayerPrefs = false;
+            }
+        }
+    }	
 }
 
