@@ -10,14 +10,13 @@ public class GamesServicesDialogButton : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-
-
 		if (!Social.localUser.authenticated) {
 			this.gameObject.SetActive(true);
 		}
 
-		int loadedSave = PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY);
-		if (loadedSave == 1) {            
+		int loadedSave = PlayerPrefs.GetInt(GameSave.LOADEDSAVEKEY);        
+
+        if (loadedSave == 1) {            
 			GamesServicesSignIn.SignIn();
 			this.gameObject.SetActive(false);
 		} 

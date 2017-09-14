@@ -46,19 +46,28 @@ public class StarsBalanceUI : MonoBehaviour {
 	}
 
     private void OnBoughtStars(int amount, int newBalance) {
-        StarsBalance.text = newBalance.ToString();
+        //StarsBalance.text = newBalance.ToString();
         BuyStarsEffects();
+        UpdateBalance();
     }
 
     void OnEnable() {
 		LunaStoreManager.OnBalanceChanged += UpdateBalance;
 		LunaStoreManager.OnBoughtStars += BuyStarsEffects;
+        //new
         StoreManager.OnBoughtStarsEvent += OnBoughtStars;
     }
 
 	void OnDisable() {
 		LunaStoreManager.OnBalanceChanged -= UpdateBalance;
 		LunaStoreManager.OnBoughtStars -= BuyStarsEffects;
+        //new
         StoreManager.OnBoughtStarsEvent -= OnBoughtStars;
-    }		
+    }
+
+    void OnApplicationFocus(bool focus) {
+        if (focus) {
+            UpdateBalance();
+        }
+    }
 }

@@ -178,14 +178,14 @@ public class SaveData {
 
         string date = dict[StarsSystemManager.DATE_KEY] as string;
         PlayerPrefs.SetString(StarsSystemManager.DATE_KEY, date);
-        PlayerPrefs.SetInt(GameSave.LOADEDSAVEKEY, 1);
+        PlayerPrefs.SetInt(GameSave.LOADEDSAVEKEY, 1);        
 
         if (dict.ContainsKey(AdsCooldown.LastVideoRewardTime)) {
             string lastRewardTime = dict[AdsCooldown.LastVideoRewardTime] as string;
             PlayerPrefs.SetString(AdsCooldown.LastVideoRewardTime, lastRewardTime);
         }
 
-        PlayerPrefs.Save();
+        PlayerPrefs.Save();        
     }
 
     private static long RestoreStarsBalance(Dictionary<string, object> values) {

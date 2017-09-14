@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
+using Soomla.Store;
 
 namespace YupiPlay.Luna.Store {
     class StoreManager : MonoBehaviour, IStoreListener {
@@ -52,11 +53,13 @@ namespace YupiPlay.Luna.Store {
         }
 
         public void FulfillPurchase(string id) {
-            int amount = Catalog.Instance.PackagesIndex[id].StarsAmount;            
+            int amount = Catalog.Instance.PackagesIndex[id].StarsAmount;
 
-            var newBalance = inventory.AddToBalance(amount);
-            
-            if (OnBoughtStarsEvent != null) OnBoughtStarsEvent(amount, newBalance);
+            //StoreInventory.TakeItem(LunaStoreAssets.STARS_CURRENCY_ID, amount);
+            StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, amount);
+            //var newBalance = inventory.AddToBalance(amount);
+
+            if (OnBoughtStarsEvent != null) OnBoughtStarsEvent(amount, 0);
         }
         
         public void PurchaseStarPackage(Catalog.StarsPackages starPackage) {            

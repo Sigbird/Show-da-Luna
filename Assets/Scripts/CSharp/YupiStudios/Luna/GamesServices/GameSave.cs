@@ -142,8 +142,9 @@ public class GameSave {
 			PlayerPrefs.SetInt(LOADEDSAVEKEY, 1);
 			PlayerPrefs.Save ();
 			OnCallInitEvents();
-			// handle reading or writing of saved game.
-			Debug.Log ("save success");
+            
+            // handle reading or writing of saved game.
+            Debug.Log ("save success");
 		} else {
 			// handle error
 		}
