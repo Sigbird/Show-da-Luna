@@ -59,7 +59,7 @@ namespace YupiPlay.Luna.Store {
             StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, amount);
             //var newBalance = inventory.AddToBalance(amount);
 
-            if (OnBoughtStarsEvent != null) OnBoughtStarsEvent(amount, 0);
+            if (OnBoughtStarsEvent != null) OnBoughtStarsEvent(amount, 0);            
         }
         
         public void PurchaseStarPackage(Catalog.StarsPackages starPackage) {            

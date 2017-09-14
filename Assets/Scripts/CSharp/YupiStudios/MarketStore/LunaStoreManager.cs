@@ -61,7 +61,9 @@ public class LunaStoreManager : MonoBehaviour {
 	public static event AsasPurchasedAction OnAsasPurchased;
 	public static event UpdateBalanceAction OnBalanceChanged;
 	public static event BoughtStarsAction OnBoughtStars;
-    public static event BoughtStarsAction OnPurchaseTrySaveEvent;
+
+    public delegate void PurchaseTrySaveAction(bool showParentalGate);
+    public static event PurchaseTrySaveAction OnPurchaseTrySaveEvent;
 
 	public static bool checkIfPurchased(string ITEM_ID) {
 		try {
@@ -344,10 +346,14 @@ public class LunaStoreManager : MonoBehaviour {
 			OnBoughtStars();
 		}
 
-		if (Social.localUser.authenticated) {
-			GameSave.WriteSave();
-		} else {
-            if (OnPurchaseTrySaveEvent != null) OnPurchaseTrySaveEvent();
+        TrySaveGame(false);
+    }
+
+    private void TrySaveGame(bool showParentalGate) {
+        if (Social.localUser.authenticated) {
+            GameSave.WriteSave();
+        } else {
+            if (OnPurchaseTrySaveEvent != null) OnPurchaseTrySaveEvent(showParentalGate);
         }
     }
 
@@ -722,12 +728,14 @@ public class LunaStoreManager : MonoBehaviour {
         Debug.Log(payload);
         int amount = 0;
 
-        if (payload != STARS_CREDIT_10 && payload != STARS_CREDIT_60
-            && payload != STARS_CREDIT_150) {
+        //is not a star package
+        bool IsLunaStoreItem = payload != STARS_CREDIT_10 && payload != STARS_CREDIT_60
+            && payload != STARS_CREDIT_150;
+
+        if (IsLunaStoreItem) {
             amount = ((PurchaseWithVirtualItem)pvi.PurchaseType).Amount;
-        }
-        
-		YupiAnalyticsEventHandler.VirtualItemEvent(pvi.ItemId, Application.systemLanguage.ToString(), amount);
+            YupiAnalyticsEventHandler.VirtualItemEvent(pvi.ItemId, Application.systemLanguage.ToString(), amount);
+        }        		
 
 		//if any of the minigames was purchased
 		if (payload == LunaStoreAssets.MINIGAME_ASAS_ITEM_ID || payload == LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID) {
@@ -754,9 +762,9 @@ public class LunaStoreManager : MonoBehaviour {
 			}
 		}
 
-		if (Social.localUser.authenticated) {
-			GameSave.WriteSave();
-		}
+        if (IsLunaStoreItem) {
+            TrySaveGame(true);
+        }        
 	}
 
     public static void CallBoughtStarsEvent()

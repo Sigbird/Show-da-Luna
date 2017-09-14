@@ -5,16 +5,25 @@ using GooglePlayGames;
 
 public class GamesServicesDialog : MonoBehaviour {
     public GameObject DialogContainer;
+    public GameObject ParentalGate;
+
+    private bool ShowParentalGate = false;
 
 	void Start() {
 		
 	}
 	public void CallSignIn() {
-		GamesServicesSignIn.SignIn();
+        if (ShowParentalGate) {
+            ParentalGate.SetActive(true);
+            ShowParentalGate = false;
+        } else {
+            GamesServicesSignIn.SignIn();
+        }		
 	}
 
 
-    public void ActivateDialog() {
+    public void ActivateDialog(bool showParentalGate) {        
+        ShowParentalGate = showParentalGate;                    
         DialogContainer.SetActive(true);
     }
 
