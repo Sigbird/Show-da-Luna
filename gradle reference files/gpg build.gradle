@@ -1,0 +1,38 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:2.3.3'
+	}
+}
+
+apply plugin: 'android-library'
+
+dependencies {
+	compile fileTree(include: ['*.jar'], dir: 'bin')
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+	compile 'com.google.android.gms:play-services-games:11.0.4'
+}
+
+android {
+	sourceSets {
+		main {
+			manifest.srcFile 'AndroidManifest.xml'
+			//java.srcDirs = ['src']
+			res.srcDirs = ['res']
+			assets.srcDirs = ['assets']
+		}
+	}
+
+	compileSdkVersion 25
+	buildToolsVersion '25.0.0'
+	defaultConfig {
+		targetSdkVersion 16
+	}
+
+	lintOptions {
+		abortOnError false
+	}
+}
