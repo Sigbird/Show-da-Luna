@@ -38,8 +38,17 @@ namespace YupiPlay.Luna.LunaPlayer
         }
 
         void Start() {            
+            
+        }
+
+        void OnEnable() {
             Player.prepareCompleted += OnPlayerPrepared;
             Player.loopPointReached += OnLoopPointReached;
+        }
+
+        private void OnDisable() {
+            Player.prepareCompleted -= OnPlayerPrepared;
+            Player.loopPointReached -= OnLoopPointReached;
         }
 
         private void Update() {
