@@ -28,6 +28,7 @@ public class VideoDownload : MonoBehaviour {
        	
 	private bool downloadComplete = false;
 	private string absoluteFileName;
+	private string[] localFileNames;
 	private string dirPath;
 	private bool downloadStarted = false;
 	private bool downloadError = false;
@@ -62,6 +63,7 @@ public class VideoDownload : MonoBehaviour {
 
 		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
+		localFileNames = Directory.GetFiles (dirPath);
 		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
 
 #if UNITY_IOS
@@ -212,10 +214,11 @@ public class VideoDownload : MonoBehaviour {
 
 	public void PlayVideoOnMobile() {
 #if UNITY_ANDROID || UNITY_IOS
-        Handheld.PlayFullScreenMovie(absoluteFileName);  
+       // Handheld.PlayFullScreenMovie(absoluteFileName);
+		VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
 #endif
 #if UNITY_EDITOR || UNITY_STANDALONE
-        VideoPlayerController.Instance.Play(absoluteFileName);
+		VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
 #endif
         //VideoPlayerController.Instance.Play();
     }

@@ -21,6 +21,8 @@ namespace YupiPlay.Luna.LunaPlayer
         private Coroutine timeoutCoroutine;
         private bool showControls = false;
         private bool receivedInput = false;
+		private string[] localFiles;
+		private int index;
 
         public static VideoPlayerController Instance {
             get {
@@ -55,6 +57,9 @@ namespace YupiPlay.Luna.LunaPlayer
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 Close();
             }
+			if (index >= localFiles.Length) {
+				index = 0;
+			}
         }
 
         public void Play() {
@@ -68,9 +73,11 @@ namespace YupiPlay.Luna.LunaPlayer
             delayedCoroutine = StartCoroutine(PlayDelayedTimer());
         }
 
-        public void Play(string videoUrl) {
+		public void Play(string videoUrl, string[] localVideosUrl) {
             Player.source = VideoSource.Url;
             Player.url = videoUrl;
+
+			localFiles = localVideosUrl;
 
             Play();
         }        
@@ -105,6 +112,14 @@ namespace YupiPlay.Luna.LunaPlayer
             OnClose.Invoke();
         }
 
+		public void Next(){
+			index++;
+
+			Player.source = VideoSource.Url;//PULA PARA PRÓXIMO VIDEO
+			Player.url = localFiles[index];
+			Play();
+		}
+
         private IEnumerator PlayDelayedTimer() {
             yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);           
                
@@ -120,8 +135,16 @@ namespace YupiPlay.Luna.LunaPlayer
 
         private void OnLoopPointReached(VideoPlayer source) {
             Debug.Log("OnLoopPointReached called");
-            Close();
+            //Close();
+
+			index++;
+
+			Player.source = VideoSource.Url;//LOOP DE VIDEOS BAIXADOS
+			Player.url = localFiles[index];
+			Play();
         }
+
+
 
         private IEnumerator InputTimeout() {
             yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);
