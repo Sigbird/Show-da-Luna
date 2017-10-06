@@ -21,8 +21,10 @@ namespace YupiPlay.Luna.LunaPlayer
 		private Coroutine timeoutCoroutine;
 		private bool showControls = false;
 		private bool receivedInput = false;
+		private bool babyMode = false;
 		public string[] localFiles;
 		public int index;
+
 
 		public static VideoPlayerController Instance {
 			get {
@@ -93,7 +95,7 @@ namespace YupiPlay.Luna.LunaPlayer
 		}
 
 		public void OnTouchScreen() {           
-			if (Player.isPlaying) {
+			if (Player.isPlaying && !babyMode) {
 				receivedInput = true;
 				showControls = !showControls;
 
@@ -115,7 +117,19 @@ namespace YupiPlay.Luna.LunaPlayer
 		}
 
 		public void BabyMode() {
-			//
+			if (!babyMode) { //BLOQUEIA CONTROLES
+				babyMode = true;
+				if (showControls) {
+					OnPlayDelayedEvent.Invoke();
+					showControls = false;
+				}
+			} else { //LIBERA CONTROLES
+				babyMode = false;
+				if (!showControls) {
+					OnPlayDelayedEvent.Invoke();
+					showControls = true;
+				}
+			}
 		}
 
 		public void Next(){
