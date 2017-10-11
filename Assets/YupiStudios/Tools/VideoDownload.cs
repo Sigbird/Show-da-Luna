@@ -28,7 +28,7 @@ public class VideoDownload : MonoBehaviour {
        	
 	private bool downloadComplete = false;
 	private string absoluteFileName;
-	private string[] localFileNames;
+	public string[] localFileNames;
 	private string dirPath;
 	private bool downloadStarted = false;
 	private bool downloadError = false;
@@ -47,6 +47,7 @@ public class VideoDownload : MonoBehaviour {
 	private const float timeLimit = 30f;
 	private float timeOut = 0f;
     private float oldProgress;
+	public int videosIndex;
 
     private UnityWebRequest webRequest;
 
@@ -103,6 +104,12 @@ public class VideoDownload : MonoBehaviour {
             if (webRequest.downloadProgress > 0 && webRequest.downloadProgress < 1) {                
                 oldProgress = webRequest.downloadProgress;                
             }
+		}
+
+		if (localFileNames != null) {
+			if (videosIndex > localFileNames.Length) {
+				videosIndex = 0;
+			}
 		}
 	}	
 
@@ -214,10 +221,13 @@ public class VideoDownload : MonoBehaviour {
 
 	public void PlayVideoOnMobile() {
 #if UNITY_ANDROID || UNITY_IOS
-       // Handheld.PlayFullScreenMovie(absoluteFileName);
-		VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
+		StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+        //Handheld.PlayFullScreenMovie(absoluteFileName);
+		//VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
 #endif
 #if UNITY_EDITOR || UNITY_STANDALONE
+		//StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+		//Handheld.PlayFullScreenMovie(absoluteFileName);
 		VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
 #endif
         //VideoPlayerController.Instance.Play();
@@ -256,7 +266,22 @@ public class VideoDownload : MonoBehaviour {
 		#endif
 		
 		File.Delete(absoluteFileName);
-	}		
+	}
+
+	IEnumerator PlayVideoCoroutine(string videoPath)
+	{
+		Debug.Log ("tocou");
+		Handheld.PlayFullScreenMovie(videoPath);    
+		yield return new WaitForEndOfFrame();
+		Debug.Log ("Saiu");
+		if (localFileNames != null) {
+			videosIndex++;
+			if (videosIndex >= localFileNames.Length) {
+				videosIndex = 0;
+			} 
+		}
+		StartCoroutine(PlayVideoCoroutine(localFileNames[videosIndex])); 
+	}
 
 	public IEnumerator PlayOfflineVideo() {
 		DeleteExtractedVideos();
