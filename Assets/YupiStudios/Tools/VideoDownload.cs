@@ -273,6 +273,7 @@ public class VideoDownload : MonoBehaviour {
 		Debug.Log ("tocou");
 		Handheld.PlayFullScreenMovie(videoPath);    
 		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
 		Debug.Log ("Saiu");
 		if (localFileNames != null) {
 			videosIndex++;
