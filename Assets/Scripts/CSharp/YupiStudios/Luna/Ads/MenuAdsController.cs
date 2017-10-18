@@ -37,7 +37,7 @@ namespace YupiPlay.Ads
                 //simpleAd = AdsCooldown.CanShowAd() && Advertisement.IsReady();
                 //rewardedVideoAd = AdsCooldown.CanShowRewardedVideo() && Advertisement.IsReady("rewardedVideo");
                 bool isNativeLoaded   = AdsManager.CanShowNativeAd();
-                bool isRewardedLoaded = AdsManager.IsVideoLoaded();
+				bool isRewardedLoaded = true;//AdsManager.IsVideoLoaded();
 
                 if (!isNativeLoaded) {
                     AdsManager.LoadNativeAd();
