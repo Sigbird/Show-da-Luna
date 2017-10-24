@@ -6,6 +6,7 @@ using System.Collections;
 using System;
 using YupiPlay.Luna.LunaPlayer;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -28,6 +29,7 @@ public class VideoDownload : MonoBehaviour {
        	
 	private bool downloadComplete = false;
 	private string absoluteFileName;
+	public string[] absolutelocalFileNames;
 	public string[] localFileNames;
 	private string dirPath;
 	private bool downloadStarted = false;
@@ -48,6 +50,7 @@ public class VideoDownload : MonoBehaviour {
 	private float timeOut = 0f;
     private float oldProgress;
 	public int videosIndex;
+	private bool endVideoTest;
 
     private UnityWebRequest webRequest;
 
@@ -64,8 +67,21 @@ public class VideoDownload : MonoBehaviour {
 
 		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
-		localFileNames = Directory.GetFiles (dirPath);
+
+
 		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
+
+
+		localFileNames = Directory.GetFiles (dirPath);
+		absolutelocalFileNames = new string[localFileNames.Length];
+		if (localFileNames != null) {
+			int x = 0;
+			foreach (string localfilename in localFileNames) {
+				absolutelocalFileNames [x] = System.IO.Path.Combine (dirPath, Path.GetFileName(localfilename));
+				x++;
+			}
+		}
+
 
 #if UNITY_IOS
         absoluteFileName = "file://" + absoluteFileName;		
@@ -78,6 +94,8 @@ public class VideoDownload : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+//		debug.text = absoluteFileName;
+//		debug2.text = absolutelocalFileNames[0];
 		if (!downloadComplete && downloadStarted) {		
 
 			if (timeOut >= timeLimit) {
@@ -111,6 +129,13 @@ public class VideoDownload : MonoBehaviour {
 				videosIndex = 0;
 			}
 		}
+
+		if (endVideoTest) {
+			endVideoTest = false;
+
+
+		}
+
 	}	
 
 	public void DownloadFile() {
@@ -224,11 +249,13 @@ public class VideoDownload : MonoBehaviour {
 		StartCoroutine(PlayVideoCoroutine(absoluteFileName));
         //Handheld.PlayFullScreenMovie(absoluteFileName);
 		//VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
+
 #endif
 #if UNITY_EDITOR || UNITY_STANDALONE
-		//StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+		StartCoroutine(PlayVideoCoroutine(absoluteFileName));
 		//Handheld.PlayFullScreenMovie(absoluteFileName);
-		VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
+		//StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+
 #endif
         //VideoPlayerController.Instance.Play();
     }
@@ -268,20 +295,27 @@ public class VideoDownload : MonoBehaviour {
 		File.Delete(absoluteFileName);
 	}
 
-	IEnumerator PlayVideoCoroutine(string videoPath)
+	private IEnumerator PlayVideoCoroutine(string videoPath)
 	{
 		Debug.Log ("tocou");
-		Handheld.PlayFullScreenMovie(videoPath);    
+		yield return new WaitForSeconds(1);
+		Handheld.PlayFullScreenMovie(videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);    
 		yield return new WaitForEndOfFrame();
 		yield return new WaitForEndOfFrame();
 		Debug.Log ("Saiu");
-		if (localFileNames != null) {
+
+
+
+		if (absolutelocalFileNames != null) {
 			videosIndex++;
-			if (videosIndex >= localFileNames.Length) {
+			if (videosIndex >= absolutelocalFileNames.Length) {
 				videosIndex = 0;
 			} 
 		}
-		StartCoroutine(PlayVideoCoroutine(localFileNames[videosIndex])); 
+		StartCoroutine(PlayVideoCoroutine(absolutelocalFileNames[videosIndex])); 
+
+//		StartCoroutine(PlayVideoCoroutine(absoluteFileName)); 
+
 	}
 
 	public IEnumerator PlayOfflineVideo() {
@@ -343,11 +377,23 @@ public class VideoDownload : MonoBehaviour {
         downloadComplete = true;
         downloadStarted = false;
         downloadError = false;
-
+		UpdateFilesList ();
         SaveFile();
     }
 
     public string GetFileName() {
         return absoluteFileName;
     }
+
+	public void UpdateFilesList(){
+		localFileNames = Directory.GetFiles (dirPath);
+		absolutelocalFileNames = new string[localFileNames.Length];
+		if (localFileNames != null) {
+			int x = 0;
+			foreach (string localfilename in localFileNames) {
+				absolutelocalFileNames [x] = System.IO.Path.Combine (dirPath, Path.GetFileName(localfilename));
+				x++;
+			}
+		}
+	}
 }

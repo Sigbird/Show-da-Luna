@@ -12,7 +12,7 @@ public class AutoPlayer : MonoBehaviour {
 	private bool isPlaying = false;
 	private bool pauseStatus;
 	private bool isStopped = true;
-	private bool canPlay = false;
+	public bool canPlay = false;
 
 	void Awake() {
 		absolutePath = System.IO.Path.Combine(Application.persistentDataPath, VideoDownload.VIDEODIR);
@@ -42,7 +42,7 @@ public class AutoPlayer : MonoBehaviour {
 		StartCoroutine(WaitToPlay());
 	}
 
-	private void Play() {
+	public void Play() {
 		if (canPlay) {
 			PlayList();
 		}
@@ -58,8 +58,8 @@ public class AutoPlayer : MonoBehaviour {
 		if (current == files.Length) {
 			current = 0;
 		}
-
-		bool test = Handheld.PlayFullScreenMovie(files[current].FullName, Color.black, FullScreenMovieControlMode.Minimal, 
+		Debug.Log ("Tocou");
+		bool test = Handheld.PlayFullScreenMovie(absolutePath, Color.black, FullScreenMovieControlMode.Minimal, 
 			FullScreenMovieScalingMode.AspectFit);
 
 		if (test) {

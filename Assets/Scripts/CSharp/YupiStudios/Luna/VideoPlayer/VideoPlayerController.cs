@@ -24,7 +24,7 @@ namespace YupiPlay.Luna.LunaPlayer
 		private bool babyMode = false;
 		public string[] localFiles;
 		public int index;
-
+		public AutoPlayer LoopPlayer;
 
 		public static VideoPlayerController Instance {
 			get {
