@@ -21,7 +21,9 @@ namespace YupiPlay.Luna.LunaPlayer
 		private Coroutine timeoutCoroutine;
 		private bool showControls = false;
 		private bool receivedInput = false;
-		private bool babyMode = false;
+		public bool babyMode = false;
+		public bool videoLoop = false;
+		public bool allVideosLoop = false;
 		public string[] localFiles;
 		public int index;
 		public AutoPlayer LoopPlayer;
@@ -169,13 +171,33 @@ namespace YupiPlay.Luna.LunaPlayer
 
 			Next ();
 		}
-
-
-
+			
 		private IEnumerator InputTimeout() {
 			yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);
 
 			receivedInput = false;
 		}
+
+		public void ToggleBabyMode(){
+			babyMode = !babyMode;
+		}
+
+		public void ToggleLoopMode(int x){
+			switch (x) {
+			case 1:
+				videoLoop = false;
+				allVideosLoop = false;
+				break;
+			case 2:
+				videoLoop = true;
+				allVideosLoop = false;
+				break;
+			case 3:
+				videoLoop = false;
+				allVideosLoop = true;
+				break;
+			}
+		}
+
 	}
 }
