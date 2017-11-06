@@ -51,6 +51,9 @@ public class VideoDownload : MonoBehaviour {
     private float oldProgress;
 	public int videosIndex;
 	private bool endVideoTest;
+	private bool returnPressed;
+	private DateTime lastMinimized;
+	private float minimizedSeconds;
 
     private UnityWebRequest webRequest;
 
@@ -93,9 +96,13 @@ public class VideoDownload : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+
 	void Update () {
 //		debug.text = absoluteFileName;
 //		debug2.text = absolutelocalFileNames[0];
+
+
+
 		if (!downloadComplete && downloadStarted) {		
 
 			if (timeOut >= timeLimit) {
@@ -245,12 +252,17 @@ public class VideoDownload : MonoBehaviour {
 	}
 
 	public void PlayVideoOnMobile() {
+		//returnPressed = false;
 #if UNITY_ANDROID || UNITY_IOS
 		if(VideoPlayerController.Instance.allVideosLoop == true){
-			StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+			StartCoroutine(PlayAllVideosCoroutine(absoluteFileName));
 		}
 
 		if(VideoPlayerController.Instance.videoLoop == true){
+			StartCoroutine(PlayVideoLoopCoroutine(absoluteFileName));
+		}
+
+		if(VideoPlayerController.Instance.videoLoop == false && VideoPlayerController.Instance.allVideosLoop == false ){
 			StartCoroutine(PlayVideoCoroutine(absoluteFileName));
 		}
         //Handheld.PlayFullScreenMovie(absoluteFileName);
@@ -259,10 +271,14 @@ public class VideoDownload : MonoBehaviour {
 #endif
 #if UNITY_EDITOR || UNITY_STANDALONE
 		if(VideoPlayerController.Instance.allVideosLoop == true){
-			StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+			StartCoroutine(PlayAllVideosCoroutine(absoluteFileName));
 		}
 
 		if(VideoPlayerController.Instance.videoLoop == true){
+			StartCoroutine(PlayVideoLoopCoroutine(absoluteFileName));
+		}
+
+		if(VideoPlayerController.Instance.videoLoop == false && VideoPlayerController.Instance.allVideosLoop == false ){
 			StartCoroutine(PlayVideoCoroutine(absoluteFileName));
 		}
 		//Handheld.PlayFullScreenMovie(absoluteFileName);
@@ -309,40 +325,49 @@ public class VideoDownload : MonoBehaviour {
 
 	private IEnumerator PlayAllVideosCoroutine(string videoPath) //PLAY ALL VIDEOS AVAIABLE
 	{
-		Debug.Log ("tocou");
+		
 		yield return new WaitForSeconds(1);
 		if (VideoPlayerController.Instance.babyMode == true) {
-			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);    
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);    
 		} else {
-			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
 		}
 		yield return new WaitForEndOfFrame();
 		yield return new WaitForEndOfFrame();
-		Debug.Log ("Saiu");
+		yield return new WaitForSeconds(0.5f);
+		if (minimizedSeconds >=69f) {
 
-		if (absolutelocalFileNames != null) {
-			videosIndex++;
-			if (videosIndex >= absolutelocalFileNames.Length) {
-				videosIndex = 0;
-			} 
+			if (absolutelocalFileNames != null) {
+				videosIndex++;
+				if (videosIndex >= absolutelocalFileNames.Length) {
+					videosIndex = 0;
+				} 
+			}
+			StartCoroutine (PlayAllVideosCoroutine (absolutelocalFileNames [videosIndex])); 
+		} else {
+			returnPressed = false;
 		}
-		StartCoroutine(PlayAllVideosCoroutine(absolutelocalFileNames[videosIndex])); 
 	}
 
 	private IEnumerator PlayVideoLoopCoroutine(string videoPath) //PLAY VIDEO IN LOOP
 	{
-		Debug.Log ("tocou");
+		
 		yield return new WaitForSeconds(1);
 		if (VideoPlayerController.Instance.babyMode == true) {
-			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);    
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);    
 		} else {
-			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
 		}
 		yield return new WaitForEndOfFrame();
 		yield return new WaitForEndOfFrame();
-		Debug.Log ("Saiu");
+		yield return new WaitForSeconds(0.5f);
+		if (minimizedSeconds >=69f) {
+			
+			StartCoroutine (PlayVideoLoopCoroutine (absoluteFileName)); 
+		} else {
+			returnPressed = false;
+		}
 
-		StartCoroutine(PlayVideoLoopCoroutine(absoluteFileName)); 
 
 	}
 
@@ -350,9 +375,9 @@ public class VideoDownload : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(1);
 		if (VideoPlayerController.Instance.babyMode == true) {
-			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);    
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);    
 		} else {
-			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
 		}
 		yield return new WaitForEndOfFrame();
 		yield return new WaitForEndOfFrame();
@@ -370,6 +395,25 @@ public class VideoDownload : MonoBehaviour {
 		stream.Close();
 		PlayVideoOnMobile();
 	}
+
+	void OnApplicationPause(bool pauseStatus)
+	{
+		if (pauseStatus) {
+			lastMinimized = DateTime.Now;
+		} else {
+			minimizedSeconds = (float)(DateTime.Now - lastMinimized).TotalSeconds;
+		}
+	}
+
+//	public IEnumerator CheckforBackButton() {
+//		if (Input.GetKeyDown (KeyCode.Escape)) {
+//			returnPressed = true;
+//			yield return new WaitForEndOfFrame();
+//		} else {
+//			yield return new WaitForSeconds(0.1f);
+//			StartCoroutine (CheckforBackButton ());
+//		}
+//	}
 
 	public void DeleteExtractedVideos() {
 		if (Directory.Exists(dirPath)) {
@@ -424,6 +468,8 @@ public class VideoDownload : MonoBehaviour {
     public string GetFileName() {
         return absoluteFileName;
     }
+
+
 
 	public void UpdateFilesList(){
 		localFileNames = Directory.GetFiles (dirPath);
