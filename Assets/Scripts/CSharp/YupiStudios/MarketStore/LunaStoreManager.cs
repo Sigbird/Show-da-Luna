@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Soomla;
-using Soomla.Store;
 using YupiStudios.Analytics;
 
 public class LunaStoreManager : MonoBehaviour {
@@ -14,8 +12,7 @@ public class LunaStoreManager : MonoBehaviour {
 	public const string STARS_DEBIT_30 = "d30";
 	public const string VIDEO = "video";
 	public const string COLLECTION = "collection";
-
-    #region Singleton declaration
+    
     private static LunaStoreManager _instace;
     public static LunaStoreManager Instance
     {
@@ -27,8 +24,7 @@ public class LunaStoreManager : MonoBehaviour {
             if (_instace == null)
                 _instace = value;
         }
-    }
-    #endregion
+    }    
 
     private bool _updated;
 
@@ -67,12 +63,12 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public static bool checkIfPurchased(string ITEM_ID) {
 		try {
-			int balance = StoreInventory.GetItemBalance(ITEM_ID);
-			if (balance > 0) {
-				return true;
-			}
+			//int balance = StoreInventory.GetItemBalance(ITEM_ID);
+			//if (balance > 0) {
+			//	return true;
+			//}
 			return false;
-		} catch (VirtualItemNotFoundException e) {
+		} catch (System.Exception e) {
 			Debug.Log (e.Message);
 			return false;
 		}
@@ -282,7 +278,7 @@ public class LunaStoreManager : MonoBehaviour {
 
     public bool StoreInitialized { get; private set; }
 
-    public static List<VirtualGood> NonConsumableItems = null;
+    //public static List<VirtualGood> NonConsumableItems = null;
 
     void Awake()
     {
@@ -297,19 +293,19 @@ public class LunaStoreManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         StoreInitialized = false;
-        StoreEvents.OnSoomlaStoreInitialized += onSoomlaStoreInitialized;
-        StoreEvents.OnUnexpectedStoreError += onUnexpectedStoreError;
-        StoreEvents.OnMarketPurchase += onMarketPurchase;
-        StoreEvents.OnMarketPurchaseStarted += onMarketPurchaseStarted;
-        StoreEvents.OnMarketPurchaseCancelled += onMarketPurchaseCancelled;
-		StoreEvents.OnCurrencyBalanceChanged += onCurrencyBalanceChanged;
-		StoreEvents.OnItemPurchased += onItemPurchased;
-        SoomlaStore.Initialize(new LunaStoreAssets());
+  //      StoreEvents.OnSoomlaStoreInitialized += onSoomlaStoreInitialized;
+  //      StoreEvents.OnUnexpectedStoreError += onUnexpectedStoreError;
+  //      StoreEvents.OnMarketPurchase += onMarketPurchase;
+  //      StoreEvents.OnMarketPurchaseStarted += onMarketPurchaseStarted;
+  //      StoreEvents.OnMarketPurchaseCancelled += onMarketPurchaseCancelled;
+		//StoreEvents.OnCurrencyBalanceChanged += onCurrencyBalanceChanged;
+		//StoreEvents.OnItemPurchased += onItemPurchased;
+  //      SoomlaStore.Initialize(new LunaStoreAssets());
 	}
 
 	public void RestorePurchase ()
 	{
-		SoomlaStore.RefreshInventory ();
+		//SoomlaStore.RefreshInventory ();
 		NeedUpdate = true;
 		YupiAnalyticsEventHandler.PurchaseEvent("Restore Purchase", "");
 
@@ -318,17 +314,17 @@ public class LunaStoreManager : MonoBehaviour {
 		}
 	}
 
-    private void onMarketPurchaseCancelled(PurchasableVirtualItem pvi)
-    {
-		NeedUpdate = true;
-        YupiAnalyticsEventHandler.PurchaseEvent("Cancelled Purchase", pvi.Name);
-    }
+  //  private void onMarketPurchaseCancelled(PurchasableVirtualItem pvi)
+  //  {
+		//NeedUpdate = true;
+  //      YupiAnalyticsEventHandler.PurchaseEvent("Cancelled Purchase", pvi.Name);
+  //  }
 
-    private void onMarketPurchaseStarted(PurchasableVirtualItem pvi)
-    {
-		NeedUpdate = true;
-        YupiAnalyticsEventHandler.PurchaseEvent("Started Purchase", pvi.Name);
-    }
+  //  private void onMarketPurchaseStarted(PurchasableVirtualItem pvi)
+  //  {
+		//NeedUpdate = true;
+  //      YupiAnalyticsEventHandler.PurchaseEvent("Started Purchase", pvi.Name);
+  //  }
 
 
     /// <summary>
@@ -336,18 +332,19 @@ public class LunaStoreManager : MonoBehaviour {
     /// </summary>
     /// <param name="pvi">Purchasable virtual item.</param>
     /// <param name="purchaseToken">Purchase token.</param>
-    private void onMarketPurchase(PurchasableVirtualItem pvi, string payload, Dictionary<string, string> extra)
-    {
-        Debug.Log("MARKET PURCHASE");
-		NeedUpdate = true;
-        YupiAnalyticsEventHandler.PurchaseEvent("Complete Purchase", pvi.Name);
+  
+        //  private void onMarketPurchase(PurchasableVirtualItem pvi, string payload, Dictionary<string, string> extra)
+  //  {
+  //      Debug.Log("MARKET PURCHASE");
+		//NeedUpdate = true;
+  //      YupiAnalyticsEventHandler.PurchaseEvent("Complete Purchase", pvi.Name);
 
-		if (OnBoughtStars != null) {
-			OnBoughtStars();
-		}
+		//if (OnBoughtStars != null) {
+		//	OnBoughtStars();
+		//}
 
-        TrySaveGame(false);
-    }
+  //      TrySaveGame(false);
+  //  }
 
     private void TrySaveGame(bool showParentalGate) {
         if (Social.localUser.authenticated) {
@@ -357,10 +354,10 @@ public class LunaStoreManager : MonoBehaviour {
         }
     }
 
-    private void onUnexpectedStoreError(int errorCode)
-    {
-        SoomlaUtils.LogError("ExampleEventHandler", "error with code: " + errorCode);
-    }
+    //private void onUnexpectedStoreError(int errorCode)
+    //{
+    //    SoomlaUtils.LogError("ExampleEventHandler", "error with code: " + errorCode);
+    //}
 
     private void onSoomlaStoreInitialized()
     {
@@ -383,25 +380,23 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public static void BuyItem(string ITEM_ID, string payload) {
 		try {
-			int itemBalance = StoreInventory.GetItemBalance(ITEM_ID);
-			StoreInventory.BuyItem(ITEM_ID, payload);
+			//int itemBalance = StoreInventory.GetItemBalance(ITEM_ID);
+			//StoreInventory.BuyItem(ITEM_ID, payload);
 
-		} catch (VirtualItemNotFoundException e) {
-			Debug.Log (e.Message);
-		} catch (InsufficientFundsException e) {
+		} catch (System.Exception e) {
 			Debug.Log (e.Message);
 		}
 
 	}
 
-    public static void BuyStarPack(string ITEM_ID, string payload) {
-        try {            
-            StoreInventory.BuyItem(ITEM_ID, payload);
-        }
-        catch (VirtualItemNotFoundException e) {
-            Debug.Log(e.Message);
-        }        
-    }
+    //public static void BuyStarPack(string ITEM_ID, string payload) {
+    //    try {            
+    //        StoreInventory.BuyItem(ITEM_ID, payload);
+    //    }
+    //    catch (VirtualItemNotFoundException e) {
+    //        Debug.Log(e.Message);
+    //    }        
+    //}
 
     public void PurchaseFullGame()
     {
@@ -663,7 +658,7 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public void PurchaseSimpleStarPack() {
 		if (StoreInitialized) {
-			BuyStarPack(LunaStoreAssets.SIMPLE_STAR_PACK_ID, STARS_CREDIT_10);
+			//BuyStarPack(LunaStoreAssets.SIMPLE_STAR_PACK_ID, STARS_CREDIT_10);
             return;
 		}	
 		Debug.LogError("Soomla Store Not Initialized");
@@ -671,7 +666,7 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public void PurchaseSuperStarPack() {
 		if (StoreInitialized) {
-			BuyStarPack(LunaStoreAssets.SUPER_STAR_PACK_ID, STARS_CREDIT_60);
+			//BuyStarPack(LunaStoreAssets.SUPER_STAR_PACK_ID, STARS_CREDIT_60);
             return;
 		}	
 		Debug.LogError("Soomla Store Not Initialized");
@@ -679,7 +674,7 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public void PurchaseMegaStarPack() {
 		if (StoreInitialized) {
-			BuyStarPack(LunaStoreAssets.MEGA_STAR_PACK_ID, STARS_CREDIT_150);
+			//BuyStarPack(LunaStoreAssets.MEGA_STAR_PACK_ID, STARS_CREDIT_150);
             return;
 		}	
 		Debug.LogError("Soomla Store Not Initialized");
@@ -687,7 +682,7 @@ public class LunaStoreManager : MonoBehaviour {
 
 	public bool CanAffordItem(string ITEM_ID) {
 		if (StoreInitialized) {
-			return StoreInventory.CanAfford(ITEM_ID);
+			//return StoreInventory.CanAfford(ITEM_ID);
 		}
 		return false;
 	}
@@ -713,17 +708,17 @@ public class LunaStoreManager : MonoBehaviour {
 		}
 	}
 
-	public void onCurrencyBalanceChanged(VirtualCurrency currency, int balance, int amountAdded)  {
-		CallBalanceChangeEvent();
+	//public void onCurrencyBalanceChanged(VirtualCurrency currency, int balance, int amountAdded)  {
+	//	CallBalanceChangeEvent();
 
-		if (amountAdded > 0) {
-			YupiAnalyticsEventHandler.StarsEvent("Credit", "PlayStorePurchase", amountAdded);
-		} else {
-			YupiAnalyticsEventHandler.StarsEvent("Debit", "LunaPurchase", amountAdded);
-		}
-	}
+	//	if (amountAdded > 0) {
+	//		YupiAnalyticsEventHandler.StarsEvent("Credit", "PlayStorePurchase", amountAdded);
+	//	} else {
+	//		YupiAnalyticsEventHandler.StarsEvent("Debit", "LunaPurchase", amountAdded);
+	//	}
+	//}
 
-	public void onItemPurchased(PurchasableVirtualItem pvi, string payload) {
+	public void onItemPurchased(string itemId, string payload) {
         //((PurchaseWithVirtualItem) pvi.PurchaseType).A
         Debug.Log(payload);
         int amount = 0;
@@ -733,8 +728,8 @@ public class LunaStoreManager : MonoBehaviour {
             && payload != STARS_CREDIT_150;
 
         if (IsLunaStoreItem) {
-            amount = ((PurchaseWithVirtualItem)pvi.PurchaseType).Amount;
-            YupiAnalyticsEventHandler.VirtualItemEvent(pvi.ItemId, Application.systemLanguage.ToString(), amount);
+            amount = 10;
+            YupiAnalyticsEventHandler.VirtualItemEvent(itemId, Application.systemLanguage.ToString(), amount);
         }        		
 
 		//if any of the minigames was purchased
@@ -752,13 +747,13 @@ public class LunaStoreManager : MonoBehaviour {
 	
 		if (payload == VIDEO) {
 			if (OnVideoPurchased != null) {
-				OnVideoPurchased(pvi.ItemId);
+				OnVideoPurchased(itemId);
 			}
 		}
 
 		if (payload == COLLECTION) {
 			if (OnCollectionPurchased != null) {
-				OnCollectionPurchased(pvi.ItemId);
+				OnCollectionPurchased(itemId);
 			}
 		}
 

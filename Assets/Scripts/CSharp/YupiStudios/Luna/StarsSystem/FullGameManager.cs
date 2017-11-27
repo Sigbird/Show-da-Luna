@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Soomla.Store;
+//using Soomla.Store;
 
 public class FullGameManager : MonoBehaviour {
 
@@ -20,7 +20,7 @@ public class FullGameManager : MonoBehaviour {
 	}
 
 	public void BuyFullGame() {
-		if (StoreInventory.CanAfford(LunaStoreAssets.STARS_FULL_GAME_ITEM_ID)) {
+		if (/*StoreInventory.CanAfford(LunaStoreAssets.STARS_FULL_GAME_ITEM_ID)*/ true) {
 			LunaStoreManager.Instance.PurchaseFullGame();
 		} else {
 			BuyStarsParental.SetActive(true);

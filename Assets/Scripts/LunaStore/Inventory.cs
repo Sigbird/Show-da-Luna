@@ -2,7 +2,7 @@
 
 namespace YupiPlay.Luna.Store {
     class Inventory {
-        private const string WalletKey = "YupiPlay.Luna.Store.Wallet";
+        private const string WalletKey = "lunaStoreWallet";
 
         public static Inventory Instance {
             get {

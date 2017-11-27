@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using Soomla.Store;
+//using Soomla.Store;
 using YupiPlay.Luna;
 using YupiPlay.Luna.Store;
 
@@ -26,10 +26,11 @@ public class StarsBalanceUI : MonoBehaviour {
 #endif
     }
 
-	public void UpdateBalance() {		
-		if (SoomlaStore.Initialized) {
-            VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
-            StarsBalance.text = starsCurrency.GetBalance().ToString();
+	public void UpdateBalance() {        
+        StarsBalance.text = Inventory.Instance.GetBalance().ToString();
+        if (/*SoomlaStore.Initialized*/ true) {
+            //VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
+            //StarsBalance.text = starsCurrency.GetBalance().ToString();
         }        
     }
 
@@ -45,7 +46,7 @@ public class StarsBalanceUI : MonoBehaviour {
 
 	}
 
-    private void OnBoughtStars(int amount, int newBalance) {
+    private void OnBoughtStars(int amount) {
         //StarsBalance.text = newBalance.ToString();
         BuyStarsEffects();
         UpdateBalance();

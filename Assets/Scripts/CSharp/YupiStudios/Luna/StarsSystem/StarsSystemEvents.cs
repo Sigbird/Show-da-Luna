@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Soomla.Store;
+//using Soomla.Store;
 using System;
 using YupiStudios.Analytics;
 
@@ -7,7 +7,7 @@ public class StarsSystemEvents {
 	
 
 	public static void Event01() {
-		StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 10);
+		//StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 10);
 
 		if (Social.localUser.authenticated) {
 			if (PlayerPrefs.GetInt(GPGSIds.achievement_welcome_to_earth_to_luna) == 0) {
@@ -22,7 +22,7 @@ public class StarsSystemEvents {
 	}
 
 	public static void Event03() {
-		StoreInventory.GiveItem (LunaStoreAssets.STARS_CURRENCY_ID, 20);
+		//StoreInventory.GiveItem (LunaStoreAssets.STARS_CURRENCY_ID, 20);
 
 		if (Social.localUser.authenticated) {
 			if (PlayerPrefs.GetInt(GPGSIds.achievement_it_is_good_to_see_you_again) == 0) {
@@ -50,7 +50,7 @@ public class StarsSystemEvents {
 	//finish share on facebook
 	public static void Event04() {
 		if (!PlayerPrefs.HasKey(StarsSystemManager.EVENT04_KEY)) {
-			StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 5);
+			//StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 5);
 			PlayerPrefs.SetInt(StarsSystemManager.EVENT04_KEY, 1);
 			PlayerPrefs.Save();
 
@@ -106,7 +106,7 @@ public class StarsSystemEvents {
 	}
 
 	public static void GiveOneStar() {
-		StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 1);
+		//StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, 1);
 		
 		if (Social.localUser.authenticated) {
 			GameSave.WriteSave();

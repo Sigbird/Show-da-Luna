@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Soomla.Store;
+//using Soomla.Store;
 
 public class LunaStoreCalls : MonoBehaviour {
 

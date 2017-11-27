@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Soomla.Store;
+//using Soomla.Store;
 using System.Text;
 using MiniJSON;
 using YupiPlay.Ads;
@@ -10,8 +10,8 @@ public class SaveData {
 	public static byte[] GetBytes() {
         LunaStoreManager storeManager = LunaStoreManager.Instance;
 
-        VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
-        long balance = starsCurrency.GetBalance();
+        //VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
+        long balance = 10;
 
         Dictionary<string, object> dict = new Dictionary<string, object>();
 
@@ -193,8 +193,8 @@ public class SaveData {
         if (values.TryGetValue(LunaStoreAssets.STARS_CURRENCY_ID, out o)) {
             long balance = (long)o;
             Debug.Log("balance:" + balance);
-            VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
-            starsCurrency.ResetBalance((int)balance);
+            //VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
+            //starsCurrency.ResetBalance((int)balance);
 
             LunaStoreManager.CallBalanceChangeEvent();
             return balance;
@@ -213,7 +213,7 @@ public class SaveData {
             bool isPurchased = (bool)o;
 
             if (isPurchased) {
-                StoreInventory.GiveItem(ITEM_ID, 1);
+                //StoreInventory.GiveItem(ITEM_ID, 1);
                 return true;
             }
         }
