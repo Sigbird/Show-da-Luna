@@ -1,49 +1,51 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using Soomla.Store;
+using YupiPlay.Luna.Store;
 
 public class LunaStoreCalls : MonoBehaviour {
 
+    public GameObject BuyStarsParental;
+    public GameObject BuyStarsWindow;
+    public Animator StarsAnim;
+    public AudioSource BuyVideoSound;
+    public AudioSource BuyCollectionSound;
+
 	public int vidNumber{get; set;}
 	public int colNumber{get; set;}
+    
 
 	public void RestorePurchase(){
 		LunaStoreManager.Instance.RestorePurchase();
-	}
-
-	public void PurchaseFullGame()
-	{
-		LunaStoreManager.Instance.PurchaseFullGame();		
-	}
+	}	
 
 	public void PurchaseCollection()
 	{
-		LunaStoreManager.Instance.PurchaseCollection (colNumber);
+        if (Inventory.Instance.PurchaseCollection(colNumber)) {
+            BuyStarsParental.SetActive(false);
+            StarsAnim.gameObject.SetActive(true);
+            StarsAnim.SetTrigger("Spend");
+            BuyCollectionSound.gameObject.SetActive(true);
+            BuyCollectionSound.Play();
+            gameObject.SetActive(false);
+            return;
+        }
+
+        BuyStarsParental.SetActive(true);
 	}
 
 	public void PurchaseIndividualVideo()
 	{
-		LunaStoreManager.Instance.PurchaseVideo (vidNumber, colNumber);
-	}
+		if (Inventory.Instance.PurchaseVideo(vidNumber, colNumber)) {
+            BuyStarsParental.SetActive(false);
+            StarsAnim.gameObject.SetActive(true);
+            StarsAnim.SetTrigger("Spend");
+            BuyVideoSound.gameObject.SetActive(true);
+            BuyVideoSound.Play();
+            gameObject.SetActive(false);
+            return;
+        }
 
-	public void PurchaseSimplePack()
-	{
-		LunaStoreManager.Instance.PurchaseSimpleStarPack ();
-	}
-
-	public void PurchaseSuperPack()
-	{
-		LunaStoreManager.Instance.PurchaseSuperStarPack ();
-	}
-
-	public void PurchaseMegaPack()
-	{
-		LunaStoreManager.Instance.PurchaseMegaStarPack ();
-	}
-
-	public void PurchaseMiniAsas()
-	{
-		LunaStoreManager.Instance.PurchaseMinigameAsas ();
+        BuyStarsParental.SetActive(true);
 	}
 
 	public void Start()

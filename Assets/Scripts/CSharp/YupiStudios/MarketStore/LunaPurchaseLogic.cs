@@ -28,35 +28,15 @@ public class LunaPurchaseLogic : MonoBehaviour {
 	private bool CheckIfPurchased()
 	{
 		return (GameConfiguration.gameVersion == GameConfiguration.EGameVersion.FullVersion);
-	}
-	
-	private void TryToUpdate()
-	{
-		if (instance && instance.NeedUpdate) {
-			purchased = CheckIfPurchased ();
-			if (purchased)
-				ProcessPurchased();
-		}
-	}
+	}		
 
 	void Start()
 	{
-		purchased = false;
-		instance = LunaStoreManager.Instance;
-		purchased = CheckIfPurchased ();
-		SetDelayToMax ();
+		purchased = false;		
+		purchased = CheckIfPurchased();		
+
 		if (purchased) {
 			gameObject.SetActive(false);
 		}
-	}
-
-	void Update () {
-		if (!purchased) {
-			updateDelay -= Time.deltaTime;
-			if (updateDelay <= 0) {
-				TryToUpdate ();
-				SetDelayToMax ();
-			}
-		}
-	}
+	}	
 }

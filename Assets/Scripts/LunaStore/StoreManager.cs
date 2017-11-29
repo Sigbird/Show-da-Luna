@@ -52,10 +52,7 @@ namespace YupiPlay.Luna.Store {
 
         public void FulfillPurchase(string id) { 
             int amount = Catalog.Instance.PackagesIndex[id].StarsAmount;
-
-            Debug.Log("Unity Purchasing");
-            //StoreInventory.TakeItem(LunaStoreAssets.STARS_CURRENCY_ID, amount);
-            //StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, amount);
+                     
             var newBalance = inventory.AddToBalance(amount);
 
             if (OnBoughtStarsEvent != null) OnBoughtStarsEvent(amount);            

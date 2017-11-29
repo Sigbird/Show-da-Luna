@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using Soomla.Store;
+using YupiPlay.Luna.Store;
+using YupiStudios.Luna.Config;
 
 public class FullGameManager : MonoBehaviour {
 
@@ -20,24 +21,22 @@ public class FullGameManager : MonoBehaviour {
 	}
 
 	public void BuyFullGame() {
-		if (/*StoreInventory.CanAfford(LunaStoreAssets.STARS_FULL_GAME_ITEM_ID)*/ true) {
-			LunaStoreManager.Instance.PurchaseFullGame();
-		} else {
-			BuyStarsParental.SetActive(true);
+		if (Inventory.Instance.BuyProduct(LunaStoreAssets.STARS_FULL_GAME_ITEM_ID, LunaStoreAssets.STARS_FULL_GAME_PRICE)) {
+            UnlockedFullGame();
+            FullGameUnlockEffects();
+            return;
 		}
+
+        BuyStarsParental.SetActive(true);		
 	}
 
 	void OnEnable() {
-		LunaStoreManager.OnFullGamePurchased += UnlockedFullGame;
-		LunaStoreManager.OnFullGamePurchased += FullGameUnlockEffects;
-		LunaStoreManager.OnBoughtStars += CloseWindow;
+        StoreManager.OnBoughtStarsEvent += CloseWindow;		
 	}
 
 	void OnDisable() {
-		LunaStoreManager.OnFullGamePurchased -= UnlockedFullGame;
-		LunaStoreManager.OnFullGamePurchased -= FullGameUnlockEffects;
-		LunaStoreManager.OnBoughtStars -= CloseWindow;
-	}
+        StoreManager.OnBoughtStarsEvent -= CloseWindow;
+    }
 
 	public void FullGameUnlockEffects() {
 		UnlockEffects.GetComponent<AudioSource>().Play();
@@ -46,12 +45,11 @@ public class FullGameManager : MonoBehaviour {
 	}
 
 
-	public void UnlockedFullGame() {
+	public void UnlockedFullGame() {        
 		PurchaseCanvas.SetActive(false);
-
 	}
 	
-	public void CloseWindow() {
+	public void CloseWindow(int amount) {
 		BuyStarsWindow.SetActive(false);
 	}
 }

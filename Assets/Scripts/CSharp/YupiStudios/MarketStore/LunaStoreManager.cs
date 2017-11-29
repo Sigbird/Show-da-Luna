@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using YupiStudios.Analytics;
 
+// Deprecated
+// YupiPlay.Luna.Store.Inventory é o novo LunaStoreManager
 public class LunaStoreManager : MonoBehaviour {
 	public const string STARS_CREDIT_10 = "c10";
 	public const string STARS_CREDIT_60 = "c60";

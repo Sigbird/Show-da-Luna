@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using YupiPlay.Luna;
+using YupiPlay.Luna.Store;
 
 public class MinigamesManager : MonoBehaviour {
 
@@ -31,7 +31,7 @@ public class MinigamesManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MinigamesCheck ();
+		MinigamesCheck();
 	}
 	
 	// Update is called once per frame
@@ -39,25 +39,25 @@ public class MinigamesManager : MonoBehaviour {
 
 	}
 
-	public void PurchaseAsas(){
-		LunaStoreManager StoreManager = LunaStoreManager.Instance;
+	public void PurchaseAsas(){		
+        if (Inventory.Instance.BuyProduct(LunaStoreAssets.MINIGAME_ASAS_ITEM_ID, LunaStoreAssets.MINIGAME_ASAS_PRICE)) {
+            MinigamesCheck();
+            AsasPurchasedEffects();
+            return;
+        }
 
-		if(StoreManager.CanAffordItem(LunaStoreAssets.MINIGAME_ASAS_ITEM_ID)){
-			StoreManager.PurchaseMinigameAsas();
-		}else{
-			ParentalBuyStars.SetActive(true);
-		}	
+        ParentalBuyStars.SetActive(true);  
 	}
 
 	public void PurchaseCaracol(){
-		LunaStoreManager StoreManager = LunaStoreManager.Instance;
-		
-		if(StoreManager.CanAffordItem(LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID)){
-			StoreManager.PurchaseMinigameCaracol();
-		}else{
-			ParentalBuyStars.SetActive(true);
-		}	
-	}
+        if (Inventory.Instance.BuyProduct(LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID, LunaStoreAssets.MINIGAME_CARACOL_PRICE)) {
+            MinigamesCheck();
+            AsasPurchasedEffects();
+            return;
+        }
+
+        ParentalBuyStars.SetActive(true);
+    }
 
 	public void MinigamesCheck(){
 		LunaStoreManager StoreManager = LunaStoreManager.Instance;
@@ -67,7 +67,7 @@ public class MinigamesManager : MonoBehaviour {
 			FreeCaracol = true;
 		}
 		
-		if (StoreManager.AcquiredMinigameAsas() || FreeAsas) {
+		if (Inventory.Instance.HasProduct(LunaStoreAssets.MINIGAME_ASAS_ITEM_ID) || FreeAsas) {
 			AsasUnlocked.SetActive (true);
 			AsasUnlocked2.SetActive(true);
 			AsasLocked.SetActive (false);
@@ -79,7 +79,7 @@ public class MinigamesManager : MonoBehaviour {
 			AsasLocked2.SetActive(true);
 		}
 
-		if (StoreManager.AcquiredMinigameCaracol() || FreeCaracol) {
+		if (Inventory.Instance.HasProduct(LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID) || FreeCaracol) {
 			CaracolUnlocked.SetActive (true);
 			CaracolLocked.SetActive (false);
 		} else {

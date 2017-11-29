@@ -126,6 +126,7 @@ public class LunaStoreAssets {
 
 	//Full Game
 	public const string STARS_FULL_GAME_ITEM_ID = "stars_luna_full_game";
+    public const int STARS_FULL_GAME_PRICE = 20;
 	//public static VirtualGood STARS_FULL_GAME = new LifetimeVG(
 	//	"O Show da Luna! Vamos Colorir. Versão Completa",
 	//	"Permite o acesso ao jogo completo",
@@ -135,6 +136,7 @@ public class LunaStoreAssets {
 
 	//Asas para Voar
 	public const string MINIGAME_ASAS_ITEM_ID = "minigame_asas";
+    public const int MINIGAME_ASAS_PRICE = 10;
 	//public static VirtualGood MINIGAME_ASAS = new LifetimeVG(
 	//		"O Show da Luna! Minigame Asas para Voar!",
 	//		"Permite acesso ao minigame Asas para Voar!",
@@ -144,15 +146,16 @@ public class LunaStoreAssets {
 
 	//Corrida Caracol
 	public const string MINIGAME_CARACOL_ITEM_ID = "minigame_caracol";
-	//public static VirtualGood MINIGAME_CARACOL = new LifetimeVG(
-	//	"O Show da Luna! Minigame Asas para Voar!",
-	//	"Permite acesso ao minigame Asas para Voar!",
-	//	MINIGAME_CARACOL_ITEM_ID,
-	//	new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
-	//	);
+    public const int MINIGAME_CARACOL_PRICE = 10;
+    //public static VirtualGood MINIGAME_CARACOL = new LifetimeVG(
+    //	"O Show da Luna! Minigame Asas para Voar!",
+    //	"Permite acesso ao minigame Asas para Voar!",
+    //	MINIGAME_CARACOL_ITEM_ID,
+    //	new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+    //	);
 
-	//COLLECTION 01
-	public const string STARS_COLLECTION01_LTVG_ITEM_ID = "stars_collection01_id";					//ID do item
+    //COLLECTION 01
+    public const string STARS_COLLECTION01_LTVG_ITEM_ID = "stars_collection01_id";					//ID do item
 	//public static VirtualGood STARS_COLLECTION01_LTVG = 
 	//	new LifetimeVG ("Coleção de vídeos 01",										//Nome		
 	//	                "Coleção com quatro vídeos que podem ser baixados para o dispositivo.",	//Descriçao
@@ -594,4 +597,6 @@ public class LunaStoreAssets {
     //    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
     //    );   
 
+    public const int VIDEO_PRICE = 10;
+    public const int COLLECTION_PRICE = 30;
 }
