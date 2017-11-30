@@ -110,11 +110,11 @@ public class EndGameSharing : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		LunaStoreManager.OnBalanceChanged += ShareStarsEffects;
+		//LunaStoreManager.OnBalanceChanged += ShareStarsEffects;
 	}
 
 	void OnDisable() {
-		LunaStoreManager.OnBalanceChanged -= ShareStarsEffects;
+		//LunaStoreManager.OnBalanceChanged -= ShareStarsEffects;
 	}
 }
 

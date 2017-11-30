@@ -153,7 +153,7 @@ public class RedeemCode : MonoBehaviour {
     public void RedeemStars(int stars)
     {
         //StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, stars);
-        LunaStoreManager.CallBoughtStarsEvent();        
+        //LunaStoreManager.CallBoughtStarsEvent();        
     }
 
 	public void CleanInput() {

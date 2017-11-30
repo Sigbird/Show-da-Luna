@@ -2,7 +2,7 @@
 
 namespace YupiPlay.Luna.Store {
     class Inventory {
-        private const string WalletKey = "lunaStoreWallet";
+        public const string WalletKey = "lunaStoreWallet";
 
         public static Inventory Instance {
             get {
@@ -17,6 +17,8 @@ namespace YupiPlay.Luna.Store {
         public static event BalanceChangeAction OnBalanceChange;
         public delegate void BuyProductAction(string productId);
         public static event BuyProductAction OnBuyProduct;
+        public delegate void GamesServicesDialogAction(bool show);
+        public static event GamesServicesDialogAction ShowDialogEvent;
 
         private Inventory() {
             
@@ -31,8 +33,17 @@ namespace YupiPlay.Luna.Store {
 
             if (balance != oldBalance) {               
                 PlayerPrefs.SetInt(WalletKey, balance);
+                PlayerPrefs.Save();
 
                 if (OnBalanceChange != null) OnBalanceChange();
+
+                if (Social.localUser.authenticated) {
+                    GameSave.WriteSave();
+                } else {
+                    if (ShowDialogEvent != null) {
+                        ShowDialogEvent(true);
+                    }
+                }
             }            
         }
 
@@ -61,6 +72,7 @@ namespace YupiPlay.Luna.Store {
 
         public void SetProduct(string productKey) {
             PlayerPrefs.SetInt(productKey, 1);
+            PlayerPrefs.Save();
 
             if (OnBuyProduct != null) OnBuyProduct(productKey);
         }

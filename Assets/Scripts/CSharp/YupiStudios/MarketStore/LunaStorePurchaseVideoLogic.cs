@@ -12,12 +12,12 @@ public class LunaStorePurchaseVideoLogic : MonoBehaviour {
 	public GameObject purchaseObject;
 	public GameObject purchaseCelebration;
 
-	private LunaStoreManager instance;
+	//private LunaStoreManager instance;
 	private bool purchased;
 
 	void Start(){
 		purchased = false;
-		instance = LunaStoreManager.Instance;
+		//instance = LunaStoreManager.Instance;
 		purchased = CheckIfPurchased ();
 		//SetDelayToMax ();
 		if (purchased)
@@ -46,15 +46,16 @@ public class LunaStorePurchaseVideoLogic : MonoBehaviour {
 	}
 
 	private bool CheckIfPurchased(){
-		return (LunaStoreManager.Instance  != null && LunaStoreManager.Instance.AcquiredVideo(itemNumber,itemCol));
+        return false;
+		//return (LunaStoreManager.Instance  != null && LunaStoreManager.Instance.AcquiredVideo(itemNumber,itemCol));
 	}
 
-	private void TryToUpdate(){
-		if (instance && instance.NeedUpdate) {
-			purchased = CheckIfPurchased();
-			if(purchased)
-				ProcessPurchased();
-				gameObject.SetActive(false);
-		}
-	}
+	//private void TryToUpdate(){
+	//	if (instance && instance.NeedUpdate) {
+	//		purchased = CheckIfPurchased();
+	//		if(purchased)
+	//			ProcessPurchased();
+	//			gameObject.SetActive(false);
+	//	}
+	//}
 }

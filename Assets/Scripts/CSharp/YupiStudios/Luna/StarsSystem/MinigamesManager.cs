@@ -59,9 +59,7 @@ public class MinigamesManager : MonoBehaviour {
         ParentalBuyStars.SetActive(true);
     }
 
-	public void MinigamesCheck(){
-		LunaStoreManager StoreManager = LunaStoreManager.Instance;
-
+	public void MinigamesCheck(){		
 		if (BuildConfiguration.CurrentPurchaseType == BuildType.Free) {
 			FreeAsas = true;
 			FreeCaracol = true;
@@ -96,13 +94,11 @@ public class MinigamesManager : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		LunaStoreManager.OnAsasPurchased += MinigamesCheck;
-		LunaStoreManager.OnAsasPurchased += AsasPurchasedEffects;
+		
 	}
 
 	void OnDisable() {
-		LunaStoreManager.OnAsasPurchased -= MinigamesCheck;
-		LunaStoreManager.OnAsasPurchased -= AsasPurchasedEffects;
+		
 	}
 
 }

@@ -19,7 +19,7 @@ public class StarsSystemManager : MonoBehaviour {
 	}	
 
 	private void checkInitEvents() {
-		LunaStoreManager storeManager = LunaStoreManager.Instance;		
+		//LunaStoreManager storeManager = LunaStoreManager.Instance;		
 
 		//evento 01
 		if (!PlayerPrefs.HasKey(EVENT01_KEY)) {

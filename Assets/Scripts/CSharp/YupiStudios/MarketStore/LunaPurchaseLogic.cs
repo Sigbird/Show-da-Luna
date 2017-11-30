@@ -8,7 +8,7 @@ public class LunaPurchaseLogic : MonoBehaviour {
 	private float UPDATE_MAX_DELAY = 1.0f;
 	private float updateDelay;
 
-	private LunaStoreManager instance;
+	//private LunaStoreManager instance;
 	private bool purchased;
 
 	public GameObject purchaseObject;

@@ -14,7 +14,7 @@ public class LiberateVideosByCollection : MonoBehaviour {
 	
 	public GameObject purchaseCelebration;
 
-	private LunaStoreManager instance;
+	//private LunaStoreManager instance;
 	private bool purchased;
 
 	public static int collectionNumber;
@@ -44,12 +44,12 @@ public class LiberateVideosByCollection : MonoBehaviour {
 
 
 	void OnEnable(){
-		LunaStoreManager.OnCollectionPurchased += CollectionPurchaseEffects;
-		LunaStoreManager.OnVideoPurchased += VideoPurchaseEffects;
+		//LunaStoreManager.OnCollectionPurchased += CollectionPurchaseEffects;
+		//LunaStoreManager.OnVideoPurchased += VideoPurchaseEffects;
 	}
 
 	void OnDisable(){
-		LunaStoreManager.OnCollectionPurchased -= CollectionPurchaseEffects;
-		LunaStoreManager.OnVideoPurchased -= VideoPurchaseEffects;	
+		//LunaStoreManager.OnCollectionPurchased -= CollectionPurchaseEffects;
+		//LunaStoreManager.OnVideoPurchased -= VideoPurchaseEffects;	
 	}
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
+using YupiPlay.Luna.Store;
 
 public class GamesServicesDialog : MonoBehaviour {
     public GameObject DialogContainer;
@@ -28,11 +29,11 @@ public class GamesServicesDialog : MonoBehaviour {
     }
 
     void OnEnable() {
-        LunaStoreManager.OnPurchaseTrySaveEvent += ActivateDialog;
+        Inventory.ShowDialogEvent += ActivateDialog;        
     }
 
     void OnDisable() {
-        LunaStoreManager.OnPurchaseTrySaveEvent -= ActivateDialog;
+        Inventory.ShowDialogEvent -= ActivateDialog;        
     }
 }
 

@@ -13,8 +13,7 @@ using GooglePlayGames.BasicApi.SavedGame;
 
 public class GameSave {
 	//production filename luna_save_production_0003
-	private const string FILENAME = "luna_save_production_0003";
-	private const string STARS_BALANCE_KEY = "stars_balance";
+	private const string FILENAME = "luna_save_production_0003";	
 
 	private const string LOADSAVETITLE_EN = "Restore stars balance and purchased items?";
 	private const string LOADSAVETITLE_PT = "Restaurar saldo de estrelas e itens comprados?";

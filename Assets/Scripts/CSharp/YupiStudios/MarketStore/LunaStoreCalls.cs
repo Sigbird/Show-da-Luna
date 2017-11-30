@@ -15,7 +15,7 @@ public class LunaStoreCalls : MonoBehaviour {
     
 
 	public void RestorePurchase(){
-		LunaStoreManager.Instance.RestorePurchase();
+		//LunaStoreManager.Instance.RestorePurchase();
 	}	
 
 	public void PurchaseCollection()
