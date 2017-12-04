@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using YupiPlay.Luna;
+using UnityEngine.UI;
 
 
 namespace YupiStudios.API.Language {
@@ -28,7 +29,7 @@ namespace YupiStudios.API.Language {
                 lang = BuildConfiguration.ManualLanguage;
             }
 
-			if (YupiPlay.Luna.BuildConfiguration.VideoDownloadsEnabled == false) {
+			if (BuildConfiguration.VideoDownloadsEnabled == false) {
 				lang = SystemLanguage.English;
 			}				
 			//Teste
@@ -62,6 +63,17 @@ namespace YupiStudios.API.Language {
         public GameObject GetCurrent()
         {
             return currentlyActive;
+        }
+
+        public string GetCurrentText() {
+            return GetCurrent().GetComponent<Text>().text;
+        }
+
+        public void SetFormattedText(string newText) {
+            currentlyActive.SetActive(false);
+            Text formatted = Formatted.GetComponent<Text>();
+            formatted.text = newText;
+            Formatted.SetActive(true);
         }
 
 	}

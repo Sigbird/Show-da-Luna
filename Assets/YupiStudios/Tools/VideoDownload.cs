@@ -59,8 +59,8 @@ public class VideoDownload : MonoBehaviour {
 
     void Awake() {
 		if (!BuildConfiguration.VideoDownloadsEnabled) {			
-			offlineFile = System.IO.Path.Combine(Application.streamingAssetsPath, VIDEODIR);		
-			offlineFile = System.IO.Path.Combine(offlineFile, FileEN);
+			offlineFile = Path.Combine(Application.streamingAssetsPath, VIDEODIR);		
+			offlineFile = Path.Combine(offlineFile, FileEN);
 		}
 
 		string filename = FileNameEnglish;
@@ -68,11 +68,11 @@ public class VideoDownload : MonoBehaviour {
 			filename = FileName;
 		}
 
-		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
+		dirPath = Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
 
 
-		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
+		absoluteFileName = Path.Combine(dirPath, filename);
 
 
 		localFileNames = Directory.GetFiles (dirPath);
@@ -80,7 +80,7 @@ public class VideoDownload : MonoBehaviour {
 		if (localFileNames != null) {
 			int x = 0;
 			foreach (string localfilename in localFileNames) {
-				absolutelocalFileNames [x] = System.IO.Path.Combine (dirPath, Path.GetFileName(localfilename));
+				absolutelocalFileNames [x] = Path.Combine (dirPath, Path.GetFileName(localfilename));
 				x++;
 			}
 		}
@@ -477,7 +477,7 @@ public class VideoDownload : MonoBehaviour {
 		if (localFileNames != null) {
 			int x = 0;
 			foreach (string localfilename in localFileNames) {
-				absolutelocalFileNames [x] = System.IO.Path.Combine (dirPath, Path.GetFileName(localfilename));
+				absolutelocalFileNames [x] = Path.Combine (dirPath, Path.GetFileName(localfilename));
 				x++;
 			}
 		}
