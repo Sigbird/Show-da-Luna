@@ -75,7 +75,7 @@ public class GameSave {
 			if (size > 0) {
                 SaveData.LoadFromBytes(data);				
 
-				OnCallInitEvents();
+				if (OnCallInitEvents != null) OnCallInitEvents();
 			}
 		} else {
 			Debug.LogError("read fail");
@@ -140,8 +140,8 @@ public class GameSave {
 		if (status == SavedGameRequestStatus.Success) {
 			PlayerPrefs.SetInt(LOADEDSAVEKEY, 1);
 			PlayerPrefs.Save ();
-			OnCallInitEvents();
-            
+            if (OnCallInitEvents != null) OnCallInitEvents();
+
             // handle reading or writing of saved game.
             Debug.Log ("save success");
 		} else {
@@ -155,7 +155,7 @@ public class GameSave {
 	}
 
 	public static void CallInitEvent() {
-		OnCallInitEvents();
-	}
+        if (OnCallInitEvents != null) OnCallInitEvents();
+    }
 	
 }
