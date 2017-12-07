@@ -14,6 +14,8 @@ public class VideoDownload : MonoBehaviour {
 	public string FileName;
 	[Tooltip("Nome do arquivo em ingles")]
 	public string FileNameEnglish;
+    [Tooltip("Nome do arquivo em espanhol")]
+    public string FileNameSpanish;
 
     // deprecated
 	//[Tooltip("URL do arquivo")]
@@ -64,16 +66,18 @@ public class VideoDownload : MonoBehaviour {
 		}
 
 		string filename = FileNameEnglish;
-		if (Application.systemLanguage != SystemLanguage.English) {
+
+		if (Application.systemLanguage == SystemLanguage.Portuguese) {
 			filename = FileName;
 		}
+        if (Application.systemLanguage == SystemLanguage.Spanish) {
+            filename = FileNameSpanish;
+        }
 
 		dirPath = Path.Combine(Application.persistentDataPath, VIDEODIR);
 		Directory.CreateDirectory(dirPath);
 
-
 		absoluteFileName = Path.Combine(dirPath, filename);
-
 
 		localFileNames = Directory.GetFiles (dirPath);
 		absolutelocalFileNames = new string[localFileNames.Length];
