@@ -17,10 +17,10 @@ public class SpanishTratement : MonoBehaviour {
 		if (Application.systemLanguage == SystemLanguage.Spanish ||
             BuildConfiguration.ManualLanguage == SystemLanguage.Spanish) {
 			foreach(GameObject videoButton in toDeactive){
-				videoButton.SetActive(false);
+                if (videoButton != null) videoButton.SetActive(false);
 			}
 			foreach(GameObject videoButton in toActive){
-				videoButton.SetActive(true);
+				if (videoButton != null) videoButton.SetActive(true);
 			}
 		}
 	}

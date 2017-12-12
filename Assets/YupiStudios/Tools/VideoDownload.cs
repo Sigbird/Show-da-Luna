@@ -65,21 +65,36 @@ public class VideoDownload : MonoBehaviour {
 			offlineFile = Path.Combine(offlineFile, FileEN);
 		}
 
-		string filename = FileNameEnglish;
+        dirPath = Path.Combine(Application.persistentDataPath, VIDEODIR);
+        Directory.CreateDirectory(dirPath);
 
-		if (Application.systemLanguage == SystemLanguage.Portuguese) {
-			filename = FileName;
-		}
-        if (Application.systemLanguage == SystemLanguage.Spanish) {
-            filename = FileNameSpanish;
+        var lang = Application.systemLanguage;
+        if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+            lang = BuildConfiguration.ManualLanguage;
         }
 
-		dirPath = Path.Combine(Application.persistentDataPath, VIDEODIR);
-		Directory.CreateDirectory(dirPath);
+        string filename = FileNameEnglish;
 
-		absoluteFileName = Path.Combine(dirPath, filename);
+		if (lang == SystemLanguage.Portuguese) {
+			filename = FileName;
+		}
 
-		localFileNames = Directory.GetFiles (dirPath);
+        absoluteFileName = Path.Combine(dirPath, filename);
+
+#if UNITY_IOS
+        absoluteFileName = "file://" + absoluteFileName;				
+#endif
+        
+        if (!File.Exists(absoluteFileName) && lang == SystemLanguage.Spanish) {            
+                filename = FileNameSpanish;
+                absoluteFileName = Path.Combine(dirPath, filename);
+
+        #if UNITY_IOS
+                absoluteFileName = "file://" + absoluteFileName;				
+        #endif
+        }
+
+        localFileNames = Directory.GetFiles (dirPath);
 		absolutelocalFileNames = new string[localFileNames.Length];
 		if (localFileNames != null) {
 			int x = 0;
@@ -88,12 +103,6 @@ public class VideoDownload : MonoBehaviour {
 				x++;
 			}
 		}
-
-
-#if UNITY_IOS
-        absoluteFileName = "file://" + absoluteFileName;		
-		Debug.Log(absoluteFileName);
-#endif
     }
 
     void Start () {	
