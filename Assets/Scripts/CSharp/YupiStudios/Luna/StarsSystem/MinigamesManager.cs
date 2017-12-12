@@ -22,12 +22,17 @@ public class MinigamesManager : MonoBehaviour {
 	
 	public GameObject CaracolUnlocked;
 
+	public GameObject BonecoLocked;
+
+	public GameObject BonecoUnlocked;
+
 	public GameObject AsasUnlockEffects;
 
 	public GameObject StarsSpendAnim;
 
 	public bool FreeAsas = false;
 	public bool FreeCaracol = false;
+	public bool FreeBonecoNeve = false;
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +42,16 @@ public class MinigamesManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+	}
+
+	public void PurchaseBonecoNeve(){		
+		if (Inventory.Instance.BuyProduct(LunaStoreAssets.MINIGAME_BONECONEVE_ITEM_ID, LunaStoreAssets.MINIGAME_BONECONEVE_PRICE)) {
+			MinigamesCheck();
+			AsasPurchasedEffects();
+			return;
+		}
+
+		ParentalBuyStars.SetActive(true);  
 	}
 
 	public void PurchaseAsas(){		
@@ -63,6 +78,7 @@ public class MinigamesManager : MonoBehaviour {
 		if (BuildConfiguration.CurrentPurchaseType == BuildType.Free) {
 			FreeAsas = true;
 			FreeCaracol = true;
+			FreeBonecoNeve = true;
 		}
 		
 		if (Inventory.Instance.HasProduct(LunaStoreAssets.MINIGAME_ASAS_ITEM_ID) || FreeAsas) {
@@ -83,6 +99,14 @@ public class MinigamesManager : MonoBehaviour {
 		} else {
 			CaracolUnlocked.SetActive (false);
 			CaracolLocked.SetActive (true);
+		}
+
+		if (Inventory.Instance.HasProduct(LunaStoreAssets.MINIGAME_BONECONEVE_ITEM_ID) || FreeBonecoNeve) {
+			BonecoUnlocked.SetActive (true);
+			BonecoLocked.SetActive (false);
+		} else {
+			BonecoUnlocked.SetActive (false);
+			BonecoLocked.SetActive (true);
 		}
 
 	}

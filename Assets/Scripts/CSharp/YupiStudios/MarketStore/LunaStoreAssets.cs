@@ -154,6 +154,16 @@ public class LunaStoreAssets {
     //	new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
     //	);
 
+	//Corrida Caracol
+	public const string MINIGAME_BONECONEVE_ITEM_ID = "minigame_caracol";
+	public const int MINIGAME_BONECONEVE_PRICE = 5;
+	//public static VirtualGood MINIGAME_CARACOL = new LifetimeVG(
+	//	"O Show da Luna! Minigame Asas para Voar!",
+	//	"Permite acesso ao minigame Asas para Voar!",
+	//	MINIGAME_CARACOL_ITEM_ID,
+	//	new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+	//	);
+
     //COLLECTION 01
     public const string STARS_COLLECTION01_LTVG_ITEM_ID = "stars_collection01_id";					//ID do item
 	//public static VirtualGood STARS_COLLECTION01_LTVG = 
