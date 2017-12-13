@@ -1,9 +1,6 @@
 ﻿#if UNITY_ANDROID
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using GooglePlayGames;
 using UnityEngine.Events;
 
 public class GamesServicesDependency : MonoBehaviour {
@@ -43,8 +40,14 @@ public class GamesServicesDependency : MonoBehaviour {
 	private void authMethod(bool success) {
 		if (success) {
 			if (PlayerPrefs.GetInt(GPGSIds.achievement_welcome_to_earth_to_luna) == 0) {
-				Social.ReportProgress(GPGSIds.achievement_welcome_to_earth_to_luna, 100.0f, (bool done) => {});
-				PlayerPrefs.SetInt(GPGSIds.achievement_welcome_to_earth_to_luna, 1);
+#if UNITY_ANDROID
+                Social.ReportProgress(GPGSIds.achievement_welcome_to_earth_to_luna, 100.0f, (bool done) => {});
+#endif
+#if UNITY_IOS
+                //reporta o achievement com o ID do IOS
+                //Social.ReportProgress(ID_DO_IOS, 100.0f, (bool done) => {});
+#endif
+                PlayerPrefs.SetInt(GPGSIds.achievement_welcome_to_earth_to_luna, 1);
 				PlayerPrefs.Save();
 			} 
 

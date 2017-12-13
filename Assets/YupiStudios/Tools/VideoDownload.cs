@@ -6,6 +6,7 @@ using System.Collections;
 using System;
 using YupiPlay.Luna.LunaPlayer;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class VideoDownload : MonoBehaviour {
 
@@ -13,6 +14,8 @@ public class VideoDownload : MonoBehaviour {
 	public string FileName;
 	[Tooltip("Nome do arquivo em ingles")]
 	public string FileNameEnglish;
+    [Tooltip("Nome do arquivo em espanhol")]
+    public string FileNameSpanish;
 
     // deprecated
 	//[Tooltip("URL do arquivo")]
@@ -28,6 +31,8 @@ public class VideoDownload : MonoBehaviour {
        	
 	private bool downloadComplete = false;
 	private string absoluteFileName;
+	public string[] absolutelocalFileNames;
+	public string[] localFileNames;
 	private string dirPath;
 	private bool downloadStarted = false;
 	private bool downloadError = false;
@@ -46,35 +51,71 @@ public class VideoDownload : MonoBehaviour {
 	private const float timeLimit = 30f;
 	private float timeOut = 0f;
     private float oldProgress;
+	public int videosIndex;
+	private bool endVideoTest;
+	private bool returnPressed;
+	private DateTime lastMinimized;
+	private float minimizedSeconds;
 
     private UnityWebRequest webRequest;
 
     void Awake() {
 		if (!BuildConfiguration.VideoDownloadsEnabled) {			
-			offlineFile = System.IO.Path.Combine(Application.streamingAssetsPath, VIDEODIR);		
-			offlineFile = System.IO.Path.Combine(offlineFile, FileEN);
+			offlineFile = Path.Combine(Application.streamingAssetsPath, VIDEODIR);		
+			offlineFile = Path.Combine(offlineFile, FileEN);
 		}
 
-		string filename = FileNameEnglish;
-		if (Application.systemLanguage == SystemLanguage.Portuguese) {
+        dirPath = Path.Combine(Application.persistentDataPath, VIDEODIR);
+        Directory.CreateDirectory(dirPath);
+
+        var lang = Application.systemLanguage;
+        if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+            lang = BuildConfiguration.ManualLanguage;
+        }
+
+        string filename = FileNameEnglish;
+
+		if (lang == SystemLanguage.Portuguese) {
 			filename = FileName;
 		}
 
-		dirPath = System.IO.Path.Combine(Application.persistentDataPath, VIDEODIR);
-		Directory.CreateDirectory(dirPath);
-		absoluteFileName = System.IO.Path.Combine(dirPath, filename);
+        absoluteFileName = Path.Combine(dirPath, filename);
 
 #if UNITY_IOS
-        absoluteFileName = "file://" + absoluteFileName;		
-		Debug.Log(absoluteFileName);
+        absoluteFileName = "file://" + absoluteFileName;				
 #endif
+        
+        if (!File.Exists(absoluteFileName) && lang == SystemLanguage.Spanish) {            
+                filename = FileNameSpanish;
+                absoluteFileName = Path.Combine(dirPath, filename);
+
+        #if UNITY_IOS
+                absoluteFileName = "file://" + absoluteFileName;				
+        #endif
+        }
+
+        localFileNames = Directory.GetFiles (dirPath);
+		absolutelocalFileNames = new string[localFileNames.Length];
+		if (localFileNames != null) {
+			int x = 0;
+			foreach (string localfilename in localFileNames) {
+				absolutelocalFileNames [x] = Path.Combine (dirPath, Path.GetFileName(localfilename));
+				x++;
+			}
+		}
     }
 
     void Start () {	
 	}
 	
 	// Update is called once per frame
+
 	void Update () {
+//		debug.text = absoluteFileName;
+//		debug2.text = absolutelocalFileNames[0];
+
+
+
 		if (!downloadComplete && downloadStarted) {		
 
 			if (timeOut >= timeLimit) {
@@ -102,6 +143,19 @@ public class VideoDownload : MonoBehaviour {
                 oldProgress = webRequest.downloadProgress;                
             }
 		}
+
+		if (localFileNames != null) {
+			if (videosIndex > localFileNames.Length) {
+				videosIndex = 0;
+			}
+		}
+
+		if (endVideoTest) {
+			endVideoTest = false;
+
+
+		}
+
 	}	
 
 	public void DownloadFile() {
@@ -123,9 +177,11 @@ public class VideoDownload : MonoBehaviour {
 		}
 	}
 
-	private void StartDownload() {		
+	private void StartDownload() {
         //webRequest = UnityWebRequest.Get(getVideoUrl());
-        webRequest = DownloadManager.AddDownload(getVideoUrl(), this);
+        var url = getVideoUrl();
+        Debug.Log(url);
+        webRequest = DownloadManager.AddDownload(url, this);
         //webRequest.downloadHandler = new VideoDownloadHandler(absoluteFileName);
         
 		downloadStarted = true;
@@ -209,11 +265,38 @@ public class VideoDownload : MonoBehaviour {
 	}
 
 	public void PlayVideoOnMobile() {
+		//returnPressed = false;
 #if UNITY_ANDROID || UNITY_IOS
-        Handheld.PlayFullScreenMovie(absoluteFileName);  
+		if(VideoPlayerController.Instance.allVideosLoop == true){
+			StartCoroutine(PlayAllVideosCoroutine(absoluteFileName));
+		}
+
+		if(VideoPlayerController.Instance.videoLoop == true){
+			StartCoroutine(PlayVideoLoopCoroutine(absoluteFileName));
+		}
+
+		if(VideoPlayerController.Instance.videoLoop == false && VideoPlayerController.Instance.allVideosLoop == false ){
+			StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+		}
+        //Handheld.PlayFullScreenMovie(absoluteFileName);
+		//VideoPlayerController.Instance.Play(absoluteFileName,localFileNames);
+
 #endif
 #if UNITY_EDITOR || UNITY_STANDALONE
-        VideoPlayerController.Instance.Play(absoluteFileName);
+		if(VideoPlayerController.Instance.allVideosLoop == true){
+			StartCoroutine(PlayAllVideosCoroutine(absoluteFileName));
+		}
+
+		if(VideoPlayerController.Instance.videoLoop == true){
+			StartCoroutine(PlayVideoLoopCoroutine(absoluteFileName));
+		}
+
+		if(VideoPlayerController.Instance.videoLoop == false && VideoPlayerController.Instance.allVideosLoop == false ){
+			StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+		}
+		//Handheld.PlayFullScreenMovie(absoluteFileName);
+		//StartCoroutine(PlayVideoCoroutine(absoluteFileName));
+
 #endif
         //VideoPlayerController.Instance.Play();
     }
@@ -221,15 +304,20 @@ public class VideoDownload : MonoBehaviour {
 	public string getVideoUrl() {          
         string hostUrl = DownloadRedundant.Instance.GetServerRoundRobin(myPriority);
 
+        SystemLanguage language = Application.systemLanguage;
+        if (BuildConfiguration.ManualLanguage != SystemLanguage.Unknown) {
+            language = BuildConfiguration.ManualLanguage;
+        }
+
         try {
-            if (Application.systemLanguage == SystemLanguage.Portuguese) {
-                return hostUrl + FilePT;
-            } else if (Application.systemLanguage == SystemLanguage.Spanish) {
+            if (language == SystemLanguage.Portuguese) {
                 return hostUrl + FilePT;
             }
-
-            string videoUrl = hostUrl + FileEN;            
-            return videoUrl;
+            if (language == SystemLanguage.Spanish) {
+                return hostUrl + FileES;
+            }
+                    
+            return hostUrl + FileEN;
         } catch (NullReferenceException e) {
             return "";
         }		
@@ -246,7 +334,67 @@ public class VideoDownload : MonoBehaviour {
 		#endif
 		
 		File.Delete(absoluteFileName);
-	}		
+	}
+
+	private IEnumerator PlayAllVideosCoroutine(string videoPath) //PLAY ALL VIDEOS AVAIABLE
+	{
+		
+		yield return new WaitForSeconds(1);
+		if (VideoPlayerController.Instance.babyMode == true) {
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);    
+		} else {
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
+		}
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForSeconds(0.5f);
+		if (minimizedSeconds >=69f) {
+
+			if (absolutelocalFileNames != null) {
+				videosIndex++;
+				if (videosIndex >= absolutelocalFileNames.Length) {
+					videosIndex = 0;
+				} 
+			}
+			StartCoroutine (PlayAllVideosCoroutine (absolutelocalFileNames [videosIndex])); 
+		} else {
+			returnPressed = false;
+		}
+	}
+
+	private IEnumerator PlayVideoLoopCoroutine(string videoPath) //PLAY VIDEO IN LOOP
+	{
+		
+		yield return new WaitForSeconds(1);
+		if (VideoPlayerController.Instance.babyMode == true) {
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);    
+		} else {
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
+		}
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForSeconds(0.5f);
+		if (minimizedSeconds >=69f) {
+			
+			StartCoroutine (PlayVideoLoopCoroutine (absoluteFileName)); 
+		} else {
+			returnPressed = false;
+		}
+
+
+	}
+
+	private IEnumerator PlayVideoCoroutine(string videoPath) //PLAY VIDEO DEFAULT
+	{
+		yield return new WaitForSeconds(1);
+		if (VideoPlayerController.Instance.babyMode == true) {
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);    
+		} else {
+			Handheld.PlayFullScreenMovie (videoPath, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
+		}
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+	}
 
 	public IEnumerator PlayOfflineVideo() {
 		DeleteExtractedVideos();
@@ -260,6 +408,25 @@ public class VideoDownload : MonoBehaviour {
 		stream.Close();
 		PlayVideoOnMobile();
 	}
+
+	void OnApplicationPause(bool pauseStatus)
+	{
+		if (pauseStatus) {
+			lastMinimized = DateTime.Now;
+		} else {
+			minimizedSeconds = (float)(DateTime.Now - lastMinimized).TotalSeconds;
+		}
+	}
+
+//	public IEnumerator CheckforBackButton() {
+//		if (Input.GetKeyDown (KeyCode.Escape)) {
+//			returnPressed = true;
+//			yield return new WaitForEndOfFrame();
+//		} else {
+//			yield return new WaitForSeconds(0.1f);
+//			StartCoroutine (CheckforBackButton ());
+//		}
+//	}
 
 	public void DeleteExtractedVideos() {
 		if (Directory.Exists(dirPath)) {
@@ -307,11 +474,25 @@ public class VideoDownload : MonoBehaviour {
         downloadComplete = true;
         downloadStarted = false;
         downloadError = false;
-
+		UpdateFilesList ();
         SaveFile();
     }
 
     public string GetFileName() {
         return absoluteFileName;
     }
+
+
+
+	public void UpdateFilesList(){
+		localFileNames = Directory.GetFiles (dirPath);
+		absolutelocalFileNames = new string[localFileNames.Length];
+		if (localFileNames != null) {
+			int x = 0;
+			foreach (string localfilename in localFileNames) {
+				absolutelocalFileNames [x] = Path.Combine (dirPath, Path.GetFileName(localfilename));
+				x++;
+			}
+		}
+	}
 }

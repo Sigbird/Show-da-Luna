@@ -12,7 +12,7 @@ public class TimedImageAsset : MonoBehaviour {
 	public enum TimedEvents {XMAS};
 	public TimedEvents EventToCheck;
 
-	private string XmasEventDate = "2017-01-06";
+	private string XmasEventDate = "2018-01-06";
 
 	void Awake() {
 		changeAssetOnDate();

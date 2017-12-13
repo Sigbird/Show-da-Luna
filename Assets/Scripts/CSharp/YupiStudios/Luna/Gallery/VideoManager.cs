@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using YupiPlay.Luna;
+using YupiPlay.Luna.Store;
 
 public class VideoManager : MonoBehaviour {	
 
@@ -75,6 +76,28 @@ public class VideoManager : MonoBehaviour {
 
 	}
 
+    void onBuyProductListener(string productId) {
+        string videoid;
+
+        if (collection == 1) {
+            videoid = "stars_video_0" + number + "_col_0" + collection + "_id";
+        } else {
+            videoid = "video_0" + number + "_col_0" + collection + "_id";
+        }
+
+        string collectionid;
+
+        if (collection == 1) {
+            collectionid = LunaStoreAssets.STARS_COLLECTION01_LTVG_ITEM_ID;
+        } else {
+            collectionid = "collection_0" + collection + "_id";
+        }
+
+        if (videoid == productId || collectionid == productId) {
+            changeVideoState();
+        }
+    }
+
 	void changeVideoState() {
 		if (videoDownload.FileExists()) {
 			currentState = VIDEO_STATES.PLAYABLE;
@@ -98,8 +121,8 @@ public class VideoManager : MonoBehaviour {
 			return;
 		}
 
-		if (LunaStoreManager.Instance != null && (LunaStoreManager.Instance.AcquiredVideo(number,collection) || 
-		                                          LunaStoreManager.Instance.AcquiredCollection(collection)) ) {
+		if (Inventory.Instance.AcquiredVideo(number,collection) || 
+		        Inventory.Instance.AcquiredCollection(collection)) {
 			isFree = true;
 			CheckVideoState();
 		}else{
@@ -111,14 +134,9 @@ public class VideoManager : MonoBehaviour {
     }
 
 	public void TryDownload(){
-		if(isFree){
+		if (isFree) {
 			videoDownload.DownloadFile();
-		}else if(LunaStoreManager.Instance != null && LunaStoreManager.Instance.AcquiredCollection(collection)){
-			isFree = true;
-			currentState = VIDEO_STATES.DOWNLOAD;
-			videoDownload.DownloadFile();
-		}else if (LunaStoreManager.Instance != null &&
-		          LunaStoreManager.Instance.AcquiredVideo (number,collection)) {
+		} else if (Inventory.Instance.AcquiredCollection(collection) || Inventory.Instance.AcquiredVideo(number, collection)) {
 			isFree = true;
 			currentState = VIDEO_STATES.DOWNLOAD;
 			videoDownload.DownloadFile();
@@ -140,18 +158,12 @@ public class VideoManager : MonoBehaviour {
 
 	void OnEnable() {
 		CheckVideoState();
-//		videoBtn.GetComponent<Animator>().ResetTrigger("Blocked");
-//		videoBtn.GetComponent<Animator>().ResetTrigger("AnimateButton");
-//		videoBtn.GetComponent<Animator>().ResetTrigger("DownloadIdle");
-//		videoBtn.GetComponent<Animator>().ResetTrigger("DownloadComplete");
 
-		LunaStoreManager.OnVideoPurchased += onBuyVideoListener;
-		LunaStoreManager.OnCollectionPurchased += onBuyCollectionListener;
+        Inventory.OnBuyProduct += onBuyProductListener;		
 	}
 
 	void OnDisable() {
-		LunaStoreManager.OnVideoPurchased -= onBuyVideoListener;
-		LunaStoreManager.OnCollectionPurchased -= onBuyCollectionListener;
+        Inventory.OnBuyProduct -= onBuyProductListener;        
 	}
 
 }

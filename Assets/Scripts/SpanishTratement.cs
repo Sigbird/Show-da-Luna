@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using YupiPlay.Luna;
 
 /*
  *	ESTE SCRIPT ESTA SENDO USADO PARA REPARAR UM PROBLEMA TEMPORARIO
@@ -14,12 +14,13 @@ public class SpanishTratement : MonoBehaviour {
 	public GameObject[] toActive;
 	
 	void Start () {
-		if (Application.systemLanguage == SystemLanguage.Spanish) {
+		if (Application.systemLanguage == SystemLanguage.Spanish ||
+            BuildConfiguration.ManualLanguage == SystemLanguage.Spanish) {
 			foreach(GameObject videoButton in toDeactive){
-				videoButton.SetActive(false);
+                if (videoButton != null) videoButton.SetActive(false);
 			}
 			foreach(GameObject videoButton in toActive){
-				videoButton.SetActive(true);
+				if (videoButton != null) videoButton.SetActive(true);
 			}
 		}
 	}

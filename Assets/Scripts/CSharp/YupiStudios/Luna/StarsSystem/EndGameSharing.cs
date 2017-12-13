@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Facebook.Unity;
+//using Facebook.Unity;
 using System;
 
 public class EndGameSharing : MonoBehaviour {
@@ -32,38 +32,38 @@ public class EndGameSharing : MonoBehaviour {
 	public void CashIn() {
 		//VANVAN ATRIBUI X ESTRELAS AO JOGADOR
 		//VANVAN CONFIGURA COMPARTILHAMENTO
-		if (FB.IsLoggedIn) {
-			ShareFeed();
-		} else {        
-            List<string> perms = new List<string>(){"public_profile"};
-			FB.LogInWithReadPermissions(perms, FBLoginCallback);
-		}
+//		if (FB.IsLoggedIn) {
+//			ShareFeed();
+//		} else {        
+//            List<string> perms = new List<string>(){"public_profile"};
+//			FB.LogInWithReadPermissions(perms, FBLoginCallback);
+//		}
 	}
 
-	public void FBLoginCallback(ILoginResult result) {
-		if (result.Error != null) {
-			failureScreen.SetActive(true);
-			shareScreen.SetActive (false);
-		} else {
-			ShareFeed();
-		}
-	}
+//	public void FBLoginCallback(ILoginResult result) {
+//		if (result.Error != null) {
+//			failureScreen.SetActive(true);
+//			shareScreen.SetActive (false);
+//		} else {
+//			ShareFeed();
+//		}
+//	}
 
 	public void ShareFeed() {
-        Uri uri = new Uri(SHARELINK);
-		FB.ShareLink(uri, getShareTitle(), null,  null, ShareCallback);
+//        Uri uri = new Uri(SHARELINK);
+//		FB.ShareLink(uri, getShareTitle(), null,  null, ShareCallback);
 	}
 
-	public void ShareCallback(IShareResult result) {
-		if (result.Error != null) {
-			failureScreen.SetActive(true);
-			shareScreen.SetActive (false);
-		} else {
-			successScreen.SetActive(true);
-			shareScreen.SetActive (false);
-			StarsSystemEvents.Event04();
-		}
-	}
+//	public void ShareCallback(IShareResult result) {
+//		if (result.Error != null) {
+//			failureScreen.SetActive(true);
+//			shareScreen.SetActive (false);
+//		} else {
+//			successScreen.SetActive(true);
+//			shareScreen.SetActive (false);
+//			StarsSystemEvents.Event04();
+//		}
+//	}
 
 	private static string getShareTitle() {
 		switch(Application.systemLanguage) {
@@ -79,19 +79,19 @@ public class EndGameSharing : MonoBehaviour {
 	}
 
 	void Awake() {
-		if (!FB.IsInitialized) {
-			FB.Init(InitCallback, OnHideUnity);
-		} else {		
-			FB.ActivateApp();
-		}
+//		if (!FB.IsInitialized) {
+//			FB.Init(InitCallback, OnHideUnity);
+//		} else {		
+//			FB.ActivateApp();
+//		}
 	}
 	
 	private void InitCallback() {
-		if (FB.IsInitialized) {
-			FB.ActivateApp();
-		} else {
-			Debug.Log ("Failed to Initialize the Facebook SDK");
-		}
+//		if (FB.IsInitialized) {
+//			FB.ActivateApp();
+//		} else {
+//			Debug.Log ("Failed to Initialize the Facebook SDK");
+//		}
 	}
 	
 	private void OnHideUnity (bool isGameShown) {
@@ -110,11 +110,11 @@ public class EndGameSharing : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		LunaStoreManager.OnBalanceChanged += ShareStarsEffects;
+		//LunaStoreManager.OnBalanceChanged += ShareStarsEffects;
 	}
 
 	void OnDisable() {
-		LunaStoreManager.OnBalanceChanged -= ShareStarsEffects;
+		//LunaStoreManager.OnBalanceChanged -= ShareStarsEffects;
 	}
 }
 

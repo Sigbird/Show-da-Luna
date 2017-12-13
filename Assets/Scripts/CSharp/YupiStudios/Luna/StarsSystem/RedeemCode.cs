@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using YupiStudios.API.Language;
-using Soomla.Store;
 using UnityEngine.Networking;
 using MiniJSON;
 
@@ -153,8 +152,8 @@ public class RedeemCode : MonoBehaviour {
    
     public void RedeemStars(int stars)
     {
-        StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, stars);
-        LunaStoreManager.CallBoughtStarsEvent();        
+        //StoreInventory.GiveItem(LunaStoreAssets.STARS_CURRENCY_ID, stars);
+        //LunaStoreManager.CallBoughtStarsEvent();        
     }
 
 	public void CleanInput() {

@@ -1,84 +1,81 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Soomla.Store;
 using System.Text;
 using MiniJSON;
 using YupiPlay.Ads;
+using YupiPlay.Luna.Store;
 
 public class SaveData {
 
-	public static byte[] GetBytes() {
-        LunaStoreManager storeManager = LunaStoreManager.Instance;
-
-        VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
-        long balance = starsCurrency.GetBalance();
-
+	public static byte[] GetBytes() {        
+        var inventory = Inventory.Instance;
+        
         Dictionary<string, object> dict = new Dictionary<string, object>();
 
-        dict[LunaStoreAssets.STARS_CURRENCY_ID] = balance;
+        dict[Inventory.WalletKey] = inventory.GetBalance();
 
-        dict[LunaStoreAssets.FULLGAME_LTVG_ITEM_ID]    = storeManager.AcquiredFullGame();
-        dict[LunaStoreAssets.MINIGAME_ASAS_ITEM_ID]    = storeManager.AcquiredMinigameAsas();
-        dict[LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID] = storeManager.AcquiredMinigameCaracol();
+        dict[LunaStoreAssets.STARS_FULL_GAME_ITEM_ID] = inventory.HasProduct(LunaStoreAssets.STARS_FULL_GAME_ITEM_ID);
+        dict[LunaStoreAssets.MINIGAME_ASAS_ITEM_ID] = inventory.HasProduct(LunaStoreAssets.MINIGAME_ASAS_ITEM_ID);
+        dict[LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID] = inventory.HasProduct(LunaStoreAssets.MINIGAME_CARACOL_ITEM_ID);
 
-        dict[LunaStoreAssets.COLLECTION01_LTVG_ITEM_ID] = storeManager.AcquiredCollection(1);
-        dict[LunaStoreAssets.COLLECTION02_LTVG_ITEM_ID] = storeManager.AcquiredCollection(2);
-        dict[LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID] = storeManager.AcquiredCollection(3);
-        dict[LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID] = storeManager.AcquiredCollection(4);
-        dict[LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID] = storeManager.AcquiredCollection(5);
-        dict[LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID] = storeManager.AcquiredCollection(6);
-        dict[LunaStoreAssets.COLLECTION07_LTVG_ITEM_ID] = storeManager.AcquiredCollection(7);
-        dict[LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID] = storeManager.AcquiredCollection(8);
-        dict[LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID] = storeManager.AcquiredCollection(9);
+        dict[LunaStoreAssets.COLLECTION01_LTVG_ITEM_ID] = inventory.AcquiredCollection(1);
+        dict[LunaStoreAssets.COLLECTION02_LTVG_ITEM_ID] = inventory.AcquiredCollection(2);
+        dict[LunaStoreAssets.COLLECTION03_LTVG_ITEM_ID] = inventory.AcquiredCollection(3);
+        dict[LunaStoreAssets.COLLECTION04_LTVG_ITEM_ID] = inventory.AcquiredCollection(4);
+        dict[LunaStoreAssets.COLLECTION05_LTVG_ITEM_ID] = inventory.AcquiredCollection(5);
+        dict[LunaStoreAssets.COLLECTION06_LTVG_ITEM_ID] = inventory.AcquiredCollection(6);
+        dict[LunaStoreAssets.COLLECTION07_LTVG_ITEM_ID] = inventory.AcquiredCollection(7);
+        dict[LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID] = inventory.AcquiredCollection(8);
+        dict[LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID] = inventory.AcquiredCollection(9);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 1);
-        dict[LunaStoreAssets.VIDEO_02_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 1);
-        dict[LunaStoreAssets.VIDEO_03_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 1);
-        dict[LunaStoreAssets.VIDEO_04_COL_01_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 1);
+        dict[LunaStoreAssets.VIDEO_01_COL_01_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 1);
+        dict[LunaStoreAssets.VIDEO_02_COL_01_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 1);
+        dict[LunaStoreAssets.VIDEO_03_COL_01_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 1);
+        dict[LunaStoreAssets.VIDEO_04_COL_01_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 1);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_02_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 2);
-        dict[LunaStoreAssets.VIDEO_02_COL_02_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 2);
-        dict[LunaStoreAssets.VIDEO_03_COL_02_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 2);
-        dict[LunaStoreAssets.VIDEO_04_COL_02_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 2);
+        dict[LunaStoreAssets.VIDEO_01_COL_02_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 2);
+        dict[LunaStoreAssets.VIDEO_02_COL_02_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 2);
+        dict[LunaStoreAssets.VIDEO_03_COL_02_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 2);
+        dict[LunaStoreAssets.VIDEO_04_COL_02_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 2);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_03_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 3);
-        dict[LunaStoreAssets.VIDEO_02_COL_03_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 3);
-        dict[LunaStoreAssets.VIDEO_03_COL_03_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 3);
-        dict[LunaStoreAssets.VIDEO_04_COL_03_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 3);
+        dict[LunaStoreAssets.VIDEO_01_COL_03_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 3);
+        dict[LunaStoreAssets.VIDEO_02_COL_03_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 3);
+        dict[LunaStoreAssets.VIDEO_03_COL_03_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 3);
+        dict[LunaStoreAssets.VIDEO_04_COL_03_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 3);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_04_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 4);
-        dict[LunaStoreAssets.VIDEO_02_COL_04_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 4);
-        dict[LunaStoreAssets.VIDEO_03_COL_04_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 4);
-        dict[LunaStoreAssets.VIDEO_04_COL_04_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 4);
+        dict[LunaStoreAssets.VIDEO_01_COL_04_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 4);
+        dict[LunaStoreAssets.VIDEO_02_COL_04_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 4);
+        dict[LunaStoreAssets.VIDEO_03_COL_04_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 4);
+        dict[LunaStoreAssets.VIDEO_04_COL_04_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 4);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_05_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 5);
-        dict[LunaStoreAssets.VIDEO_02_COL_05_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 5);
-        dict[LunaStoreAssets.VIDEO_03_COL_05_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 5);
-        dict[LunaStoreAssets.VIDEO_04_COL_05_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 5);
-        dict[LunaStoreAssets.VIDEO_05_COL_05_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 5);
+        dict[LunaStoreAssets.VIDEO_01_COL_05_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 5);
+        dict[LunaStoreAssets.VIDEO_02_COL_05_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 5);
+        dict[LunaStoreAssets.VIDEO_03_COL_05_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 5);
+        dict[LunaStoreAssets.VIDEO_04_COL_05_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 5);
+        dict[LunaStoreAssets.VIDEO_05_COL_05_LTVG_ITEM_ID] = inventory.AcquiredVideo(5, 5);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_06_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 6);
-        dict[LunaStoreAssets.VIDEO_02_COL_06_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 6);
-        dict[LunaStoreAssets.VIDEO_03_COL_06_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 6);
-        dict[LunaStoreAssets.VIDEO_04_COL_06_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 6);
+        dict[LunaStoreAssets.VIDEO_01_COL_06_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 6);
+        dict[LunaStoreAssets.VIDEO_02_COL_06_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 6);
+        dict[LunaStoreAssets.VIDEO_03_COL_06_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 6);
+        dict[LunaStoreAssets.VIDEO_04_COL_06_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 6);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 7);
-        dict[LunaStoreAssets.VIDEO_02_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 7);
-        dict[LunaStoreAssets.VIDEO_03_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 7);
-        dict[LunaStoreAssets.VIDEO_04_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 7);
-        dict[LunaStoreAssets.VIDEO_05_COL_07_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 7);
+        dict[LunaStoreAssets.VIDEO_01_COL_07_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 7);
+        dict[LunaStoreAssets.VIDEO_02_COL_07_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 7);
+        dict[LunaStoreAssets.VIDEO_03_COL_07_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 7);
+        dict[LunaStoreAssets.VIDEO_04_COL_07_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 7);
+        dict[LunaStoreAssets.VIDEO_05_COL_07_LTVG_ITEM_ID] = inventory.AcquiredVideo(5, 7);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 8);
-        dict[LunaStoreAssets.VIDEO_02_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 8);
-        dict[LunaStoreAssets.VIDEO_03_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 8);
-        dict[LunaStoreAssets.VIDEO_04_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 8);
-        dict[LunaStoreAssets.VIDEO_05_COL_08_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 8);
+        dict[LunaStoreAssets.VIDEO_01_COL_08_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 8);
+        dict[LunaStoreAssets.VIDEO_02_COL_08_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 8);
+        dict[LunaStoreAssets.VIDEO_03_COL_08_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 8);
+        dict[LunaStoreAssets.VIDEO_04_COL_08_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 8);
+        dict[LunaStoreAssets.VIDEO_05_COL_08_LTVG_ITEM_ID] = inventory.AcquiredVideo(5, 8);
 
-        dict[LunaStoreAssets.VIDEO_01_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(1, 9);
-        dict[LunaStoreAssets.VIDEO_02_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(2, 9);
-        dict[LunaStoreAssets.VIDEO_03_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(3, 9);
-        dict[LunaStoreAssets.VIDEO_04_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(4, 9);
-        dict[LunaStoreAssets.VIDEO_05_COL_09_LTVG_ITEM_ID] = storeManager.AcquiredVideo(5, 9);
+        dict[LunaStoreAssets.VIDEO_01_COL_09_LTVG_ITEM_ID] = inventory.AcquiredVideo(1, 9);
+        dict[LunaStoreAssets.VIDEO_02_COL_09_LTVG_ITEM_ID] = inventory.AcquiredVideo(2, 9);
+        dict[LunaStoreAssets.VIDEO_03_COL_09_LTVG_ITEM_ID] = inventory.AcquiredVideo(3, 9);
+        dict[LunaStoreAssets.VIDEO_04_COL_09_LTVG_ITEM_ID] = inventory.AcquiredVideo(4, 9);
+        dict[LunaStoreAssets.VIDEO_05_COL_09_LTVG_ITEM_ID] = inventory.AcquiredVideo(5, 9);
 
         dict[StarsSystemManager.EVENT01_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT01_KEY);
         dict[StarsSystemManager.EVENT03_KEY] = PlayerPrefs.GetInt(StarsSystemManager.EVENT03_KEY);
@@ -178,33 +175,49 @@ public class SaveData {
 
         string date = dict[StarsSystemManager.DATE_KEY] as string;
         PlayerPrefs.SetString(StarsSystemManager.DATE_KEY, date);
-        PlayerPrefs.SetInt(GameSave.LOADEDSAVEKEY, 1);
+        PlayerPrefs.SetInt(GameSave.LOADEDSAVEKEY, 1);        
 
         if (dict.ContainsKey(AdsCooldown.LastVideoRewardTime)) {
             string lastRewardTime = dict[AdsCooldown.LastVideoRewardTime] as string;
             PlayerPrefs.SetString(AdsCooldown.LastVideoRewardTime, lastRewardTime);
         }
 
-        PlayerPrefs.Save();
+        PlayerPrefs.Save();        
     }
 
     private static long RestoreStarsBalance(Dictionary<string, object> values) {
         object o;
-        if (values.TryGetValue(LunaStoreAssets.STARS_CURRENCY_ID, out o)) {
-            long balance = (long)o;
-            Debug.Log("balance:" + balance);
-            VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
-            starsCurrency.ResetBalance((int)balance);
+        int balance;
+        long balanceLong = 0;
+        long balanceLong2 = 0;
 
-            LunaStoreManager.CallBalanceChangeEvent();
-            return balance;
+        if (values.TryGetValue(LunaStoreAssets.STARS_CURRENCY_ID, out o)) {
+            balanceLong = (long) o;
+            Debug.Log("balance previous:" + balanceLong);                                    
         }
+        if (values.TryGetValue(Inventory.WalletKey, out o)) {
+            balanceLong2 = (long) o;
+            Debug.Log("balance:" + balanceLong2);
+        }
+
+        if (balanceLong > balanceLong2) {
+            balance = (int) balanceLong;
+        } else {
+            balance = (int) balanceLong2;
+        }        
+
+        if (balance > 0) {
+            Inventory.Instance.SetBalance(balance);
+            return balance;
+        }        
 
         return 0;
     }
 
     private static bool RestoreSavedItem(string ITEM_ID, Dictionary<string, object> values) {
-        if (LunaStoreManager.checkIfPurchased(ITEM_ID)) {
+        var inventory = Inventory.Instance;
+
+        if (inventory.HasProduct(ITEM_ID)) {
             return true;
         }
 
@@ -213,7 +226,7 @@ public class SaveData {
             bool isPurchased = (bool)o;
 
             if (isPurchased) {
-                StoreInventory.GiveItem(ITEM_ID, 1);
+                inventory.SetProduct(ITEM_ID);
                 return true;
             }
         }

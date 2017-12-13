@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 using YupiStudios.API.Utils;
 using YupiStudios.Luna.InGame;
-using Facebook.Unity;
+//using Facebook.Unity;
 
 [RequireComponent ( typeof(FacebookManager) ) ]
 [RequireComponent( typeof (YupiStudios.API.Utils.ScreenShot) )]
@@ -70,23 +70,23 @@ public class LunaScreenShot : MonoBehaviour {
 			//Sending.SetActive (true);
 			SendingChooser.SetActive(true);
 			string userInput = FacebookInput.text;
-			faceBookManagerComponent.PhotoToFacebook (userInput, screenShotComponent.Texture.EncodeToPNG(),ShareCallback);
+			//faceBookManagerComponent.PhotoToFacebook (userInput, screenShotComponent.Texture.EncodeToPNG(),ShareCallback);
 		}
 	}
 
-	public void ShareCallback(IGraphResult result) {    
-		if (gameObject.activeInHierarchy) {
-			if (result.Error != null) {
-				Debug.Log ("facebook photo error");
-			} else {
-				StarsSystemEvents.Event05();
-				screenShotStartBG.SetActive(false);
-				screenShotFBPublished.SetActive(true);
-				YupiStudios.Analytics.YupiAnalyticsEventHandler.InGameEvent("SendToFaceBook",backyardControl.currentItemNum.ToString());
-				ExitScreenShot();
-			}
-		}
-	}
+//	public void ShareCallback(IGraphResult result) {    
+//		if (gameObject.activeInHierarchy) {
+//			if (result.Error != null) {
+//				Debug.Log ("facebook photo error");
+//			} else {
+//				StarsSystemEvents.Event05();
+//				screenShotStartBG.SetActive(false);
+//				screenShotFBPublished.SetActive(true);
+//				YupiStudios.Analytics.YupiAnalyticsEventHandler.InGameEvent("SendToFaceBook",backyardControl.currentItemNum.ToString());
+//				ExitScreenShot();
+//			}
+//		}
+//	}
 
     private void ScreenShotAction()
     {

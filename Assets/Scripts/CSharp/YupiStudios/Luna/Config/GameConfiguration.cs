@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using YupiPlay.Luna.Store;
 
 namespace YupiStudios.Luna.Config {
 
@@ -14,10 +15,11 @@ namespace YupiStudios.Luna.Config {
 		public static EGameVersion gameVersion { 
 			get {
 
-                if (LunaStoreManager.Instance != null && LunaStoreManager.Instance.AcquiredFullGame())
+                if (Inventory.Instance.HasProduct(LunaStoreAssets.STARS_FULL_GAME_ITEM_ID)) {
                     return EGameVersion.FullVersion;
-                else 
-				    return EGameVersion.DemoVersion;
+                } else {
+                    return EGameVersion.DemoVersion;
+                }				    
 			}
 		}
 

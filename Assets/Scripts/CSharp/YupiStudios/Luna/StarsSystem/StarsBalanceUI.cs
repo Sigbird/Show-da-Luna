@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using Soomla.Store;
+//using Soomla.Store;
 using YupiPlay.Luna;
+using YupiPlay.Luna.Store;
 
 public class StarsBalanceUI : MonoBehaviour {
 	public Text StarsBalance;
@@ -17,14 +18,21 @@ public class StarsBalanceUI : MonoBehaviour {
 	}
 	void Start() {
 		UpdateBalance();
-	}
 
-	public void UpdateBalance() {		
-		if (SoomlaStore.Initialized) {
-			VirtualCurrency starsCurrency = (VirtualCurrency) StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);		
-			StarsBalance.text = starsCurrency.GetBalance().ToString();	
-		}
-	}
+
+        //pega saldo do inventário novo, para testes
+#if UNITY_EDITOR
+        //StarsBalance.text = Inventory.Instance.GetBalance().ToString();
+#endif
+    }
+
+	public void UpdateBalance() {        
+        StarsBalance.text = Inventory.Instance.GetBalance().ToString();
+        if (/*SoomlaStore.Initialized*/ true) {
+            //VirtualCurrency starsCurrency = (VirtualCurrency)StoreInfo.GetItemByItemId(LunaStoreAssets.STARS_CURRENCY_ID);
+            //StarsBalance.text = starsCurrency.GetBalance().ToString();
+        }        
+    }
 
 	public void BuyStarsEffects() {
 		if (BuyStarsWindow != null) {
@@ -38,13 +46,25 @@ public class StarsBalanceUI : MonoBehaviour {
 
 	}
 
-	void OnEnable() {
-		LunaStoreManager.OnBalanceChanged += UpdateBalance;
-		LunaStoreManager.OnBoughtStars += BuyStarsEffects;
-	}
+    private void OnBoughtStars(int amount) {
+        //StarsBalance.text = newBalance.ToString();
+        BuyStarsEffects();
+        UpdateBalance();
+    }
+
+    void OnEnable() {
+		Inventory.OnBalanceChange += UpdateBalance;		        
+        StoreManager.OnBoughtStarsEvent += OnBoughtStars;
+    }
 
 	void OnDisable() {
-		LunaStoreManager.OnBalanceChanged -= UpdateBalance;
-		LunaStoreManager.OnBoughtStars -= BuyStarsEffects;
-	}		
+        Inventory.OnBalanceChange -= UpdateBalance;
+        StoreManager.OnBoughtStarsEvent -= OnBoughtStars;
+    }
+
+    void OnApplicationFocus(bool focus) {
+        if (focus) {
+            UpdateBalance();
+        }
+    }
 }

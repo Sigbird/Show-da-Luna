@@ -6,118 +6,198 @@ using UnityEngine.Events;
 
 namespace YupiPlay.Luna.LunaPlayer 
 {
-    public class VideoPlayerController : MonoBehaviour {
-        public VideoPlayer Player;
+	public class VideoPlayerController : MonoBehaviour {
+		public VideoPlayer Player;
 
-        public float DelayedOnPlaySeconds = 4f;
+		public float DelayedOnPlaySeconds = 4f;
 
-        public UnityEvent OnPlayEvent;
-        public UnityEvent OnPlayDelayedEvent;
-        public UnityEvent OnPauseEvent;
-        public UnityEvent OnTouchScreenEvent;
-        public UnityEvent OnClose;        
+		public UnityEvent OnPlayEvent;
+		public UnityEvent OnPlayDelayedEvent;
+		public UnityEvent OnPauseEvent;
+		public UnityEvent OnTouchScreenEvent;
+		public UnityEvent OnClose;        
 
-        private Coroutine delayedCoroutine;
-        private Coroutine timeoutCoroutine;
-        private bool showControls = false;
-        private bool receivedInput = false;
+		private Coroutine delayedCoroutine;
+		private Coroutine timeoutCoroutine;
+		private bool showControls = false;
+		private bool receivedInput = false;
+		public bool babyMode = false;
+		public bool videoLoop = false;
+		public bool allVideosLoop = false;
+		public string[] localFiles;
+		public int index;
+		public AutoPlayer LoopPlayer;
 
-        public static VideoPlayerController Instance {
-            get {
-                return instance;
-            }
-            private set {}
-        }
+		public static VideoPlayerController Instance {
+			get {
+				return instance;
+			}
+			private set {}
+		}
 
-        private static VideoPlayerController instance;
+		private static VideoPlayerController instance;
 
-        void Awake() {
-            if (instance == null) {
-                instance = this;
-            }            
-        }
+		void Awake() {
+			if (instance == null) {
+				instance = this;
+			}            
+		}
 
-        void Start() {            
-            Player.prepareCompleted += OnPlayerPrepared;
-            Player.loopPointReached += OnLoopPointReached;
-        }
+		void Start() {            
 
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                Close();
-            }
-        }
+		}
 
-        public void Play() {
-            showControls = true;
-            receivedInput = false;
+		void OnEnable() {
+			Player.prepareCompleted += OnPlayerPrepared;
+			Player.loopPointReached += OnLoopPointReached;
+		}
 
-            Player.Prepare();
+		private void OnDisable() {
+			Player.prepareCompleted -= OnPlayerPrepared;
+			Player.loopPointReached -= OnLoopPointReached;
+		}
 
-            OnPlayEvent.Invoke();
+		private void Update() {
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				Close();
+			}
+			if (localFiles != null) {
+				if (index > localFiles.Length) {
+					index = 0;
+				}
+			}
+		}
 
-            delayedCoroutine = StartCoroutine(PlayDelayedTimer());
-        }
+		public void Play() {
+			showControls = true;
+			receivedInput = false;
 
-        public void Play(string videoUrl) {
-            Player.source = VideoSource.Url;
-            Player.url = videoUrl;
+			Player.Prepare();
 
-            Play();
-        }        
+			OnPlayEvent.Invoke();
 
-        public void Pause() {
-            OnPauseEvent.Invoke();
+			delayedCoroutine = StartCoroutine(PlayDelayedTimer());
+		}
 
-            if (delayedCoroutine != null) {
-                StopCoroutine(delayedCoroutine);
-            }            
-        }
+		public void Play(string videoUrl, string[] localVideosUrl) {
+			Player.source = VideoSource.Url;
+			Player.url = videoUrl;
 
-        public void OnTouchScreen() {           
-            if (Player.isPlaying) {
-                receivedInput = true;
-                showControls = !showControls;
+			localFiles = localVideosUrl;
 
-                if (timeoutCoroutine != null) {
-                    StopCoroutine(timeoutCoroutine);
-                }
-                timeoutCoroutine = StartCoroutine(InputTimeout());
+			Play();
+		}        
 
-                OnTouchScreenEvent.Invoke();
+		public void Pause() {
+			OnPauseEvent.Invoke();
 
-                StopCoroutine(delayedCoroutine);
-                delayedCoroutine = StartCoroutine(PlayDelayedTimer());
-            }
-        }
+			if (delayedCoroutine != null) {
+				StopCoroutine(delayedCoroutine);
+			}            
+		}
 
-        public void Close() {
-            StopAllCoroutines();
-            OnClose.Invoke();
-        }
+		public void OnTouchScreen() {           
+			if (Player.isPlaying && !babyMode) {
+				receivedInput = true;
+				showControls = !showControls;
 
-        private IEnumerator PlayDelayedTimer() {
-            yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);           
-               
-            if (!receivedInput && showControls) {
-                OnPlayDelayedEvent.Invoke();
-                showControls = false;
-            }            
-        }
+				if (timeoutCoroutine != null) {
+					StopCoroutine(timeoutCoroutine);
+				}
+				timeoutCoroutine = StartCoroutine(InputTimeout());
 
-        private void OnPlayerPrepared(VideoPlayer source) {
-            Debug.Log("on player prepared called");            
-        }
+				OnTouchScreenEvent.Invoke();
 
-        private void OnLoopPointReached(VideoPlayer source) {
-            Debug.Log("OnLoopPointReached called");
-            Close();
-        }
+				StopCoroutine(delayedCoroutine);
+				delayedCoroutine = StartCoroutine(PlayDelayedTimer());
+			}
+		}
 
-        private IEnumerator InputTimeout() {
-            yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);
+		public void Close() {
+			StopAllCoroutines();
+			OnClose.Invoke();
+		}
 
-            receivedInput = false;
-        }
-    }
+		public void BabyMode() {
+			if (!babyMode) { //BLOQUEIA CONTROLES
+				babyMode = true;
+				if (showControls) {
+					OnPlayDelayedEvent.Invoke();
+					showControls = false;
+				}
+			} else { //LIBERA CONTROLES
+				babyMode = false;
+				if (!showControls) {
+					OnPlayDelayedEvent.Invoke();
+					showControls = true;
+				}
+			}
+		}
+
+		public void Next(){
+			index++;
+			if (localFiles != null) {
+				if (index > localFiles.Length) {
+					index = 0;
+				}
+			}
+			Player.source = VideoSource.Url;//PULA PARA PRÓXIMO VIDEO
+			Player.url = localFiles[index];
+			//Play();
+			showControls = true;
+			receivedInput = false;
+
+			Player.Prepare();
+
+			OnPlayEvent.Invoke();
+		}
+
+		private IEnumerator PlayDelayedTimer() {
+			yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);           
+
+			if (!receivedInput && showControls) {
+				OnPlayDelayedEvent.Invoke();
+				showControls = false;
+			}            
+		}
+
+		private void OnPlayerPrepared(VideoPlayer source) {
+			Debug.Log("on player prepared called");            
+		}
+
+		private void OnLoopPointReached(VideoPlayer source) {
+			Debug.Log("OnLoopPointReached called");
+			//Close();
+
+			Next ();
+		}
+			
+		private IEnumerator InputTimeout() {
+			yield return new WaitForSecondsRealtime(DelayedOnPlaySeconds);
+
+			receivedInput = false;
+		}
+
+		public void ToggleBabyMode(){
+			babyMode = !babyMode;
+		}
+
+		public void ToggleLoopMode(int x){
+			switch (x) {
+			case 1:
+				videoLoop = false;
+				allVideosLoop = false;
+				break;
+			case 2:
+				videoLoop = true;
+				allVideosLoop = false;
+				break;
+			case 3:
+				videoLoop = false;
+				allVideosLoop = true;
+				break;
+			}
+		}
+
+	}
 }
