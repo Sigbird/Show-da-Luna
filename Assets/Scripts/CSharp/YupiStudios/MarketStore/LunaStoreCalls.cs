@@ -9,6 +9,7 @@ public class LunaStoreCalls : MonoBehaviour {
     public Animator StarsAnim;
     public AudioSource BuyVideoSound;
     public AudioSource BuyCollectionSound;
+	public GameObject BabyTutorial;
 
 	public int vidNumber{get; set;}
 	public int colNumber{get; set;}
@@ -50,6 +51,9 @@ public class LunaStoreCalls : MonoBehaviour {
 
 	public void Start()
 	{
+		if (PlayerPrefs.GetInt ("BabyModeTutorial") == 0) {
+			BabyTutorial.SetActive (true);
+		}
 		//LunaStoreManager.Instance.StartIAB ();
 	}
 
@@ -58,5 +62,8 @@ public class LunaStoreCalls : MonoBehaviour {
 		//LunaStoreManager.Instance.StopIAB ();
 	}
 
+	public void ClosedBabyMode(){
+		PlayerPrefs.SetInt ("BabyModeTutorial", 1);
+	}
 
 }

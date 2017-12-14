@@ -315,7 +315,7 @@ public class ScrollSnapRectJogos : MonoBehaviour, IBeginDragHandler, IEndDragHan
 			//Se for o primeiro desativa o da esquerada
 			nextButton.GetComponent<Button>().interactable = true;
 			prevButton.GetComponent<Button>().interactable = false;
-		} else if (_currentPage == 1) {
+		} else if (_currentPage == 2) {
 			//Se for o ultimo desativa o da direita
 			prevButton.GetComponent<Button>().interactable = true;
 			nextButton.GetComponent<Button>().interactable = false;
