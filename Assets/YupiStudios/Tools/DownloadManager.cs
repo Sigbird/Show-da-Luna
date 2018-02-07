@@ -27,11 +27,11 @@ public class DownloadManager : MonoBehaviour {
     private IEnumerator StartDownload(UnityWebRequest request, VideoDownload caller) {
         yield return request.Send();
 
-        if (request.isError) {
+        if (request.isNetworkError) {
             caller.OnDownloadError();
         }
 
-        if (request.isDone && !request.isError) {
+        if (request.isDone && !request.isNetworkError) {
             caller.OnDownloadFinished();            
         }
     }

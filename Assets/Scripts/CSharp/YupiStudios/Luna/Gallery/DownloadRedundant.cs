@@ -252,7 +252,7 @@ namespace YupiPlay {
 			UnityWebRequest req2 = UnityWebRequest.Get(OriginUri);				
 			yield return req2.Send();
 
-			if (req2.isError) {
+			if (req2.isNetworkError) {
 				Debug.Log(req2.error);
 				
                 if (serverNum < numServers) {

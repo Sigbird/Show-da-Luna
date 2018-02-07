@@ -83,7 +83,7 @@ public class RedeemCode : MonoBehaviour {
         UnityWebRequest req = UnityWebRequest.Get(url);
         yield return req.Send();
 
-        if (req.isError)
+        if (req.isNetworkError)
         {
             OnError.Invoke();
         } else
