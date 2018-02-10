@@ -18,7 +18,7 @@ public class NativeShareScript : MonoBehaviour {
 			StartCoroutine(ShareScreenshot());
 		}
 	}
-
+		 
 	IEnumerator ShareScreenshot()
 	{
 		#if UNITY_ANDROID 
@@ -56,6 +56,12 @@ public class NativeShareScript : MonoBehaviour {
 		CanvasShareObj.SetActive(false);
 		CanvasHideObj.SetActive (true);
 		isProcessing = false;
+		#endif
+		#if UNITY_IOS
+		yield return null;
+		#endif
+		#if UNITY_EDITOR
+		yield return null;
 		#endif
 	}
 

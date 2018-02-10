@@ -100,6 +100,13 @@ namespace GooglePlayGames.BasicApi
             return null;
         }
 
+        public void GetAnotherServerAuthCode(bool reAuthenticateIfNeeded,
+                                             Action<string> callback)
+        {
+            LogUsage();
+            callback(null);
+        }
+
         /// <summary>
         /// Gets the user's email.
         /// </summary>
@@ -413,16 +420,6 @@ namespace GooglePlayGames.BasicApi
         /// </summary>
         /// <returns>The events client.</returns>
         public GooglePlayGames.BasicApi.Events.IEventsClient GetEventsClient()
-        {
-            LogUsage();
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the quests client.
-        /// </summary>
-        /// <returns>The quests client.</returns>
-        public GooglePlayGames.BasicApi.Quests.IQuestsClient GetQuestsClient()
         {
             LogUsage();
             return null;

@@ -27,7 +27,6 @@ namespace GooglePlayGames.Native
     using System;
     using System.Collections.Generic;
     using GooglePlayGames.BasicApi.Events;
-    using GooglePlayGames.BasicApi.Quests;
     using GooglePlayGames.BasicApi.Video;
     using Types = GooglePlayGames.Native.Cwrapper.Types;
     using Status = GooglePlayGames.Native.Cwrapper.CommonErrorStatus;
@@ -55,7 +54,6 @@ namespace GooglePlayGames.Native
         private volatile NativeRealtimeMultiplayerClient mRealTimeClient;
         private volatile ISavedGameClient mSavedGameClient;
         private volatile IEventsClient mEventsClient;
-        private volatile IQuestsClient mQuestsClient;
         private volatile IVideoClient mVideoClient;
         private volatile TokenClient mTokenClient;
         private volatile Action<Invitation, bool> mInvitationDelegate;
@@ -230,7 +228,6 @@ namespace GooglePlayGames.Native
                         mAuthState = AuthState.SilentPending;
                         mServices = builder.Build(config);
                         mEventsClient = new NativeEventClient(new EventManager(mServices));
-                        mQuestsClient = new NativeQuestClient(new QuestManager(mServices));
                         mVideoClient = new NativeVideoClient(new VideoManager(mServices));
                         mTurnBasedClient =
                         new NativeTurnBasedMultiplayerClient(this, new TurnBasedManager(mServices));
@@ -359,6 +356,13 @@ namespace GooglePlayGames.Native
                 return null;
             }
             return mTokenClient.GetAuthCode();
+        }
+
+        public void GetAnotherServerAuthCode(bool reAuthenticateIfNeeded,
+                                             Action<string> callback)
+        {
+            mTokenClient.GetAnotherServerAuthCode(reAuthenticateIfNeeded,
+                                                  callback);
         }
 
         ///<summary></summary>
@@ -1116,16 +1120,6 @@ namespace GooglePlayGames.Native
             lock (GameServicesLock)
             {
                 return mEventsClient;
-            }
-        }
-
-        ///<summary></summary>
-        /// <seealso cref="GooglePlayGames.BasicApi.IPlayGamesClient.GetQuestsClient"/>
-        public IQuestsClient GetQuestsClient()
-        {
-            lock (GameServicesLock)
-            {
-                return mQuestsClient;
             }
         }
 

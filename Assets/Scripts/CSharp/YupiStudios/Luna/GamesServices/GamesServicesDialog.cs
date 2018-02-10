@@ -1,9 +1,11 @@
-﻿#if UNITY_ANDROID
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using GooglePlayGames;
+
 using YupiPlay.Luna.Store;
 
+#if UNITY_ANDROID
+using GooglePlayGames;
+#endif
 public class GamesServicesDialog : MonoBehaviour {
     public GameObject DialogContainer;
     public GameObject ParentalGate;
@@ -36,5 +38,3 @@ public class GamesServicesDialog : MonoBehaviour {
         Inventory.ShowDialogEvent -= ActivateDialog;        
     }
 }
-
-#endif

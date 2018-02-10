@@ -1,5 +1,5 @@
-lastUpgrade=00939
-proj.pluginVersion=0.9.39a
+lastUpgrade=00950
+proj.pluginVersion=0.9.50
 proj.AppId=688900388454
 and.BundleId=com.YupiPlay.Luna
 proj.classDir=Assets
