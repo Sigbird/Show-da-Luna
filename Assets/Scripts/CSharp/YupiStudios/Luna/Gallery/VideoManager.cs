@@ -38,7 +38,7 @@ public class VideoManager : MonoBehaviour {
     }
 
 	void Update(){
-		//CheckVideoState ();
+		CheckVideoState ();
 	}
 
 	void Start(){

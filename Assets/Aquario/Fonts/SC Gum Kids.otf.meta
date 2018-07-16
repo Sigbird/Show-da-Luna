@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f6a03f3716525554c83b1c133a05d654
+timeCreated: 1492647268
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SC Gum Kids
+  fontNames:
+  - SC Gum Kids
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

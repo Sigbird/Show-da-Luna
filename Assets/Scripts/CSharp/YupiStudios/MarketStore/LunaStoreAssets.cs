@@ -164,6 +164,16 @@ public class LunaStoreAssets {
 	//	new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 5)
 	//	);
 
+	//AQUARIO
+	public const string MINIGAME_AQUARIO_ITEM_ID = "minigame_aquario";
+	public const int MINIGAME_AQUARIO_PRICE = 5;
+	//public static VirtualGood MINIGAME_AQUARIO = new LifetimeVG(
+	//	"O Show da Luna! Minigame Aquario!",
+	//	"Permite acesso ao minigame Aquario!",
+	//	MINIGAME_AQUARIO_ITEM_ID,
+	//	new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 5)
+	//	);
+
     //COLLECTION 01
     public const string STARS_COLLECTION01_LTVG_ITEM_ID = "stars_collection01_id";					//ID do item
 	//public static VirtualGood STARS_COLLECTION01_LTVG = 
@@ -245,6 +255,14 @@ public class LunaStoreAssets {
 	//	                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
 	//	                );
 
+	//COLLECTION 10
+	public const string COLLECTION10_LTVG_ITEM_ID = "collection_10_id";								//ID do item
+	//public static VirtualGood COLLECTION_10_LTVG = 
+	//	new LifetimeVG ("O Show da Luna! Coleção de vídeos 10",										//Nome		
+	//	                "Coleção com quatro vídeos que podem ser baixados para o seu dispositivo.",	//Descriçao
+	//	                COLLECTION10_LTVG_ITEM_ID,													//Id do item
+	//	                new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 30)							//Preço
+	//	                );
 
 
 	//VIDEO 01 		
@@ -605,7 +623,52 @@ public class LunaStoreAssets {
     //    "O Show da Luna! Video 05 Coleçao 09",
     //    VIDEO_05_COL_09_LTVG_ITEM_ID,
     //    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
-    //    );   
+    //    );
+
+	//Video 01 C10    
+	public const string VIDEO_01_COL_10_LTVG_ITEM_ID = "video_01_col_10_id";
+	//public static VirtualGood VIDEO_01_COL_10_LTVG = new LifetimeVG(
+	//    "O Show da Luna! Olha O Tatu Bola",
+	//    "O Show da Luna! Video 01 Coleçao 10",
+	//    VIDEO_01_COL_10_LTVG_ITEM_ID,
+	//    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+	//    );
+
+	//Video 02 C10    
+	public const string VIDEO_02_COL_10_LTVG_ITEM_ID = "video_02_col_10_id";
+	//public static VirtualGood VIDEO_02_COL_10_LTVG = new LifetimeVG(
+	//    "O Show da Luna! O Grande Imitador",
+	//    "O Show da Luna! Video 02 Coleçao 10",
+	//    VIDEO_02_COL_10_LTVG_ITEM_ID,
+	//    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+	//    );
+
+	//Video 03 C10    
+	public const string VIDEO_03_COL_10_LTVG_ITEM_ID = "video_03_col_10_id";
+	//public static VirtualGood VIDEO_03_COL_10_LTVG = new LifetimeVG(
+	//    "O Show da Luna! Uma coisa vira outra",
+	//    "O Show da Luna! Video 02 Coleçao 10",
+	//    VIDEO_03_COL_10_LTVG_ITEM_ID,
+	//    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+	//    );
+
+	//Video 04 C10    
+	public const string VIDEO_04_COL_10_LTVG_ITEM_ID = "video_04_col_10_id";
+	//public static VirtualGood VIDEO_04_COL_10_LTVG = new LifetimeVG(
+	//    "O Show da Luna! Eco, Eco, Eco",
+	//    "O Show da Luna! Video 04 Coleçao 10",
+	//    VIDEO_04_COL_10_LTVG_ITEM_ID,
+	//    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+	//    );
+
+	//Video 05 C10    
+	public const string VIDEO_05_COL_10_LTVG_ITEM_ID = "video_05_col_10_id";
+	//public static VirtualGood VIDEO_05_COL_10_LTVG = new LifetimeVG(
+	//    "O Show da Luna! Eco, Eco, Eco",
+	//    "O Show da Luna! Video 05 Coleçao 10",
+	//    VIDEO_05_COL_10_LTVG_ITEM_ID,
+	//    new PurchaseWithVirtualItem(STARS_CURRENCY_ID, 10)
+	//    ); 
 
     public const int VIDEO_PRICE = 10;
     public const int COLLECTION_PRICE = 30;

@@ -119,6 +119,8 @@ namespace YupiPlay.Luna.Store {
                     return HasProduct(LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID);
                 case 9:
                     return HasProduct(LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID);
+				case 10:
+					return HasProduct(LunaStoreAssets.COLLECTION10_LTVG_ITEM_ID);
             }
             return false;
         }
@@ -260,6 +262,21 @@ namespace YupiPlay.Luna.Store {
                 }
                 return false;
             }
+			if (collection == 10) {
+				switch (number) {
+				case 1:
+					return HasProduct(LunaStoreAssets.VIDEO_01_COL_10_LTVG_ITEM_ID);
+				case 2:
+					return HasProduct(LunaStoreAssets.VIDEO_02_COL_10_LTVG_ITEM_ID);
+				case 3:
+					return HasProduct(LunaStoreAssets.VIDEO_03_COL_10_LTVG_ITEM_ID);
+				case 4:
+					return HasProduct(LunaStoreAssets.VIDEO_04_COL_10_LTVG_ITEM_ID);
+				case 5:
+					return HasProduct(LunaStoreAssets.VIDEO_05_COL_10_LTVG_ITEM_ID);
+				}
+				return false;
+			}
             return false;
         }
 
@@ -282,7 +299,9 @@ namespace YupiPlay.Luna.Store {
                 case 8:
                     return BuyProduct(LunaStoreAssets.COLLECTION08_LTVG_ITEM_ID, LunaStoreAssets.COLLECTION_PRICE);                    
                 case 9:
-                    return BuyProduct(LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID, LunaStoreAssets.COLLECTION_PRICE);                    
+                    return BuyProduct(LunaStoreAssets.COLLECTION09_LTVG_ITEM_ID, LunaStoreAssets.COLLECTION_PRICE);
+				case 10:
+					return BuyProduct(LunaStoreAssets.COLLECTION10_LTVG_ITEM_ID, LunaStoreAssets.COLLECTION_PRICE);   
                 default:
                     return false;
             }                        
@@ -430,6 +449,23 @@ namespace YupiPlay.Luna.Store {
                         return false;
                 }
             }
+
+			if (collection == 10) {
+				switch (videoNumber) {
+				case 1:
+					return BuyProduct(LunaStoreAssets.VIDEO_01_COL_10_LTVG_ITEM_ID, LunaStoreAssets.VIDEO_PRICE);
+				case 2:
+					return BuyProduct(LunaStoreAssets.VIDEO_02_COL_10_LTVG_ITEM_ID, LunaStoreAssets.VIDEO_PRICE);
+				case 3:
+					return BuyProduct(LunaStoreAssets.VIDEO_03_COL_10_LTVG_ITEM_ID, LunaStoreAssets.VIDEO_PRICE);
+				case 4:
+					return BuyProduct(LunaStoreAssets.VIDEO_04_COL_10_LTVG_ITEM_ID, LunaStoreAssets.VIDEO_PRICE);
+				case 5:
+					return BuyProduct(LunaStoreAssets.VIDEO_05_COL_10_LTVG_ITEM_ID, LunaStoreAssets.VIDEO_PRICE);
+				default:
+					return false;
+				}
+			}
 
             return false;
         }
