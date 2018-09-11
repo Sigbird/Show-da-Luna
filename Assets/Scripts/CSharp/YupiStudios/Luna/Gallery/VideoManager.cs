@@ -38,7 +38,7 @@ public class VideoManager : MonoBehaviour {
     }
 
 	void Update(){
-		CheckVideoState ();
+		//CheckVideoState ();
 	}
 
 	void Start(){
@@ -114,7 +114,7 @@ public class VideoManager : MonoBehaviour {
 		}
 	}
 
-    void CheckVideoState()
+    public void CheckVideoState()
     {
 		if (isFree) {
 			changeVideoState();

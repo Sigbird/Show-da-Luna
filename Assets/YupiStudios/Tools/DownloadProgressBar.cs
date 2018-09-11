@@ -6,6 +6,7 @@ public class DownloadProgressBar : MonoBehaviour, IDownloadListener {
 	//public Text text;
 	public GameObject ProgressBar;
 	public Image Progress;
+	public VideoManager Vmanager;
 	
 	private bool downloadComplete = false;
 	private string error = null;
@@ -60,6 +61,7 @@ public class DownloadProgressBar : MonoBehaviour, IDownloadListener {
 		if (string.IsNullOrEmpty(download.GetError())) {
 			downloadComplete = true;
 			ProgressBar.SetActive(false);
+			Vmanager.CheckVideoState ();
 		}
 	}
 	
