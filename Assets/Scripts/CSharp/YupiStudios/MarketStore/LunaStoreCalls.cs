@@ -43,6 +43,11 @@ public class LunaStoreCalls : MonoBehaviour {
             BuyVideoSound.gameObject.SetActive(true);
             BuyVideoSound.Play();
             gameObject.SetActive(false);
+
+			foreach (GameObject o in GameObject.FindGameObjectsWithTag("Video")) {
+				o.GetComponent<VideoManager> ().CheckVideoState ();
+			}
+
             return;
         }
 

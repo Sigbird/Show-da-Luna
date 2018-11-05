@@ -12,6 +12,6 @@ public class RedeemButton : MonoBehaviour {
 	}
 
 	public void ButtonPress(){
-		Application.OpenURL ("market://details?q=pname:com.YupiPlay.Luna/");
+		Application.OpenURL ("market://details?id=com.YupiPlay.Luna");
 	}
 }
